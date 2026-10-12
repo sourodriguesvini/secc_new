@@ -1,0 +1,128 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import terca from '../assets/terca.jpg';
+import { tuesdays } from '../data/site';
+---
+
+<section class="section tuesday" id="terca-feira" aria-labelledby="tuesday-title">
+  <div class="container">
+    <div class="tuesday-top">
+    <header class="section-head">
+      <p class="eyebrow">No mundo real</p>
+      <h2 id="tuesday-title" data-split>Para quem toca negócio, isso é uma terça-feira comum.</h2>
+      <p class="lead" data-reveal>Nenhum desses dias parece o começo do fim. Todos eram aviso. Qual foi o seu?</p>
+    </header>
+      <figure class="tuesday-photo" data-reveal>
+        <Image
+          src={terca}
+          alt="Mesa de escritório de uma pequena indústria à noite: boletos presos num clipe, calculadora e celular aceso."
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 1024px) 420px, 100vw"
+        />
+        <figcaption>Terça-feira, 22h.</figcaption>
+      </figure>
+    </div>
+
+    <div class="picker" data-tabs data-reveal>
+      <div class="quotes" role="tablist" aria-label="Qual foi a sua terça-feira?" aria-orientation="vertical">
+        {
+          tuesdays.map((item, index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${item.id}`}
+              aria-controls={`resposta-${item.id}`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+              class:list={['quote', { 'quote--urgent': item.urgent }]}
+            >
+              <span class="quote-mark" aria-hidden="true">“</span>
+              <span>{item.quote}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="answers">
+        {
+          tuesdays.map((item) => (
+            <div
+              class:list={['answer', { 'answer--urgent': item.urgent }]}
+              role="tabpanel"
+              id={`resposta-${item.id}`}
+              aria-labelledby={`tab-${item.id}`}
+              tabindex="0"
+              data-spotlight
+            >
+              <p class="kicker">Por onde a SECC começa</p>
+              <h3>{item.front}</h3>
+              <p class="answer-text">{item.answer}</p>
+              <a class="text-link" href={item.link.href}>
+                {item.link.label} <Icon name="arrow" />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tuesday-top { display: grid; gap: 2rem; margin-bottom: clamp(2.25rem, 5vw, 3.5rem); }
+  .tuesday-top .section-head { margin-bottom: 0; }
+  .tuesday-photo { display: grid; gap: 0.6rem; }
+  .tuesday-photo :global(img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-2xl); }
+  .tuesday-photo figcaption { font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  @media (min-width: 1024px) {
+    .tuesday-top { grid-template-columns: minmax(0, 1fr) 26rem; gap: 4rem; align-items: end; }
+    .tuesday-photo :global(img) { aspect-ratio: 4 / 3; }
+  }
+
+  .picker { display: grid; gap: 1.5rem; }
+
+  .quotes { display: grid; border-top: 1px solid var(--border); }
+  .quote {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 1.05rem 0.25rem;
+    border-bottom: 1px solid var(--border);
+    font: italic 400 clamp(1.1875rem, 2.3vw, 1.75rem) / 1.25 var(--font-serif);
+    text-align: left;
+    color: var(--text-tertiary);
+    transition: color 0.3s, padding-left 0.4s var(--ease-out);
+  }
+  .quote-mark { color: var(--border-strong); transition: color 0.3s; }
+  .quote:hover { color: var(--text-secondary); }
+  .quote[aria-selected='true'] { color: var(--text-primary); padding-left: 0.9rem; }
+  .quote[aria-selected='true'] .quote-mark { color: var(--accent); }
+  .quote--urgent[aria-selected='true'] .quote-mark { color: var(--sev-critico); }
+
+  .answer {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+    align-content: start;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-elevated);
+  }
+  .answer + .answer { margin-top: 1rem; }
+  :global(html.js) .answer + .answer { margin-top: 0; }
+  .answer h3 { font-size: clamp(1.5rem, 2.6vw, 2.125rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
+  .answer-text { font-size: 1.125rem; line-height: 1.55; color: var(--text-secondary); }
+  .answer--urgent { border-color: rgb(255 123 66 / 0.45); }
+  .answer--urgent .kicker,
+  .answer--urgent .text-link { color: var(--sev-critico); }
+  .answer:not([hidden]) { animation: answer-in 0.5s var(--ease-out); }
+  @keyframes answer-in {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+
+  @media (min-width: 960px) {
+    .picker { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; align-items: start; }
+    .answers { position: sticky; top: calc(var(--header-h) + 2rem); }
+  }
+</style>

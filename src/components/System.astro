@@ -1,0 +1,113 @@
+---
+import Icon from './Icon.astro';
+import { links, solutions } from '../data/site';
+---
+
+<section class="section" id="sistema" aria-labelledby="system-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">O sistema</p>
+      <h2 id="system-title" data-split>Um núcleo. Oito frentes.</h2>
+      <p class="lead" data-reveal>
+        Gestão de crise, crédito, negociação de dívidas, estratégia, M&amp;A, vendas, jurídico, contábil, BPO e RH num único
+        lugar. Você volta a cuidar do negócio.
+      </p>
+    </header>
+
+    <div class="system-grid">
+      <a class="core" href={solutions.core.href} data-reveal data-spotlight>
+        <p class="kicker core-kicker">Núcleo</p>
+        <h3>{solutions.core.name}</h3>
+        <p class="core-text">{solutions.core.text}</p>
+        <ul class="core-points">
+          {
+            solutions.core.points.map((point) => (
+              <li>
+                <Icon name="check" />
+                {point}
+              </li>
+            ))
+          }
+        </ul>
+        <span class="text-link">Conhecer a SECC <Icon name="arrow" /></span>
+      </a>
+
+      <div class="fronts" data-reveal-group>
+        {
+          solutions.groups.map((group) => (
+            <div class="front" data-reveal>
+              <h3 class="kicker">{group.name}</h3>
+              {group.items.map((item) => (
+                <a class="front-row" href={item.href}>
+                  <strong>{item.name}</strong>
+                  <span>{item.text}</span>
+                  <Icon name="arrow" />
+                </a>
+              ))}
+            </div>
+          ))
+        }
+        <a class="text-link" href={links.ecosystem} data-reveal>Ver o Sistema de Combate à Crise completo <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .system-grid { display: grid; gap: 2rem; align-items: start; }
+
+  .core {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    border-radius: var(--r-2xl);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    transition: border-color 0.3s;
+  }
+  .core:hover { border-color: var(--accent); }
+  .core-kicker { color: var(--accent); }
+  .core h3 { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.045em; }
+  .core-text { font-size: 1.125rem; line-height: 1.5; color: var(--text-secondary); }
+  .core-points { display: grid; gap: 0.7rem; color: var(--text-secondary); }
+  .core-points li { display: flex; gap: 0.7rem; align-items: flex-start; }
+  .core-points :global(.icon) { margin-top: 0.22em; color: var(--accent); }
+
+  .fronts { display: grid; gap: 1.75rem; }
+  .front .kicker { margin-bottom: 0.6rem; }
+  .front-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem 1rem;
+    align-items: baseline;
+    padding: 0.95rem 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+  }
+  .front .front-row:last-child { border-bottom: 1px solid var(--border); }
+  .front-row strong { font-size: 1.1875rem; font-weight: 600; transition: color 0.2s; }
+  .front-row span { grid-column: 1 / -1; font-size: 0.9375rem; line-height: 1.5; color: var(--text-secondary); }
+  .front-row :global(.icon) {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: center;
+    color: var(--text-tertiary);
+    transition: transform 0.3s var(--ease-out), color 0.2s;
+  }
+  .front-row:hover strong,
+  .front-row:hover :global(.icon) { color: var(--accent); }
+  .front-row:hover :global(.icon) { transform: translateX(5px); }
+
+  @media (min-width: 640px) {
+    .front-row { grid-template-columns: 11.5rem minmax(0, 1fr) auto; }
+    .front-row span { grid-column: 2; grid-row: 1; }
+    .front-row :global(.icon) { grid-column: 3; }
+  }
+  @media (min-width: 1024px) {
+    .system-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 4rem; }
+    .core { position: sticky; top: calc(var(--header-h) + 2rem); }
+  }
+</style>

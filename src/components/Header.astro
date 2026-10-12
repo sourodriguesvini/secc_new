@@ -1,0 +1,334 @@
+---
+import Icon from './Icon.astro';
+import { allSolutions, cta, links, personas } from '../data/site';
+---
+
+<div class="sos-bar">
+  <a href={links.sos}>
+    <span class="sos-dot" aria-hidden="true"></span>
+    <span>Crise iminente? <strong>Fale com o Plantão SOS</strong></span>
+    <Icon name="arrow" />
+  </a>
+</div>
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="./" aria-label="SECC Turntech — início">
+      <img src="https://secctech.ai/brand/secc-symbol.png" alt="" width="36" height="36" />
+      <span class="brand-text">SECC<span class="brand-sub">Turntech</span></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Principal">
+      <ul>
+        <li class="has-menu">
+          <button type="button" aria-expanded="false" aria-controls="menu-sistema">Sistema <Icon name="chevron" /></button>
+          <div class="menu menu--wide" id="menu-sistema">
+            <div class="menu-grid">
+              {
+                allSolutions.map((item) => (
+                  <a href={item.href}>
+                    <strong>{item.name}</strong>
+                    <span>{item.text}</span>
+                  </a>
+                ))
+              }
+            </div>
+            <a class="menu-foot" href={links.ecosystem}>Ver o Sistema de Combate à Crise completo <Icon name="arrow" /></a>
+          </div>
+        </li>
+        <li class="has-menu">
+          <button type="button" aria-expanded="false" aria-controls="menu-para-quem">Para quem <Icon name="chevron" /></button>
+          <div class="menu" id="menu-para-quem">
+            <div class="menu-grid menu-grid--plain">
+              {personas.map((persona) => <a href={persona.href}><strong>{persona.name}</strong></a>)}
+            </div>
+          </div>
+        </li>
+        <li><a href={links.plans}>Planos</a></li>
+        <li><a href={links.about}>Sobre</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="header-login" href={links.login}>Entrar</a>
+      <a class="btn btn-primary btn-sm header-cta" href={cta.primary.href}>{cta.primary.label}</a>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
+        <Icon name="menu" class="icon-open" />
+        <Icon name="close" class="icon-close" />
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="container" aria-label="Menu">
+      <details>
+        <summary>Sistema <Icon name="chevron" /></summary>
+        <ul>
+          <li><a href={links.ecosystem}>Sistema de Combate à Crise</a></li>
+          {allSolutions.map((item) => <li><a href={item.href}>{item.name}</a></li>)}
+        </ul>
+      </details>
+      <details>
+        <summary>Para quem <Icon name="chevron" /></summary>
+        <ul>
+          {personas.map((persona) => <li><a href={persona.href}>{persona.name}</a></li>)}
+        </ul>
+      </details>
+      <a class="mobile-link" href={links.plans}>Planos</a>
+      <a class="mobile-link" href={links.about}>Sobre</a>
+      <a class="mobile-link" href={links.login}>Entrar</a>
+      <div class="mobile-cta">
+        <a class="btn btn-primary" href={cta.primary.href}>{cta.primary.label} <Icon name="arrow" /></a>
+        <a class="btn btn-ghost" href={cta.secondary.href}>{cta.secondary.label}</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  :global(body.menu-open) { overflow: hidden; }
+
+  .sos-bar {
+    position: relative;
+    z-index: 51;
+    background: #170d07;
+    border-bottom: 1px solid rgb(255 123 66 / 0.3);
+    font-size: 0.875rem;
+  }
+  .sos-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: var(--sos-h);
+    padding: 0.4rem 1.25rem;
+    color: #ffc7a8;
+    text-decoration: none;
+  }
+  .sos-bar strong { color: #fff; font-weight: 600; }
+  .sos-bar a:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+  .sos-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--sev-critico);
+    animation: sos-pulse 2.4s ease-out infinite;
+  }
+  @keyframes sos-pulse {
+    0% { box-shadow: 0 0 0 0 rgb(255 123 66 / 0.55); }
+    70%, 100% { box-shadow: 0 0 0 9px rgb(255 123 66 / 0); }
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .site-header.is-scrolled,
+  :global(body.menu-open) .site-header {
+    background: rgb(7 8 9 / 0.82);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+    border-bottom-color: var(--border);
+  }
+  .header-inner { display: flex; align-items: center; gap: 1.5rem; height: 100%; }
+
+  .brand { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 44px; text-decoration: none; flex: none; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  .brand-text { display: grid; font-size: 1.125rem; font-weight: 700; line-height: 1; letter-spacing: 0.01em; }
+  .brand-sub {
+    margin-top: 0.3rem;
+    font: 500 0.6875rem/1 var(--font-mono);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .main-nav { display: none; }
+  .main-nav ul { display: flex; align-items: center; gap: 0.25rem; }
+  .main-nav > ul > li > a,
+  .main-nav > ul > li > button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 44px;
+    padding: 0 0.8rem;
+    border-radius: var(--r-md);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color 0.15s, background-color 0.15s;
+  }
+  .main-nav > ul > li > a:hover,
+  .main-nav > ul > li > button:hover,
+  .main-nav > ul > li > button[aria-expanded='true'] { color: var(--text-primary); background: rgb(255 255 255 / 0.06); }
+  .main-nav button :global(.icon) { width: 1em; height: 1em; transition: transform 0.3s var(--ease-out); }
+  .main-nav button[aria-expanded='true'] :global(.icon) { transform: rotate(180deg); }
+
+  .has-menu { position: relative; }
+  .menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: -0.75rem;
+    width: 20rem;
+    padding: 0.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.2s, transform 0.3s var(--ease-out), visibility 0.2s;
+  }
+  .menu--wide { width: 42rem; }
+  .has-menu.is-open .menu { opacity: 1; visibility: visible; transform: none; }
+  .menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.125rem; }
+  .menu-grid--plain { grid-template-columns: 1fr; }
+  .menu-grid a { display: block; padding: 0.7rem 0.8rem; border-radius: 10px; text-decoration: none; }
+  .menu-grid a:hover { background: var(--accent-subtle); }
+  .menu-grid strong { display: block; font-size: 0.9375rem; font-weight: 600; }
+  .menu-grid span { display: block; margin-top: 0.15rem; font-size: 0.875rem; line-height: 1.4; color: var(--text-tertiary); }
+  .menu-foot {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.9rem 0.8rem 0.4rem;
+    border-top: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .header-actions { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; }
+  .header-login {
+    display: none;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.8rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-secondary);
+  }
+  .header-login:hover { color: var(--text-primary); }
+  .header-cta { display: none; }
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+  .menu-toggle:hover { background: rgb(255 255 255 / 0.08); }
+  .menu-toggle :global(.icon) { width: 1.35rem; height: 1.35rem; }
+  .menu-toggle :global(.icon-close),
+  .menu-toggle[aria-expanded='true'] :global(.icon-open) { display: none; }
+  .menu-toggle[aria-expanded='true'] :global(.icon-close) { display: block; }
+
+  @media (min-width: 480px) { .header-cta { display: inline-flex; } }
+  @media (min-width: 1024px) {
+    .main-nav { display: block; }
+    .header-login { display: inline-flex; }
+    .menu-toggle { display: none; }
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--bg-base);
+    border-top: 1px solid var(--border);
+  }
+  .mobile-menu nav { padding-block: 0.5rem 2rem; }
+  .mobile-menu summary,
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 58px;
+    border-bottom: 1px solid var(--border);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    list-style: none;
+  }
+  .mobile-menu summary::-webkit-details-marker { display: none; }
+  .mobile-menu summary :global(.icon) { transition: transform 0.3s var(--ease-out); }
+  .mobile-menu details[open] summary :global(.icon) { transform: rotate(180deg); }
+  .mobile-menu details ul { padding: 0.5rem 0 0.75rem; border-bottom: 1px solid var(--border); }
+  .mobile-menu details a { display: flex; align-items: center; min-height: 48px; color: var(--text-secondary); text-decoration: none; }
+  .mobile-cta { display: grid; gap: 0.75rem; margin-top: 1.5rem; }
+  @media (min-width: 1024px) { .mobile-menu { display: none; } }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')!;
+  const syncHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 48);
+  syncHeader();
+  window.addEventListener('scroll', syncHeader, { passive: true });
+
+  const dropdowns = [...document.querySelectorAll<HTMLElement>('.has-menu')];
+  const closeDropdowns = (except?: HTMLElement) => {
+    dropdowns.forEach((item) => {
+      if (item === except) return;
+      item.classList.remove('is-open');
+      item.querySelector('button')!.setAttribute('aria-expanded', 'false');
+    });
+  };
+  dropdowns.forEach((item) => {
+    const trigger = item.querySelector('button')!;
+    trigger.addEventListener('click', () => {
+      const open = !item.classList.contains('is-open');
+      closeDropdowns(item);
+      item.classList.toggle('is-open', open);
+      trigger.setAttribute('aria-expanded', String(open));
+    });
+  });
+  document.addEventListener('click', (event) => {
+    if (!(event.target as Element).closest('.has-menu')) closeDropdowns();
+  });
+
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const setMobileMenu = (open: boolean) => {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    document.body.classList.toggle('menu-open', open);
+    mobileMenu.hidden = !open;
+    // Ocupa do cabeçalho até o fim da tela, mesmo com a faixa SOS visível acima.
+    if (open) mobileMenu.style.height = `${window.innerHeight - header.getBoundingClientRect().bottom}px`;
+  };
+  toggle.addEventListener('click', () => setMobileMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  mobileMenu.addEventListener('click', (event) => {
+    if ((event.target as Element).closest('a')) setMobileMenu(false);
+  });
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
+    if (event.matches) setMobileMenu(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const openDropdown = dropdowns.find((item) => item.classList.contains('is-open'));
+    if (openDropdown) {
+      closeDropdowns();
+      openDropdown.querySelector('button')!.focus();
+    }
+    if (toggle.getAttribute('aria-expanded') === 'true') {
+      setMobileMenu(false);
+      toggle.focus();
+    }
+  });
+</script>

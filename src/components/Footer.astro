@@ -1,0 +1,102 @@
+---
+import Icon from './Icon.astro';
+import { allSolutions, cta, links, personas } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="./" aria-label="SECC Turntech — início">
+        <img src="https://secctech.ai/brand/secc-symbol.png" alt="" width="36" height="36" loading="lazy" />
+        <span class="brand-text">SECC<span class="brand-sub">Turntech</span></span>
+      </a>
+      <p>A primeira turntech do planeta. Prevenção e combate à crise empresarial: antes, durante e depois.</p>
+      <a class="footer-sos" href={links.sos}>Crise iminente? Fale com o Plantão SOS <Icon name="arrow" /></a>
+    </div>
+
+    <nav aria-labelledby="f-sistema">
+      <h2 id="f-sistema">Sistema</h2>
+      <ul>
+        <li><a href={links.ecosystem}>Sistema de Combate à Crise</a></li>
+        {allSolutions.map((item) => <li><a href={item.href}>{item.name}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-labelledby="f-para-quem">
+      <h2 id="f-para-quem">Para quem</h2>
+      <ul>
+        {personas.map((persona) => <li><a href={persona.href}>{persona.name}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-labelledby="f-empresa">
+      <h2 id="f-empresa">Empresa</h2>
+      <ul>
+        <li><a href={links.about}>Sobre</a></li>
+        <li><a href={links.plans}>Planos</a></li>
+        <li><a href={links.contact}>Fale conosco</a></li>
+        <li><a href={links.login}>Entrar</a></li>
+        <li><a href={cta.primary.href}>{cta.primary.label}</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container footer-base">
+    <p>© 2026 SECC. Todos os direitos reservados.</p>
+    <a href={links.cookies}>Política de Cookies e Privacidade</a>
+    <p class="footer-motto">Crisis, capital and execution.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); }
+  .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 1.5rem; padding-block: 3.5rem 2.5rem; }
+  .footer-brand { grid-column: 1 / -1; display: grid; gap: 1rem; justify-items: start; align-content: start; }
+  .footer-brand p { max-width: 22rem; color: var(--text-secondary); font-size: 0.9375rem; }
+
+  .brand { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 44px; text-decoration: none; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  .brand-text { display: grid; font-size: 1.125rem; font-weight: 700; line-height: 1; }
+  .brand-sub { margin-top: 0.3rem; font: 500 0.6875rem/1 var(--font-mono); letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); }
+
+  .footer-sos {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    color: var(--sev-critico);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .footer-sos:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  nav h2 {
+    margin-bottom: 0.75rem;
+    font: 500 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  nav a { display: inline-flex; align-items: center; min-height: 40px; color: var(--text-secondary); font-size: 0.9375rem; text-decoration: none; }
+  nav a:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 4px; }
+
+  .footer-base {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    /* Espaço extra embaixo para o balão de vídeo não cobrir o texto. */
+    padding-block: 1.5rem 5.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+  }
+  .footer-base a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-secondary); }
+  .footer-motto { font-family: var(--font-mono); font-size: 0.8125rem; }
+
+  @media (min-width: 960px) {
+    .footer-grid { grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 3rem; }
+    .footer-brand { grid-column: auto; }
+    nav a { min-height: 34px; }
+  }
+</style>

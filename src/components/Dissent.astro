@@ -1,0 +1,120 @@
+---
+import Icon from './Icon.astro';
+
+const principles = [
+  'Contesta o dono quando o caixa e o método exigem.',
+  'Dá a melhor opção sob pressão, não a mais conveniente.',
+  'Aprende o DNA da sua empresa: quanto mais você usa, mais o Brain aprende.',
+  'Toda recomendação com fonte primária e justificativa.',
+];
+---
+
+<section class="section section--surface" id="inteligencia" aria-labelledby="dissent-title">
+  <div class="container dissent">
+    <div class="dissent-copy">
+      <p class="eyebrow">A inteligência</p>
+      <h2 id="dissent-title" data-split>Uma IA treinada para salvar a empresa — não para concordar com você.</h2>
+      <p class="lead" data-reveal>
+        A maioria dos assistentes existe para agradar. A SECC foi treinada para dar a melhor decisão a quem está sob pressão.
+      </p>
+      <ul class="principles" data-reveal-group>
+        {
+          principles.map((item) => (
+            <li data-reveal>
+              <Icon name="check" />
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="integration" data-reveal>Integration First: humano no comando, IA no suporte.</p>
+    </div>
+
+    <figure class="chat" data-reveal-group>
+      <div class="bubble bubble--owner" data-reveal>
+        <p class="bubble-who">Dono da empresa</p>
+        <p>Vou pegar um empréstimo pra pagar a folha deste mês.</p>
+      </div>
+
+      <div class="bubble bubble--pleaser" data-reveal>
+        <p class="bubble-who">IA que agrada</p>
+        <p>Ótima ideia! Um empréstimo dá o fôlego que você precisa agora. Quer que eu compare as taxas?</p>
+      </div>
+
+      <div class="bubble bubble--secc" data-reveal data-spotlight>
+        <p class="bubble-who">SECC</p>
+        <p>
+          <strong>Antes de assinar, não.</strong> Seu caixa cobre 4,5 meses e a liquidez está em 0,90x. Dívida nova para pagar
+          folha não muda esses números: só troca a data do problema.
+        </p>
+        <p>Três ações vêm antes:</p>
+        <ol>
+          <li>Cobrar os R$ 220 mil vencidos do seu maior cliente.</li>
+          <li>Renegociar a linha de capital de giro.</li>
+          <li>Cortar R$ 80 mil de despesa fixa recorrente.</li>
+        </ol>
+        <p class="bubble-source">Fonte: fluxo de caixa do mês corrente · ev-cashflow-2026-07</p>
+      </div>
+
+      <figcaption>Exemplo ilustrativo, com os dados fictícios da demonstração.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .dissent { display: grid; gap: 3rem; align-items: start; }
+  .dissent-copy { display: grid; gap: 1.5rem; }
+  .dissent-copy .eyebrow { margin-bottom: 0; }
+  .dissent-copy h2 { font-size: clamp(2rem, 3.8vw, 3.25rem); }
+
+  .principles { display: grid; border-top: 1px solid var(--border); }
+  .principles li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 1.0625rem;
+    line-height: 1.45;
+  }
+  .principles :global(.icon) { margin-top: 0.2em; color: var(--accent); }
+  .integration { font: 400 0.8125rem/1.5 var(--font-mono); color: var(--text-tertiary); }
+
+  .chat { display: grid; gap: 0.9rem; }
+  .bubble {
+    display: grid;
+    gap: 0.6rem;
+    max-width: 34rem;
+    padding: 1.1rem 1.3rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+  .bubble-who { font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  .bubble--owner {
+    justify-self: end;
+    border-bottom-right-radius: 6px;
+    background: var(--bg-elevated);
+    font: italic 400 1.25rem/1.35 var(--font-serif);
+  }
+  .bubble--owner .bubble-who { font-style: normal; }
+  .bubble--pleaser { border-bottom-left-radius: 6px; color: var(--text-tertiary); border-style: dashed; }
+  .bubble--pleaser p:last-child { text-decoration: line-through; text-decoration-color: rgb(255 123 66 / 0.6); }
+  .bubble--secc {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    border-bottom-left-radius: 6px;
+    background: var(--bg-base);
+    box-shadow: var(--shadow);
+  }
+  .bubble--secc .bubble-who { color: var(--accent); }
+  .bubble--secc ol { display: grid; gap: 0.35rem; padding-left: 1.35rem; list-style: decimal; color: var(--text-secondary); }
+  .bubble--secc ol li::marker { font-family: var(--font-mono); font-size: 0.875em; color: var(--accent); }
+  .bubble-source { font: 400 0.8125rem/1.5 var(--font-mono); color: var(--text-tertiary); }
+  .chat figcaption { font-size: 0.8125rem; color: var(--text-tertiary); }
+
+  @media (min-width: 1024px) {
+    .dissent { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; }
+    .dissent-copy { position: sticky; top: calc(var(--header-h) + 2rem); }
+  }
+</style>

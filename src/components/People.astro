@@ -1,0 +1,107 @@
+---
+import Icon from './Icon.astro';
+import { board, founders, links, security } from '../data/site';
+---
+
+<section class="section" id="quem-responde" aria-labelledby="people-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">Quem responde pela SECC</p>
+      <h2 id="people-title" data-split>Quem já esteve na sala.</h2>
+      <p class="lead" data-reveal>
+        Turnaround não se aprende em teoria. Os dois fundadores trouxeram a prática para dentro do produto.
+      </p>
+    </header>
+
+    <div class="people-grid">
+      <figure class="pull" data-reveal>
+        <blockquote>“Demora para tomar decisões é vício fatal.”</blockquote>
+        <figcaption>Estevão Seccatto, em coluna no Money Times</figcaption>
+      </figure>
+
+      <div class="founders" data-reveal-group>
+        {
+          founders.map((person) => (
+            <article data-reveal>
+              <h3>
+                {person.name} <span>{person.role}</span>
+              </h3>
+              <p>{person.bio}</p>
+            </article>
+          ))
+        }
+        <div class="board" data-reveal>
+          <p class="kicker">Conselho consultivo</p>
+          <p>{board.join(' · ')}</p>
+          <a class="text-link" href={links.about}>Conhecer os fundadores e o conselho <Icon name="arrow" /></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="security" data-reveal>
+      <div>
+        <p class="kicker security-kicker">Segurança &amp; privacidade</p>
+        <h3>Seus dados são seus. Ponto.</h3>
+      </div>
+      <dl>
+        {
+          security.map((item) => (
+            <div>
+              <dt>{item.name}</dt>
+              <dd>{item.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .people-grid { display: grid; gap: 2.5rem; align-items: start; }
+
+  .pull { display: grid; gap: 1.25rem; }
+  .pull blockquote {
+    font: italic 400 clamp(2rem, 4.6vw, 3.75rem) / 1.08 var(--font-serif);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .pull figcaption { font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+
+  .founders { display: grid; }
+  .founders article { display: grid; gap: 0.5rem; padding: 1.25rem 0; border-top: 1px solid var(--border); }
+  .founders h3 { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.015em; }
+  .founders h3 span {
+    display: block;
+    margin-top: 0.3rem;
+    font: 500 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .founders article p { color: var(--text-secondary); line-height: 1.55; }
+  .board { display: grid; gap: 0.5rem; justify-items: start; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--text-secondary); }
+
+  .security {
+    display: grid;
+    gap: 1.75rem;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-surface);
+  }
+  .security-kicker { margin-bottom: 0.75rem; color: var(--accent); }
+  .security h3 { font-size: clamp(1.5rem, 2.8vw, 2.25rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+  .security dl { display: grid; gap: 1.25rem 2rem; }
+  .security dt { font-weight: 600; }
+  .security dd { margin-top: 0.2rem; font-size: 0.9375rem; line-height: 1.5; color: var(--text-secondary); }
+
+  @media (min-width: 640px) { .security dl { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) {
+    .people-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; }
+    .pull { position: sticky; top: calc(var(--header-h) + 2rem); }
+    .security { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; align-items: start; }
+    .security dl { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import '@fontsource-variable/ibm-plex-sans';
+import '@fontsource-variable/jetbrains-mono';
+import '@fontsource/ibm-plex-serif/400-italic.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- Versão de revisão em domínio temporário: fora dos buscadores até a aprovação. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#070809" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="https://secctech.ai/icon.png" />
+    <script is:inline>
+      // Quem pede menos movimento no sistema recebe a versão estática. Para revisar as
+      // animações numa máquina assim, abra a página com ?movimento na URL.
+      (function () {
+        var root = document.documentElement;
+        var force = /[?&]movimento/.test(location.search);
+        root.classList.add('js');
+        if (force) root.classList.add('force-motion');
+        window.__reducedMotion = !force && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (window.__reducedMotion) return;
+        // Liga os estados iniciais das animações antes da primeira pintura. Se o
+        // JavaScript de movimento não assumir em 4s, devolve a página visível.
+        root.classList.add('motion');
+        setTimeout(function () {
+          if (!window.__motionReady) root.classList.remove('motion');
+        }, 4000);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <slot />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 200;
+    padding: 0.75rem 1rem;
+    border-radius: var(--r-md);
+    background: var(--accent-fill);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 1rem; }
+</style>
+
+<script>
+  import { initMotion } from '../scripts/motion';
+  import { initTabs } from '../scripts/tabs';
+  initTabs();
+  initMotion();
+</script>

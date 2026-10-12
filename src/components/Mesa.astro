@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import mesa from '../assets/mesa.jpg';
+import { personas } from '../data/site';
+---
+
+<section class="section section--surface" id="para-quem" aria-labelledby="mesa-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">Para quem</p>
+      <h2 id="mesa-title" data-split>De que lado da mesa você está?</h2>
+      <p class="lead" data-reveal>
+        Numa virada, todo mundo senta à mesma mesa: dono, financeiro, credor, contador, advogado. A SECC tem um lugar para cada
+        um.
+      </p>
+    </header>
+
+    <div class="mesa" data-tabs data-reveal>
+      <div class="seats" role="tablist" aria-label="Escolha o seu lugar à mesa">
+        {
+          personas.map((persona, index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`lugar-${persona.id}`}
+              aria-controls={`painel-${persona.id}`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+              class="seat"
+              style={`--a:${index * 45 - 90}deg`}
+            >
+              {persona.name}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="table">
+        <Image src={mesa} alt="" widths={[640, 1024, 1600]} sizes="(min-width: 1024px) 800px, 100vw" class="table-photo" />
+        {
+          personas.map((persona) => (
+            <div class="place" role="tabpanel" id={`painel-${persona.id}`} aria-labelledby={`lugar-${persona.id}`} tabindex="0">
+              <h3>{persona.name}</h3>
+              <p>{persona.text}</p>
+              <a class="text-link" href={persona.href}>
+                Ver a SECC para {persona.plural} <Icon name="arrow" />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mesa { display: grid; gap: 1.25rem; }
+
+  .seats {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    margin-inline: -1.25rem;
+    padding: 0.25rem 1.25rem 0.5rem;
+    scrollbar-width: none;
+  }
+  .seats::-webkit-scrollbar { display: none; }
+  .seat {
+    flex: none;
+    min-height: 46px;
+    padding: 0 1.15rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: var(--bg-surface);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--text-secondary);
+    transition: background-color 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .seat:hover { color: var(--text-primary); border-color: var(--text-secondary); }
+  .seat[aria-selected='true'] {
+    background: var(--accent-fill);
+    border-color: var(--accent-fill);
+    color: #fff;
+    box-shadow: 0 10px 34px -10px var(--glow);
+  }
+
+  .table :global(.table-photo) {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border-radius: var(--r-2xl);
+  }
+
+  .place {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-elevated);
+  }
+  .place + .place { margin-top: 1rem; }
+  :global(html.js) .place + .place { margin-top: 0; }
+  .place h3 { font-size: clamp(1.5rem, 2.6vw, 2.125rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
+  .place p { font-size: 1.0625rem; line-height: 1.5; color: var(--text-secondary); }
+  .place:not([hidden]) { animation: place-in 0.5s var(--ease-out); }
+  @keyframes place-in {
+    from { opacity: 0; transform: scale(0.97); }
+  }
+
+  /* Desktop: os oito lugares em volta de uma mesa de verdade; o escolhido fala no tampo. */
+  @media (min-width: 1024px) {
+    .mesa {
+      position: relative;
+      display: block;
+      max-width: 1080px;
+      margin-inline: auto;
+      aspect-ratio: 16 / 8.6;
+    }
+    .seats { position: static; display: block; overflow: visible; margin: 0; padding: 0; }
+    .seat {
+      position: absolute;
+      z-index: 2;
+      left: calc(50% + cos(var(--a)) * 39%);
+      top: calc(50% + sin(var(--a)) * 41%);
+      translate: -50% -50%;
+    }
+    .table {
+      position: absolute;
+      inset: 11% 13%;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      border-radius: 50%;
+      background: var(--bg-base);
+      box-shadow: var(--shadow);
+    }
+    .table :global(.table-photo) {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      margin: 0;
+      aspect-ratio: auto;
+      border-radius: 0;
+    }
+    /* Escurece o centro do tampo para o texto, deixa as mãos e os papéis na borda. */
+    .table::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(closest-side, rgb(7 8 9 / 0.95) 0%, rgb(7 8 9 / 0.93) 58%, rgb(7 8 9 / 0.35) 100%);
+    }
+    .place {
+      position: relative;
+      z-index: 1;
+      grid-area: 1 / 1;
+      max-width: 27rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      justify-items: center;
+      text-align: center;
+    }
+  }
+</style>

@@ -2,28 +2,46 @@
 
 Versão de revisão da home do [secctech.ai](https://secctech.ai), feita para rodar em domínio temporário, separada do repositório e da infraestrutura de produção.
 
-Site estático: HTML, CSS e JavaScript puros, sem dependências e sem etapa de build.
+## Stack
+
+- **Astro + TypeScript**: gera um site estático (HTML pronto, quase nenhum JavaScript por padrão).
+- **GSAP** (ScrollTrigger, SplitText) e **Lenis** para animação e rolagem suave.
+- **Canvas 2D** para o radar do hero, sem biblioteca.
+- Fontes hospedadas no próprio site (Fontsource) e imagens otimizadas no build (AVIF/WebP responsivos).
 
 ## Estrutura
 
-- `index.html` — home
-- `assets/css/styles.css` — tokens (espelham os da plataforma em produção) e estilos
-- `assets/js/main.js` — tema claro/escuro, menus, abas e vídeo do hero
-- `robots.txt` — bloqueia buscadores enquanto a versão está em revisão
+```
+src/
+  data/site.ts        conteúdo estruturado: menus, soluções, perfis, sinais do radar, vídeo
+  styles/global.css   tokens, base e primitivos compartilhados
+  layouts/Base.astro  <head>, fontes e inicialização das animações
+  components/         uma seção por arquivo (marcação, estilo e script juntos)
+  scripts/            motion.ts (animação), radar.ts, tabs.ts
+  assets/             imagens-fonte
+```
 
-## Pré-visualizar
+## Rodar localmente
 
-Abra `index.html` no navegador, ou sirva a pasta com qualquer servidor estático.
+```bash
+npm install
+npm run dev
+```
 
-## Publicar na Hostinger
+O site respeita quem pediu menos movimento no sistema operacional. Para revisar as animações numa máquina com os efeitos de animação desligados, abra com `?movimento` no fim do endereço.
 
-No hPanel, em **Avançado → Git**, conecte este repositório na branch `main` e instale na raiz do domínio temporário (`public_html`). Não há comando de build nem pasta de saída: os arquivos da raiz do repositório já são o site.
+## Publicação
+
+Cada push na `main` dispara o GitHub Actions, que gera o site e publica o resultado na branch **`deploy`**. Na Hostinger (hPanel → Avançado → Git), conecte este repositório na branch `deploy` e instale na raiz do domínio.
+
+## Vídeo de apresentação
+
+O balão flutuante lê `presentationVideo` em `src/data/site.ts`. Coloque o arquivo em `public/` e preencha `src` (e `poster`); sem isso, o balão abre um aviso de "em produção".
 
 ## Antes de ir para o domínio definitivo
 
-- Remover o `noindex` do `index.html` e liberar o `robots.txt`.
-- Trazer para `assets/` o logo, o vídeo e o pôster do hero, que hoje são carregados de `secctech.ai`.
-- Hospedar as fontes localmente (hoje vêm do Google Fonts).
-- Criar a imagem de compartilhamento (`og:image`).
+- Remover o `noindex` de `src/layouts/Base.astro` e liberar o `public/robots.txt`.
+- Trazer o logo para `src/assets/` (hoje é carregado de `secctech.ai`).
+- Validar com o time da SECC os conteúdos marcados como ilustrativos: sinais do radar, respostas da seção "terça-feira", faixas de cor do simulador de caixa e o exemplo de conversa com a IA.
 - Reconstruir as páginas internas; por enquanto os links apontam para `secctech.ai`.
-- Versões em inglês e espanhol.
+- Versões em inglês e espanhol, banner de cookies e imagem de compartilhamento (`og:image`).

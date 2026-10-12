@@ -1,0 +1,303 @@
+---
+import { movements } from '../data/site';
+---
+
+<section class="story" id="como-atua" aria-labelledby="story-title" data-story>
+  <div class="story-sticky">
+    <div class="container story-inner">
+      <header class="story-head">
+        <p class="eyebrow">Como a SECC atua</p>
+        <h2 id="story-title">O mesmo sistema, cinco marchas.</h2>
+        <p class="lead">
+          A intensidade muda conforme a saúde da empresa. O contexto e a responsabilidade não recomeçam a cada mudança.
+        </p>
+      </header>
+
+      <ol class="gears" aria-hidden="true">
+        <li class="gears-fill" data-story-fill></li>
+        {
+          movements.map((move) => (
+            <li class="gear" data-story-gear>
+              <span class="gear-dot" />
+              <span class="gear-when">{move.when}</span>
+              <span class="gear-name">{move.name}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="stage">
+        {
+          movements.map((move, index) => (
+            <article class="step" data-story-step>
+              <div class="step-copy">
+                <p class="step-n">
+                  {move.n} · {move.when}
+                </p>
+                <h3>{move.name}</h3>
+                <p class="step-text">{move.text}</p>
+              </div>
+
+              <div class="step-visual">
+                {index === 0 && (
+                  <figure class="notif">
+                    <div class="notif-head">
+                      <span class="notif-app">Radar SECC</span>
+                      <span>WhatsApp · agora</span>
+                    </div>
+                    <p class="notif-title">Runway caiu para 4,5 meses.</p>
+                    <p class="notif-body">Origem: fluxo de caixa do mês corrente. Liquidez em 0,90x, abaixo do limite de 1,00x.</p>
+                    <p class="notif-action">Ver evidência · ev-cashflow-2026-07</p>
+                    <figcaption>Alerta de demonstração, com dados fictícios.</figcaption>
+                  </figure>
+                )}
+                {index === 1 && (
+                  <figure class="demo">
+                    <div class="demo-bar">
+                      <span>/app/radar</span>
+                      <span class="demo-tag">demo</span>
+                    </div>
+                    <div class="demo-body">
+                      <p class="kicker">Sinais com origem</p>
+                      <ul class="demo-rows">
+                        <li>
+                          <div>
+                            <strong>Runway em 4,5 meses</strong>
+                            <small>ev-cashflow-2026-07</small>
+                          </div>
+                          <span class="chip" style="--c:var(--sev-critico)">Crítico</span>
+                        </li>
+                        <li>
+                          <div>
+                            <strong>Liquidez em 0,90x</strong>
+                            <small>ev-dre-2026-06</small>
+                          </div>
+                          <span class="chip" style="--c:var(--sev-intervencao)">Intervenção</span>
+                        </li>
+                        <li>
+                          <div>
+                            <strong>Margem</strong>
+                            <small>Componente sem cobertura suficiente</small>
+                          </div>
+                          <span class="chip" style="--c:var(--text-tertiary)">não apurado</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </figure>
+                )}
+                {index === 2 && (
+                  <figure class="demo">
+                    <div class="demo-bar">
+                      <span>/app/pmo</span>
+                      <span class="demo-tag">demo</span>
+                    </div>
+                    <div class="demo-body">
+                      <p class="kicker">Frente · caixa &amp; liquidez · execução da semana</p>
+                      <ul class="demo-rows">
+                        <li>
+                          <div>
+                            <strong>Cobrar recebível vencido do maior cliente</strong>
+                            <small>Helena Martins · 29/07/2026</small>
+                          </div>
+                          <div class="demo-side">
+                            <span class="chip" style="--c:var(--sev-intervencao)">Bloqueado</span>
+                            <small>R$ 220,0 mil</small>
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <strong>Renegociar linha de capital de giro</strong>
+                            <small>Bruno Almeida · 05/08/2026</small>
+                          </div>
+                          <div class="demo-side">
+                            <span class="chip" style="--c:var(--accent)">Em andamento</span>
+                            <small>R$ 350,0 mil</small>
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <strong>Reduzir despesas fixas recorrentes</strong>
+                            <small>Camila Nunes · 01/08/2026</small>
+                          </div>
+                          <div class="demo-side">
+                            <span class="chip" style="--c:var(--sev-estavel)">Aprovado</span>
+                            <small>R$ 80,0 mil</small>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </figure>
+                )}
+                {index === 3 && (
+                  <figure class="demo">
+                    <div class="demo-bar">
+                      <span>/app/situation-room</span>
+                      <span class="demo-tag">demo</span>
+                    </div>
+                    <div class="demo-body">
+                      <p class="kicker">Histórico da virada</p>
+                      <ol class="log">
+                        <li><time>15/07</time>Snapshot financeiro importado</li>
+                        <li><time>16/07</time>Sinal de liquidez abaixo de 1,00x registrado</li>
+                        <li><time>17/07</time>Plano de renegociação aprovado</li>
+                        <li><time>18/07</time>Cobrança bloqueada por aceite pendente</li>
+                      </ol>
+                    </div>
+                  </figure>
+                )}
+                {index === 4 && (
+                  <div class="horizon-card">
+                    <p class="horizon-quote">Visão de 10 anos, não de 6 meses.</p>
+                    <p>Estabilizada a empresa, o método reconstrói o modelo de negócio e sustenta o crescimento.</p>
+                  </div>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story { position: relative; background: var(--bg-base); }
+  .story-sticky { padding-block: clamp(4.5rem, 9vw, 8rem); }
+  .story-inner { display: grid; gap: clamp(2rem, 4vw, 3rem); }
+  .story-head { max-width: 52rem; }
+  .story-head .lead { margin-top: 1.25rem; max-width: 42rem; }
+
+  /* Régua das marchas: verde → vermelho → de volta ao verde (a virada). */
+  .gears { position: relative; display: none; grid-template-columns: repeat(5, 1fr); padding-top: 1.4rem; }
+  .gears::before,
+  .gears-fill { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 3px; }
+  .gears::before { background: rgb(255 255 255 / 0.1); }
+  .gears-fill {
+    background: linear-gradient(90deg, var(--sev-estavel), var(--sev-monitor) 25%, var(--sev-critico) 48%, var(--sev-intervencao) 62%, var(--sev-monitor) 82%, var(--sev-estavel));
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+  .gear { display: grid; gap: 0.15rem; color: var(--text-tertiary); transition: color 0.4s; }
+  .gear-dot {
+    position: absolute;
+    top: -4.5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-base);
+    border: 2px solid rgb(255 255 255 / 0.25);
+    transition: border-color 0.4s, background-color 0.4s, box-shadow 0.4s;
+  }
+  .gear-when { font: 500 0.75rem/1.3 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
+  .gear-name { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
+  .gear.is-on { color: var(--text-primary); }
+  .gear.is-on .gear-dot { border-color: #fff; background: #fff; box-shadow: 0 0 18px 2px rgb(255 255 255 / 0.4); }
+
+  .stage { display: grid; gap: 3.5rem; }
+  .step { display: grid; gap: 1.5rem; align-items: center; }
+  .step-copy { display: grid; gap: 0.9rem; }
+  .step-n { font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .step h3 { font-size: clamp(2.5rem, 7vw, 6.25rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.045em; }
+  .step-text { max-width: 30rem; font-size: clamp(1.125rem, 1.7vw, 1.375rem); line-height: 1.45; color: var(--text-secondary); }
+
+  .notif {
+    display: grid;
+    gap: 0.6rem;
+    max-width: 31rem;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    background: rgb(28 32 42 / 0.92);
+    box-shadow: var(--shadow);
+  }
+  .notif-head { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8125rem; color: var(--text-tertiary); }
+  .notif-app { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 600; color: var(--text-primary); }
+  .notif-app::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--sev-critico); }
+  .notif-title { font-size: 1.5rem; letter-spacing: -0.015em; font-weight: 600; line-height: 1.25; }
+  .notif-body { font-size: 1.0625rem; color: var(--text-secondary); }
+  .notif-action { font: 500 0.8125rem/1.4 var(--font-mono); color: var(--accent); }
+  .notif figcaption { margin-top: 0.35rem; font-size: 0.8125rem; color: var(--text-tertiary); }
+
+  .log { display: grid; }
+  .log li { display: grid; grid-template-columns: 3.25rem 1fr; gap: 0.75rem; padding: 0.7rem 0; font-size: 0.9375rem; }
+  .log li + li { border-top: 1px solid var(--border); }
+  .log time { font: 500 0.8125rem/1.6 var(--font-mono); color: var(--text-tertiary); }
+
+  .horizon-card { display: grid; gap: 1rem; max-width: 28rem; color: var(--text-secondary); font-size: 1.125rem; }
+  .horizon-quote {
+    font: italic 400 clamp(1.75rem, 3.4vw, 2.75rem) / 1.12 var(--font-serif);
+    color: var(--text-primary);
+  }
+
+  @media (min-width: 960px) {
+    .step { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 4rem; }
+  }
+
+  /* Modo fixado (desktop com movimento): a seção vira um palco e a rolagem troca a marcha. */
+  .story.is-pinned { height: calc(100svh + 300vh); }
+  .story.is-pinned .story-sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    padding-block: calc(var(--header-h) + 1.5rem) 2rem;
+    overflow: hidden;
+  }
+  .story.is-pinned .story-inner { height: 100%; grid-template-rows: auto auto minmax(0, 1fr); gap: clamp(1.25rem, 3vh, 2.5rem); }
+  .story.is-pinned .step { align-content: center; padding-bottom: 6vh; }
+  .story.is-pinned .step-visual :global(.demo) { font-size: 1.0625rem; }
+  .story.is-pinned .story-head h2 { font-size: clamp(1.75rem, 3vw, 2.75rem); }
+  .story.is-pinned .story-head .lead { display: none; }
+  .story.is-pinned .gears { display: grid; }
+  .story.is-pinned .stage { position: relative; gap: 0; }
+  .story.is-pinned .step {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(24px);
+    transition: opacity 0.5s, transform 0.7s var(--ease-out), visibility 0.5s;
+  }
+  .story.is-pinned .step.is-on { opacity: 1; visibility: visible; transform: none; }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger, reducedMotion } from '../scripts/motion';
+
+  const story = document.querySelector<HTMLElement>('[data-story]');
+  if (story && !reducedMotion) {
+    const fill = story.querySelector<HTMLElement>('[data-story-fill]')!;
+    const gears = [...story.querySelectorAll<HTMLElement>('[data-story-gear]')];
+    const steps = [...story.querySelectorAll<HTMLElement>('[data-story-step]')];
+
+    const media = gsap.matchMedia();
+    media.add('(min-width: 960px) and (min-height: 640px)', () => {
+      story.classList.add('is-pinned');
+      // Cada marcha ocupa um quinto da régua; o ponto fica no começo do seu trecho.
+      gears.forEach((gear, index) => {
+        gear.querySelector<HTMLElement>('.gear-dot')!.style.left = `${(index / gears.length) * 100}%`;
+      });
+
+      const setActive = (index: number) => {
+        steps.forEach((step, i) => step.classList.toggle('is-on', i === index));
+        gears.forEach((gear, i) => gear.classList.toggle('is-on', i <= index));
+      };
+      setActive(0);
+
+      const trigger = ScrollTrigger.create({
+        trigger: story,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          gsap.set(fill, { scaleX: self.progress });
+          setActive(Math.min(steps.length - 1, Math.floor(self.progress * steps.length)));
+        },
+      });
+
+      return () => {
+        trigger.kill();
+        story.classList.remove('is-pinned');
+        steps.forEach((step) => step.classList.remove('is-on'));
+      };
+    });
+  }
+</script>

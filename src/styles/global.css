@@ -1,0 +1,232 @@
+/* ==========================================================================
+   SECC Turntech — fundações
+   Camadas: tokens → base → primitivos compartilhados. Estilo de cada seção
+   mora no próprio componente.
+   Três vozes tipográficas: Plex Sans (a marca), JetBrains Mono (o sistema,
+   dados e rótulos) e Plex Serif itálico (a voz humana, citações).
+   ========================================================================== */
+
+@layer tokens, base, primitives;
+
+@layer tokens {
+  :root {
+    color-scheme: dark;
+
+    /* Cores espelham o tema de marketing da plataforma em produção. */
+    --bg-base: #070809;
+    --bg-surface: #0d0f14;
+    --bg-elevated: #14171f;
+    --border: rgb(255 255 255 / 0.09);
+    --border-strong: rgb(255 255 255 / 0.18);
+    --text-primary: #f5f7fb;
+    --text-secondary: #b2bccb;
+    --text-tertiary: #8a94a3;
+    --accent: #5b8bff;
+    --accent-fill: #1d4ed8;
+    --accent-fill-hover: #2b5ce6;
+    --accent-subtle: rgb(91 139 255 / 0.12);
+    --glow: rgb(91 139 255 / 0.35);
+    --shadow: 0 1px 3px rgb(0 0 0 / 0.5), 0 24px 70px rgb(0 0 0 / 0.55);
+
+    /* Escala de severidade do produto: só codifica gravidade, nunca decora. */
+    --sev-estavel: #3fb950;
+    --sev-monitor: #e3b341;
+    --sev-critico: #ff7b42;
+    --sev-intervencao: #ff5c53;
+    --sev-line: linear-gradient(90deg, var(--sev-estavel) 4%, var(--sev-monitor) 36%, var(--sev-critico) 66%, var(--sev-intervencao) 96%);
+
+    --font-sans: 'IBM Plex Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --font-serif: 'IBM Plex Serif', Georgia, serif;
+
+    --header-h: 72px;
+    --sos-h: 44px;
+    --r-md: 8px;
+    --r-lg: 12px;
+    --r-xl: 16px;
+    --r-2xl: 24px;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font: 400 1rem/1.6 var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  img, video, svg, canvas { display: block; max-width: 100%; }
+  img { height: auto; }
+  a { color: inherit; }
+  button, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; padding: 0; cursor: pointer; }
+  [hidden] { display: none !important; }
+  ::selection { background: var(--accent-fill); color: #fff; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1, h2, h3 { text-wrap: balance; font-weight: 700; }
+
+  h1 {
+    font-size: clamp(2.75rem, 7.4vw, 6.75rem);
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4.4vw, 3.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+
+}
+
+/* Transição nativa entre páginas, sem JavaScript. */
+@view-transition { navigation: auto; }
+
+@layer primitives {
+  .container { width: min(100% - 2.5rem, 1240px); margin-inline: auto; }
+  @media (min-width: 768px) { .container { width: min(100% - 4rem, 1240px); } }
+
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
+
+  .section { padding-block: clamp(4.5rem, 9vw, 8rem); position: relative; }
+  .section--surface { background: var(--bg-surface); border-block: 1px solid var(--border); }
+
+  .section-head { max-width: 52rem; margin-bottom: clamp(2.25rem, 5vw, 3.5rem); }
+  .section-head .lead { margin-top: 1.25rem; max-width: 42rem; }
+
+  .eyebrow,
+  .kicker {
+    font: 500 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .eyebrow { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem; color: var(--accent); }
+  .eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .kicker { color: var(--text-tertiary); }
+
+  .lead {
+    font-size: clamp(1.0625rem, 1.45vw, 1.3125rem);
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+
+  .accent { color: var(--accent); }
+  .icon { width: 1.125em; height: 1.125em; flex: none; }
+
+  .text-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    min-height: 44px;
+    color: var(--accent); font-weight: 600; text-decoration: none;
+  }
+  .text-link .icon { transition: transform 0.3s var(--ease-out); }
+  a.text-link:hover .icon,
+  a:hover > .text-link .icon { transform: translateX(5px); }
+
+  .btn {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+    min-height: 54px; padding: 0.8rem 1.7rem;
+    border: 1px solid transparent; border-radius: 999px;
+    font-size: 1rem; font-weight: 600; line-height: 1.2; text-decoration: none; white-space: nowrap;
+    transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .btn .icon { transition: transform 0.3s var(--ease-out); }
+  .btn:hover .icon { transform: translateX(5px); }
+  .btn-primary { background: var(--accent-fill); color: #fff; box-shadow: 0 14px 40px -12px var(--glow); }
+  .btn-primary:hover { background: var(--accent-fill-hover); box-shadow: 0 18px 50px -10px var(--glow); }
+  .btn-ghost { background: rgb(255 255 255 / 0.04); border-color: var(--border-strong); color: var(--text-primary); }
+  .btn-ghost:hover { border-color: var(--text-secondary); }
+  .btn-sm { min-height: 42px; padding: 0.5rem 1.1rem; font-size: 0.9375rem; box-shadow: none; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .cta-note { font-size: 0.875rem; color: var(--text-secondary); }
+  @media (max-width: 479px) { .cta-row { display: grid; width: 100%; } }
+
+  .chip {
+    display: inline-flex; align-items: center; flex: none;
+    padding: 0.25rem 0.6rem; border-radius: 999px;
+    background: color-mix(in srgb, var(--c) 15%, transparent); color: var(--c);
+    font-size: 0.8125rem; font-weight: 600; line-height: 1.25; white-space: nowrap;
+  }
+
+  /* Tela de produto (dados fictícios, sempre rotulada "demo"). */
+  .demo {
+    border: 1px solid var(--border); border-radius: var(--r-xl);
+    background: var(--bg-elevated); box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .demo-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--border);
+    font: 500 0.75rem/1 var(--font-mono); color: var(--text-tertiary);
+  }
+  .demo-tag {
+    padding: 0.25rem 0.55rem; border: 1px solid var(--border-strong); border-radius: 999px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .demo-body { display: grid; gap: 1rem; padding: 1.25rem; }
+  .demo-rows li {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.7rem 0; font-size: 0.9375rem;
+  }
+  .demo-rows li + li { border-top: 1px solid var(--border); }
+  .demo-rows strong { display: block; font-weight: 600; line-height: 1.3; }
+  .demo-rows small { display: block; margin-top: 0.2rem; font: 400 0.8125rem/1.4 var(--font-mono); color: var(--text-tertiary); }
+  .demo-side { display: grid; justify-items: end; gap: 0.3rem; flex: none; }
+  .demo-side small { margin: 0; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+  /* Brilho que acompanha o cursor (motion.ts atualiza --mx/--my). */
+  [data-spotlight] { position: relative; isolation: isolate; }
+  [data-spotlight]::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(91 139 255 / 0.14), transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  [data-spotlight]:hover::before { opacity: 1; }
+
+  /* Estados iniciais das animações: só valem quando o JS de movimento está ativo
+     (classe posta por um script inline no <head>, removida se algo falhar). */
+  html.motion [data-reveal] { opacity: 0; transform: translateY(28px); }
+  html.motion [data-split] { visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.force-motion) *,
+  html:not(.force-motion) *::before,
+  html:not(.force-motion) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

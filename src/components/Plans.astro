@@ -1,0 +1,51 @@
+---
+import Icon from './Icon.astro';
+import { links, plans } from '../data/site';
+---
+
+<section class="section section--surface" id="planos" aria-labelledby="plans-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">Planos</p>
+      <h2 id="plans-title" data-split>Comece pelo nível de decisão que você precisa sustentar agora.</h2>
+    </header>
+
+    <ol class="plans" data-reveal-group>
+      {
+        plans.map((plan) => (
+          <li class="plan" data-reveal data-spotlight>
+            <h3>{plan.name}</h3>
+            <p class="plan-text">{plan.text}</p>
+            <ul>
+              {plan.limits.map((limit) => <li>{limit}</li>)}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="plans-more" data-reveal>
+      <a class="text-link" href={links.plans}>Comparar os planos em detalhe <Icon name="arrow" /></a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .section-head h2 { font-size: clamp(1.875rem, 3.6vw, 3rem); }
+  .plans { display: grid; gap: 1rem; }
+  .plan {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-elevated);
+  }
+  .plan h3 { font: 700 1.5rem/1 var(--font-mono); letter-spacing: 0.16em; }
+  .plan-text { font-size: 1.0625rem; line-height: 1.5; color: var(--text-secondary); }
+  .plan ul { display: grid; padding-top: 0.25rem; border-top: 1px solid var(--border); }
+  .plan ul li { padding: 0.6rem 0; font: 400 0.875rem/1.4 var(--font-mono); color: var(--text-secondary); }
+  .plan ul li + li { border-top: 1px solid var(--border); }
+  .plans-more { margin-top: 1.5rem; }
+  @media (min-width: 860px) { .plans { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
+</style>
