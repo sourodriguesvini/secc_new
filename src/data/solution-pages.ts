@@ -8,7 +8,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'A primeira turntech do mundo · SECC',
     title: 'Veja o que está mudando. Decida antes. Faça a operação avançar.',
     lead: 'Dentro da SECC, o Radar usa IA, análise preditiva e leitura contínua do mercado para antecipar riscos e oportunidades. A SECC conecta cada sinal aos processos da empresa — etapas, responsáveis, prazos, decisões e execução.',
-    instrument: 'orbit',
+    instrument: 'secc',
     demo: {
       path: '',
       rows: [
@@ -121,7 +121,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Alerta antecipado · early warning para PMEs',
     title: 'Toda crise avisa 18 meses antes. O aviso é que não chega até você.',
     lead: 'E 75% delas começam dentro da própria empresa. O Radar lê caixa, dívida, operação e o que vem de fora, e transforma ruído em alerta acionável enquanto ainda há caixa e opções. Score proprietário desenvolvido com pesquisadores da USP e da FGV — e nenhum alerta chega até você sem evidência e citação clicável. Método sobre achismo, sempre.',
-    instrument: 'radar',
+    instrument: 'indice',
     demo: {
       path: '/app/radar/caixa',
       rows: [
@@ -242,7 +242,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Capital e crédito · produto independente',
     title: 'Chega de kit de banco e de comitê que não te dá status.',
     lead: 'Você monta o pedido uma vez e enxerga em que etapa ele está. Do outro lado, o fundo só recebe empresa que passa na política dele. Encurta a conversa dos dois lados e corta a comissão de quem só repassava papel.',
-    instrument: 'flow',
+    instrument: 'credpass',
     demo: {
       path: '/app/cred/[id]/offers',
       title: 'CredPass®',
@@ -329,7 +329,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Carteira e covenants · WatchDog',
     title: 'Caixa é rei. Monitore a saúde financeira do negócio em tempo real.',
     lead: 'Você define o limite. Quando o caixa começa a furar esse limite, gestor e financiador são avisados juntos — cedo, enquanto ainda existe renegociação a fazer, e não no mês em que a única saída que sobrou é a caríssima.',
-    instrument: 'pulse',
+    instrument: 'watchdog',
     demo: {
       path: '/app/radar/watchdog',
       title: 'WatchDog®',
@@ -437,7 +437,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Formação aplicada · produto independente',
     title: 'Escolha a trilha. Retome onde parou. Nenhum certificado sai automático.',
     lead: 'Turnaround não se aprende lendo sobre turnaround. Você pratica em cima de caso, e o certificado só sai depois que uma pessoa olha o que você entregou — é isso que faz ele valer algo na frente de um cliente.',
-    instrument: 'grid',
+    instrument: 'trilha',
     demo: {
       path: '/app/academy',
       title: 'SECC Academy™',
@@ -522,7 +522,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Formação e execução · PACT',
     title: 'Aprenda o método. Passe pela banca. Leve o plano para um quadro com dono e prazo.',
     lead: 'Consultor perde cliente por entrega solta, não por falta de conhecimento. Aqui o método sai da sua cabeça e vira frente, plano e tarefa, com dono e prazo à vista do cliente — que é justamente o que faz ele renovar.',
-    instrument: 'grid',
+    instrument: 'banca',
     demo: {
       path: '/app/academy · /app/pmo',
       rows: [
@@ -617,7 +617,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Rede de parceiros · visão de acompanhamento',
     title: 'Veja sua rede. Veja a oportunidade ligada a ela. Veja o que já foi lançado.',
     lead: 'Indicação que virou conversa, conversa que virou oportunidade, oportunidade que virou comissão lançada: a linha inteira num lugar só. O que ainda não tem valor fechado aparece como “a definir”, porque comissão lançada não é dinheiro na conta.',
-    instrument: 'orbit',
+    instrument: 'rede',
     demo: {
       path: '/app/partner',
       title: '@TURN',
@@ -707,7 +707,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Ativos e oportunidades · entrada consultiva',
     title: 'Traga a oportunidade com origem, dono e material. Uma pessoa avalia.',
     lead: 'Ativo parado, recebível, dívida ou participação: você descreve o que existe e quem responde por aquilo, e recebe leitura de gente. Não é anúncio jogado numa vitrine para atrair curioso e expor a sua situação.',
-    instrument: 'flow',
+    instrument: 'market',
     demo: {
       path: '',
       title: 'Briefing para avaliação humana',
@@ -780,7 +780,7 @@ export const solutionPages: SolutionPage[] = [
     category: 'Academy · comunidade',
     title: 'Pergunte com contexto. A resposta fica para o grupo.',
     lead: 'A dúvida que você levaria para um grupo de WhatsApp fica registrada ao lado da unidade que a gerou — e continua servindo para quem chegar depois com a mesma dúvida.',
-    instrument: 'orbit',
+    instrument: 'comunidade',
     demo: {
       path: '/app/academy/comunidade',
       title: 'Comunidade SECC',

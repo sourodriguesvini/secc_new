@@ -10,7 +10,7 @@ export const personaPages: PersonaPage[] = [
     title: 'Quando tudo é urgente, o caixa precisa definir a ordem.',
     lead: 'O Pulso diz em que pé a empresa está, o Radar do Caixa aponta o que aperta primeiro e o Plano de 100 dias mostra quem assumiu cada frente. Você começa a semana sabendo o que decidir, não o que ler.',
     cta: 'Priorizar minha semana',
-    instrument: 'radar',
+    instrument: 'fila',
     demo: {
       path: '/app/cockpit',
       title: 'Fila da crise',
@@ -170,7 +170,7 @@ export const personaPages: PersonaPage[] = [
     title: 'O fechamento explica o mês. Você precisa decidir o próximo.',
     lead: 'Radar do Caixa perto do limite, covenant a um passo de furar, e cada número abrindo o documento que o sustenta. Você para de gastar a reunião defendendo o fechamento e passa a usá-la para decidir o mês que vem.',
     cta: 'Mapear meu caixa',
-    instrument: 'pulse',
+    instrument: 'projecao',
     demo: {
       path: '/app/radar/caixa',
       rows: [
@@ -332,7 +332,7 @@ export const personaPages: PersonaPage[] = [
     title: 'O reporte mostra o trimestre. O covenant pode mudar antes dele.',
     lead: 'Quando uma empresa da carteira muda de faixa, o aviso chega com a evidência anexada. Você trata o problema enquanto ele ainda é renegociação — e não quando virou execução com fila de credores na frente.',
     cta: 'Monitorar a carteira',
-    instrument: 'pulse',
+    instrument: 'carteira',
     demo: {
       path: '/app/radar/watchdog',
       title: 'Covenants',
@@ -476,7 +476,7 @@ export const personaPages: PersonaPage[] = [
     title: 'O prazo fiscal precisa de fonte antes de virar alerta.',
     lead: 'A agenda organiza obrigações cadastradas e declara quando o prazo, o responsável ou o vínculo com follow-up ainda não existem no modelo.',
     cta: 'Organizar a agenda',
-    instrument: 'grid',
+    instrument: 'calendario',
     demo: {
       path: '/app/contador',
       title: 'Agenda fiscal',
@@ -620,7 +620,7 @@ export const personaPages: PersonaPage[] = [
     title: 'Se o plano só existe no status report, o cliente ainda não consegue executá-lo.',
     lead: 'O caso fica aberto com arma ativa, plano em curso e o que travou visível para os dois lados. O cliente enxerga o trabalho andando entre as reuniões, que é o que faz ele renovar.',
     cta: 'Ver o fluxo de operação',
-    instrument: 'flow',
+    instrument: 'bastao',
     demo: {
       path: '/app/pmo',
       title: 'Frente · Caixa & Liquidez',
@@ -792,7 +792,7 @@ export const personaPages: PersonaPage[] = [
     title: 'O método precisa aparecer na execução — não apenas na cabeça do sócio.',
     lead: 'Todo projeto abre o mesmo caso, com as mesmas armas e o mesmo plano. O sócio revisa a exceção em vez de reconstruir o contexto de dez clientes toda segunda-feira.',
     cta: 'Conversar sobre a operação',
-    instrument: 'orbit',
+    instrument: 'metodo',
     demo: {
       path: '/app/carteira',
       title: 'Carteira',
@@ -955,7 +955,7 @@ export const personaPages: PersonaPage[] = [
     title: '“A confirmar” é um estado. Não pode virar uma data inventada.',
     lead: 'Prazo confirmado aparece como confirmado, prazo a confirmar continua a confirmar, e a movimentação chega com o documento do lado. Você assina o que revisou, nunca o que o sistema chutou.',
     cta: 'Organizar meus casos',
-    instrument: 'grid',
+    instrument: 'prazos',
     demo: {
       path: '/app/advogado',
       title: 'Sala do advogado',
@@ -1092,7 +1092,7 @@ export const personaPages: PersonaPage[] = [
     title: 'Aprenda a decidir quando caixa, prazo e operação entram em conflito.',
     lead: 'Você opera caso real nas mesmas telas que o consultor usa em cliente pagando, e sai com um certificado que uma pessoa assinou — não com PDF de participação.',
     cta: 'Explorar trilhas',
-    instrument: 'grid',
+    instrument: 'conflito',
     demo: {
       path: '/app/academy',
       rows: [

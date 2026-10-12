@@ -20,13 +20,30 @@ export const links = {
 export const solution = (slug: string) => `/solucoes/${slug}/`;
 export const persona = (slug: string) => `/para/${slug}/`;
 
-/** Legenda do visual animado do topo, por tipo. */
+/** Legenda do visual animado do topo de cada página. */
 export const instrumentCaptions = {
   radar: 'Radar da Crise · demonstração com sinais ilustrativos',
-  pulse: 'Indicador monitorado contra o limite · ilustração',
-  flow: 'Entrada, processamento e saída · ilustração',
-  orbit: 'O núcleo e as frentes em volta dele · ilustração',
-  grid: 'Cobertura da leitura · ilustração',
+  secc: 'O núcleo e as frentes em volta dele · ilustração',
+  indice: 'Índice de Crise com cobertura parcial · ilustração',
+  credpass: 'Do pedido às ofertas, passando pela política do fundo · ilustração',
+  watchdog: 'O indicador contra o limite que você define · ilustração',
+  trilha: 'A trilha, com revisão humana no fim · ilustração',
+  banca: 'Do método à banca, da banca ao quadro · ilustração',
+  rede: 'A rede e a oportunidade ligada a ela · ilustração',
+  market: 'Origem, dono e material antes da vitrine · ilustração',
+  comunidade: 'A pergunta e as respostas que ficam para o grupo · ilustração',
+  fila: 'A fila que o caixa ordena · ilustração',
+  projecao: 'O mês fechado e as duas curvas do próximo · ilustração',
+  carteira: 'A carteira mudando entre um reporte e outro · ilustração',
+  calendario: 'Vencimento, prontidão e confirmação · ilustração',
+  bastao: 'O caso passando de um responsável ao próximo · ilustração',
+  metodo: 'O método aparecendo em cada caso · ilustração',
+  prazos: 'Prazos confirmados e um que continua “a confirmar” · ilustração',
+  conflito: 'A decisão entre caixa, prazo e operação · ilustração',
+  marchas: 'As cinco marchas do método · ilustração',
+  niveis: 'Playbooks liberados em cada plano: 10, 28 e 49',
+  rumo: 'A mudança de rumo antes da crise · ilustração',
+  travada: 'O que se acumula enquanto a decisão espera · ilustração',
 } as const;
 
 export const cta = {
@@ -35,12 +52,18 @@ export const cta = {
   note: 'Grátis, sem cartão, sem pegadinhas.',
 } as const;
 
-/** Vídeo de apresentação do balão flutuante. Sem `src`, o balão abre um aviso de "em produção". */
+/**
+ * Filme do balão flutuante. `preview` é o trecho curto e mudo que roda em
+ * miniatura; `src` é o filme inteiro, que só carrega quando a pessoa clica.
+ */
 export const presentationVideo = {
-  src: '',
-  poster: '',
-  label: 'Estevão explica',
-  title: 'A SECC em poucos minutos, por Estevão Seccatto',
+  src: '/media/filme-turntech.mp4',
+  preview: '/media/filme-turntech-preview.mp4',
+  previewPoster: '/media/filme-turntech-preview.jpg',
+  poster: '/media/filme-turntech-poster.jpg',
+  label: 'Filme Turntech',
+  hint: 'Assistir · 3 min',
+  title: 'Filme Turntech',
 };
 
 export const proof = [

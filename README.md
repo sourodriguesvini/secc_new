@@ -29,7 +29,8 @@ src/
   styles/global.css   tokens, base e blocos compartilhados
   layouts/            Base (head), Page (cabeçalho + rodapé), Prose (texto corrido)
   components/         PageHero, Demo, CtaBand e as seções da home
-  scripts/            motion.ts (animação), instruments.ts (visuais em canvas), tabs.ts
+  scripts/            motion.ts (animação), tabs.ts e os instrumentos em canvas:
+                      instrument-painters.ts tem um desenho por página
   assets/             imagens-fonte
 ```
 
@@ -55,9 +56,9 @@ npm run dev
 
 Cada push na `main` dispara o GitHub Actions, que gera o site e publica o resultado na branch **`deploy`**. Na Hostinger (hPanel → Avançado → Git), conecte este repositório na branch `deploy` e instale na raiz do domínio.
 
-## Vídeo de apresentação
+## Filme do balão
 
-O balão flutuante lê `presentationVideo` em `src/data/site.ts`. Coloque o arquivo em `public/` e preencha `src` (e `poster`); sem isso, o balão abre um aviso de "em produção".
+O balão flutuante lê `presentationVideo` em `src/data/site.ts`. Em `public/media/` ficam o filme para web (720p), o trecho curto e mudo que roda em miniatura e os dois quadros de capa. O filme inteiro só é baixado quando a pessoa clica.
 
 ## Antes de ir para o domínio definitivo
 

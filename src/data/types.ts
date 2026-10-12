@@ -26,8 +26,8 @@ export interface DemoPanel {
   note?: string;
 }
 
-/** Visual animado do topo da página. */
-export type Instrument = 'radar' | 'flow' | 'pulse' | 'orbit' | 'grid';
+/** Visual animado do topo da página: cada página tem o seu (ver src/scripts/instrument-painters.ts). */
+export type Instrument = import('../scripts/instruments').InstrumentMode;
 
 export interface SolutionPage {
   slug: string;

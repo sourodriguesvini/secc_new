@@ -1,28 +1,22 @@
 ---
-// Balão flutuante de vídeo: fica no canto, convida sem cobrir nada, e abre o
-// vídeo inteiro num diálogo. O vídeo é configurado em src/data/site.ts.
+// Balão flutuante do filme: um trecho curto roda em miniatura, sem som, para
+// mostrar que há algo ali; o filme inteiro só carrega e toca depois do clique.
+// Os arquivos são configurados em src/data/site.ts.
 import Icon from './Icon.astro';
 import { cta, presentationVideo as video } from '../data/site';
 ---
 
 <div class="vb" data-vb hidden>
-  <button type="button" class="vb-open" data-vb-open aria-haspopup="dialog">
+  <button type="button" class="vb-open" data-vb-open aria-haspopup="dialog" aria-label={`${video.label}: ${video.hint}`}>
     <span class="vb-face">
-      {
-        video.src ? (
-          <video src={video.src} poster={video.poster || undefined} muted loop playsinline preload="none" data-vb-preview />
-        ) : (
-          <img src="https://secctech.ai/brand/secc-symbol.png" alt="" width="64" height="64" loading="lazy" />
-        )
-      }
-      <span class="vb-play"><Icon name="play" /></span>
+      <video src={video.preview} poster={video.previewPoster} muted loop playsinline preload="metadata" disablepictureinpicture data-vb-preview></video>
     </span>
-    <span class="vb-label">
+    <span class="vb-label" aria-hidden="true">
       <strong>{video.label}</strong>
-      <span>Ver o vídeo</span>
+      <span><Icon name="play" />{video.hint}</span>
     </span>
   </button>
-  <button type="button" class="vb-dismiss" data-vb-dismiss aria-label="Dispensar o vídeo de apresentação">
+  <button type="button" class="vb-dismiss" data-vb-dismiss aria-label="Dispensar o filme">
     <Icon name="close" />
   </button>
 </div>
@@ -31,19 +25,9 @@ import { cta, presentationVideo as video } from '../data/site';
   <div class="vb-dialog-inner">
     <header>
       <h2 id="vb-title">{video.title}</h2>
-      <button type="button" class="vb-close" data-vb-close aria-label="Fechar o vídeo"><Icon name="close" /></button>
+      <button type="button" class="vb-close" data-vb-close aria-label="Fechar o filme"><Icon name="close" /></button>
     </header>
-    {
-      video.src ? (
-        <video src={video.src} poster={video.poster || undefined} controls playsinline preload="metadata" data-vb-player />
-      ) : (
-        <div class="vb-placeholder">
-          <p class="kicker">Em produção</p>
-          <p>O vídeo de apresentação do Estevão entra aqui.</p>
-          <p class="vb-hint">Basta apontar o arquivo em <code>src/data/site.ts</code>.</p>
-        </div>
-      )
-    }
+    <video src={video.src} poster={video.poster} controls playsinline preload="none" data-vb-player></video>
     <footer>
       <a class="btn btn-primary" href={cta.primary.href}>{cta.primary.label} <Icon name="arrow" /></a>
       <a class="btn btn-ghost" href={cta.secondary.href}>{cta.secondary.label}</a>
@@ -66,8 +50,8 @@ import { cta, presentationVideo as video } from '../data/site';
   .vb-open {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    padding: 0.4rem;
+    gap: 0.85rem;
+    padding: 0.3rem;
     border: 1px solid var(--border-strong);
     border-radius: 999px;
     background: rgb(20 23 31 / 0.9);
@@ -81,47 +65,33 @@ import { cta, presentationVideo as video } from '../data/site';
 
   .vb-face {
     position: relative;
-    display: grid;
-    place-items: center;
-    width: 60px;
-    height: 60px;
+    display: block;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
-    overflow: hidden;
     background: var(--bg-base);
     flex: none;
   }
-  /* Anel que respira: convida sem piscar. */
+  .vb-face video { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+  /* Anel que respira em volta da miniatura: convida sem piscar. */
   .vb-face::after {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: -3px;
     border-radius: 50%;
     border: 2px solid var(--accent);
     animation: vb-ring 2.8s ease-out infinite;
+    pointer-events: none;
   }
   @keyframes vb-ring {
     0% { opacity: 0.9; transform: scale(1); }
-    70%, 100% { opacity: 0; transform: scale(1.32); }
-  }
-  .vb-face video,
-  .vb-face img { width: 100%; height: 100%; object-fit: cover; }
-  .vb-face img { width: 60%; height: 60%; border-radius: 8px; opacity: 0.55; }
-  .vb-play {
-    position: absolute;
-    display: grid;
-    place-items: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: var(--accent-fill);
-    color: #fff;
-    font-size: 0.75rem;
-    box-shadow: 0 4px 14px rgb(0 0 0 / 0.5);
+    70%, 100% { opacity: 0; transform: scale(1.22); }
   }
 
-  .vb-label { display: none; padding-right: 1rem; line-height: 1.25; }
+  .vb-label { display: none; padding-right: 1.1rem; line-height: 1.25; }
   .vb-label strong { display: block; font-size: 0.9375rem; font-weight: 600; }
-  .vb-label span { font-size: 0.8125rem; color: var(--text-tertiary); }
+  .vb-label span { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8125rem; color: var(--text-secondary); }
+  .vb-label :global(.icon) { width: 0.7rem; height: 0.7rem; color: var(--accent); }
 
   .vb-dismiss {
     position: absolute;
@@ -142,14 +112,16 @@ import { cta, presentationVideo as video } from '../data/site';
   .vb:hover .vb-dismiss,
   .vb-dismiss:focus-visible { opacity: 1; }
   @media (hover: none) { .vb-dismiss { opacity: 1; } }
-  /* O rótulo aparece na chegada e recolhe depois, para o balão ocupar só o círculo. */
+
+  /* O rótulo aparece na chegada e recolhe depois: fica só a miniatura rodando. */
   @media (min-width: 640px) {
+    .vb-face { width: 84px; height: 84px; }
     .vb-label { display: block; }
     .vb.is-compact:not(:hover):not(:focus-within) .vb-label { display: none; }
   }
 
   .vb-dialog {
-    width: min(100% - 2rem, 62rem);
+    width: min(100% - 2rem, 68rem);
     max-height: calc(100dvh - 2rem);
     padding: 0;
     border: 1px solid var(--border-strong);
@@ -159,38 +131,25 @@ import { cta, presentationVideo as video } from '../data/site';
     box-shadow: var(--shadow);
     overflow: auto;
   }
-  .vb-dialog::backdrop { background: rgb(4 5 6 / 0.82); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .vb-dialog::backdrop { background: rgb(4 5 6 / 0.86); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
   .vb-dialog[open] { animation: vb-dialog-in 0.5s var(--ease-out); }
   @keyframes vb-dialog-in {
     from { opacity: 0; transform: translateY(24px) scale(0.97); }
   }
-  .vb-dialog-inner { display: grid; gap: 1.25rem; padding: clamp(1rem, 3vw, 1.75rem); }
-  .vb-dialog header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-  .vb-dialog h2 { font-size: clamp(1.25rem, 2.4vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.15; }
+  .vb-dialog-inner { display: grid; gap: 1.1rem; padding: clamp(0.9rem, 2.5vw, 1.5rem); }
+  .vb-dialog header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .vb-dialog h2 { font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-secondary); }
   .vb-close {
     display: grid;
     place-items: center;
     width: 44px;
     height: 44px;
-    margin: -0.5rem -0.5rem 0 0;
+    margin: -0.4rem -0.4rem -0.4rem 0;
     border-radius: 50%;
     flex: none;
   }
   .vb-close:hover { background: rgb(255 255 255 / 0.08); }
-  .vb-dialog video,
-  .vb-placeholder { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-xl); background: var(--bg-base); }
-  .vb-placeholder {
-    display: grid;
-    place-content: center;
-    justify-items: center;
-    gap: 0.6rem;
-    padding: 1.5rem;
-    border: 1px dashed var(--border-strong);
-    text-align: center;
-    font-size: 1.125rem;
-  }
-  .vb-hint { font-size: 0.875rem; color: var(--text-tertiary); }
-  .vb-hint code { font-family: var(--font-mono); }
+  .vb-dialog video { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-xl); background: #000; }
   .vb-dialog footer { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 </style>
 
@@ -199,8 +158,8 @@ import { cta, presentationVideo as video } from '../data/site';
   const dialog = document.querySelector<HTMLDialogElement>('[data-vb-dialog]');
 
   if (bubble && dialog) {
-    const preview = bubble.querySelector<HTMLVideoElement>('[data-vb-preview]');
-    const player = dialog.querySelector<HTMLVideoElement>('[data-vb-player]');
+    const preview = bubble.querySelector<HTMLVideoElement>('[data-vb-preview]')!;
+    const player = dialog.querySelector<HTMLVideoElement>('[data-vb-player]')!;
     const DISMISSED = 'secc-video-dismissed';
     const dismissed = () => {
       try {
@@ -209,12 +168,14 @@ import { cta, presentationVideo as video } from '../data/site';
         return false;
       }
     };
+    // Mudo e inline: os navegadores deixam tocar sozinho.
+    const playPreview = () => preview.play().catch(() => {});
 
     // Entra depois que a pessoa já leu o título, para não disputar a primeira impressão.
     const show = () => {
       if (!bubble.hidden || dismissed()) return;
       bubble.hidden = false;
-      preview?.play().catch(() => {});
+      playPreview();
       window.setTimeout(() => bubble.classList.add('is-compact'), 7000);
     };
     const timer = window.setTimeout(show, 3500);
@@ -228,13 +189,21 @@ import { cta, presentationVideo as video } from '../data/site';
       },
       { passive: true },
     );
+    // Não gasta bateria com a aba em segundo plano.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) preview.pause();
+      else if (!bubble.hidden && !dialog.open) playPreview();
+    });
 
     bubble.querySelector('[data-vb-open]')!.addEventListener('click', () => {
-      preview?.pause();
+      preview.pause();
       dialog.showModal();
-      player?.play().catch(() => {});
+      // O clique é o gesto que libera o som: o filme começa do início, com áudio.
+      player.currentTime = 0;
+      player.play().catch(() => {});
     });
     bubble.querySelector('[data-vb-dismiss]')!.addEventListener('click', () => {
+      preview.pause();
       bubble.hidden = true;
       try {
         sessionStorage.setItem(DISMISSED, '1');
@@ -249,8 +218,8 @@ import { cta, presentationVideo as video } from '../data/site';
       if (event.target === dialog) dialog.close();
     });
     dialog.addEventListener('close', () => {
-      player?.pause();
-      preview?.play().catch(() => {});
+      player.pause();
+      if (!bubble.hidden) playPreview();
     });
   }
 </script>
