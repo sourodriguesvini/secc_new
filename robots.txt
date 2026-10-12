@@ -1,0 +1,3 @@
+# Versão de revisão em domínio temporário: fora dos buscadores até a aprovação.
+User-agent: *
+Disallow: /
