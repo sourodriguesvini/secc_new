@@ -1,0 +1,44 @@
+---
+// Chamada de fechamento das páginas internas.
+import Icon from './Icon.astro';
+import { cta } from '../data/site';
+
+interface Props {
+  title: string;
+  text: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+const { title, text, primary = cta.primary, secondary = cta.secondary } = Astro.props;
+---
+
+<section class="section" aria-labelledby="cta-band-title">
+  <div class="container">
+    <div class="band" data-reveal data-spotlight>
+      <h2 id="cta-band-title" data-split>{title}</h2>
+      <p class="lead">{text}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href={primary.href} data-magnetic>{primary.label} <Icon name="arrow" /></a>
+        <a class="btn btn-ghost" href={secondary.href}>{secondary.label}</a>
+      </div>
+      <p class="cta-note">{cta.note}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+    padding: clamp(2rem, 6vw, 5rem);
+    border: 1px solid var(--border-strong);
+    border-radius: 32px;
+    background:
+      radial-gradient(70% 130% at 100% 0%, rgb(29 78 216 / 0.38), transparent 62%),
+      var(--bg-surface);
+    overflow: hidden;
+  }
+  .band h2 { max-width: 20ch; font-size: clamp(2rem, 4.6vw, 3.75rem); }
+  .band .lead { max-width: 40rem; }
+</style>

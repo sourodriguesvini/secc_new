@@ -4,14 +4,29 @@ const APP = 'https://secctech.ai';
 const app = (path: string) => `${APP}${path}`;
 
 export const links = {
+  // Cadastro, login e o formulário de briefing continuam na plataforma.
   register: app('/register'),
   login: app('/login'),
-  contact: app('/contato'),
+  briefing: app('/contato#briefing'),
   sos: app('/contato#briefing'),
-  plans: app('/planos'),
-  about: app('/sobre'),
-  ecosystem: app('/ecossistema'),
-  cookies: app('/politica-de-cookies'),
+  // Páginas deste site.
+  contact: '/contato/',
+  plans: '/planos/',
+  about: '/sobre/',
+  ecosystem: '/ecossistema/',
+  cookies: '/politica-de-cookies/',
+} as const;
+
+export const solution = (slug: string) => `/solucoes/${slug}/`;
+export const persona = (slug: string) => `/para/${slug}/`;
+
+/** Legenda do visual animado do topo, por tipo. */
+export const instrumentCaptions = {
+  radar: 'Radar da Crise · demonstração com sinais ilustrativos',
+  pulse: 'Indicador monitorado contra o limite · ilustração',
+  flow: 'Entrada, processamento e saída · ilustração',
+  orbit: 'O núcleo e as frentes em volta dele · ilustração',
+  grid: 'Cobertura da leitura · ilustração',
 } as const;
 
 export const cta = {
@@ -29,17 +44,17 @@ export const presentationVideo = {
 };
 
 export const proof = [
-  { value: '20 anos', label: 'recuperando empresas' },
-  { value: '250+', label: 'turnarounds na prática' },
-  { value: 'R$ 35 bi', label: 'em operações conduzidas' },
+  { value: '20 anos', label: 'recuperando empresas', count: 20, prefix: '', suffix: ' anos' },
+  { value: '250+', label: 'turnarounds na prática', count: 250, prefix: '', suffix: '+' },
+  { value: 'R$ 35 bi', label: 'em operações conduzidas', count: 35, prefix: 'R$ ', suffix: ' bi' },
 ];
 
 /** Sinais do radar do hero. `months` = distância até a crise (18 = borda, 0 = centro). */
 export const radarSignals = [
-  { label: 'margem afinando', months: 16, angle: 205 },
+  { label: 'margem afinando', months: 16, angle: 190 },
   { label: 'cliente pagando mais tarde', months: 13.5, angle: 330 },
   { label: 'fornecedor pede à vista', months: 10.5, angle: 148 },
-  { label: 'banco reduziu o limite', months: 7.5, angle: 288 },
+  { label: 'banco reduziu o limite', months: 7.5, angle: 250 },
   { label: 'imposto parcelado', months: 5.6, angle: 52 },
   { label: 'folha em atraso', months: 3.4, angle: 172 },
   { label: 'protesto', months: 1.6, angle: 318 },
@@ -77,7 +92,7 @@ export const tuesdays: Tuesday[] = [
     front: 'CredPass',
     answer:
       'Pedido de crédito estruturado, documentos em ordem e ofertas comparáveis de bancos e fundos. A aprovação continua com quem empresta; você para de bater de porta em porta.',
-    link: { label: 'Conhecer o CredPass', href: app('/solucoes/credpass') },
+    link: { label: 'Conhecer o CredPass', href: solution('credpass') },
   },
   {
     id: 'cliente',
@@ -102,7 +117,7 @@ export const tuesdays: Tuesday[] = [
     front: 'Prevenção',
     answer:
       'É a melhor hora. Toda crise avisa, em média, 18 meses antes; o Radar pega o sinal quando ainda há caixa e opções.',
-    link: { label: 'Conhecer o Radar da Crise', href: app('/solucoes/radar') },
+    link: { label: 'Conhecer o Radar da Crise', href: solution('radar') },
   },
 ];
 
@@ -142,7 +157,7 @@ export const movements = [
 export const solutions = {
   core: {
     name: 'SECC',
-    href: app('/solucoes/secc'),
+    href: solution('secc'),
     text: 'O sistema operacional de combate à crise. O Radar enxerga o que muda lá fora; os processos acompanham o que precisa mudar aqui dentro.',
     points: ['Radar: sinais e cenários de mercado', 'Processos, responsáveis e prazos', 'Decisões e execução acompanhadas'],
   },
@@ -152,7 +167,7 @@ export const solutions = {
       items: [
         {
           name: 'Radar da Crise™',
-          href: app('/solucoes/radar'),
+          href: solution('radar'),
           text: 'Alertas preditivos de crise, com evidência e fonte. A “Bloomberg” da PME.',
         },
       ],
@@ -160,23 +175,23 @@ export const solutions = {
     {
       name: 'Crédito',
       items: [
-        { name: 'CredPass®', href: app('/solucoes/credpass'), text: 'A esteira de crédito da PME, com comissão muito menor.' },
-        { name: 'WatchDog®', href: app('/solucoes/watchdog'), text: 'Risco e limites financeiros sob leitura, para credor ou dono.' },
+        { name: 'CredPass®', href: solution('credpass'), text: 'A esteira de crédito da PME, com comissão muito menor.' },
+        { name: 'WatchDog®', href: solution('watchdog'), text: 'Risco e limites financeiros sob leitura, para credor ou dono.' },
       ],
     },
     {
       name: 'Formação e rede',
       items: [
-        { name: 'SECC Academy™', href: app('/solucoes/academy'), text: 'Formação em turnaround, gestão e IA, com trilhas, casos e certificação.' },
-        { name: 'PACT', href: app('/solucoes/pact'), text: 'Aceleração de consultores e licenciamento de Agentes SECC: a rede humana da plataforma.' },
-        { name: '@TURN', href: app('/solucoes/turn'), text: 'O business club de quem recupera negócios.' },
+        { name: 'SECC Academy™', href: solution('academy'), text: 'Formação em turnaround, gestão e IA, com trilhas, casos e certificação.' },
+        { name: 'PACT', href: solution('pact'), text: 'Aceleração de consultores e licenciamento de Agentes SECC: a rede humana da plataforma.' },
+        { name: '@TURN', href: solution('turn'), text: 'O business club de quem recupera negócios.' },
       ],
     },
     {
       name: 'Mercado e comunidade',
       items: [
-        { name: 'SECC Market', href: app('/solucoes/market'), text: 'Onde clientes compram e vendem produtos, ativos, empresas, dívidas e créditos.' },
-        { name: 'Comunidade SECC', href: app('/solucoes/comunidade'), text: 'Dúvidas respondidas por quem já passou pelo mesmo.' },
+        { name: 'SECC Market', href: solution('market'), text: 'Onde clientes compram e vendem produtos, ativos, empresas, dívidas e créditos.' },
+        { name: 'Comunidade SECC', href: solution('comunidade'), text: 'Dúvidas respondidas por quem já passou pelo mesmo.' },
       ],
     },
   ],
@@ -188,14 +203,14 @@ export const allSolutions = [
 ];
 
 export const personas = [
-  { id: 'empresario', name: 'Empresário', plural: 'empresários', href: app('/para/empresario'), text: 'Crédito, gestão de crise, painel de controle da empresa e radares.' },
-  { id: 'cfo', name: 'CFO / Controller', plural: 'CFOs e controllers', href: app('/para/cfo'), text: 'Gestão financeira completa da empresa. Sala de Guerra. Central de Inteligência.' },
-  { id: 'credor', name: 'Conselho / Fundo / Credor', plural: 'conselhos, fundos e credores', href: app('/para/credor'), text: 'Indicadores e execução dos planos, acompanhados em tempo real.' },
-  { id: 'contador', name: 'Contador', plural: 'contadores', href: app('/para/contador'), text: 'Gestão do escritório, IA no núcleo contábil, radar da carteira e prospecção de clientes.' },
-  { id: 'consultor', name: 'Consultor', plural: 'consultores', href: app('/para/consultor'), text: 'Formação e Licenciamento PACT, com suporte completo à consultoria em turnaround.' },
-  { id: 'consultoria', name: 'Dono de consultoria', plural: 'consultorias', href: app('/para/consultoria'), text: 'Gestão da consultoria, radar da carteira e a sua metodologia automatizada.' },
-  { id: 'advogado', name: 'Advogado', plural: 'advogados', href: app('/para/advogado'), text: 'Gestão do escritório, IA no núcleo jurídico, radar da carteira e prospecção de clientes.' },
-  { id: 'estudante', name: 'Estudante', plural: 'estudantes', href: app('/para/estudante'), text: 'Uma carreira nova em um mercado que não para de crescer.' },
+  { id: 'empresario', name: 'Empresário', plural: 'empresários', href: persona('empresario'), text: 'Crédito, gestão de crise, painel de controle da empresa e radares.' },
+  { id: 'cfo', name: 'CFO / Controller', plural: 'CFOs e controllers', href: persona('cfo'), text: 'Gestão financeira completa da empresa. Sala de Guerra. Central de Inteligência.' },
+  { id: 'credor', name: 'Conselho / Fundo / Credor', plural: 'conselhos, fundos e credores', href: persona('credor'), text: 'Indicadores e execução dos planos, acompanhados em tempo real.' },
+  { id: 'contador', name: 'Contador', plural: 'contadores', href: persona('contador'), text: 'Gestão do escritório, IA no núcleo contábil, radar da carteira e prospecção de clientes.' },
+  { id: 'consultor', name: 'Consultor', plural: 'consultores', href: persona('consultor'), text: 'Formação e Licenciamento PACT, com suporte completo à consultoria em turnaround.' },
+  { id: 'consultoria', name: 'Dono de consultoria', plural: 'consultorias', href: persona('consultoria'), text: 'Gestão da consultoria, radar da carteira e a sua metodologia automatizada.' },
+  { id: 'advogado', name: 'Advogado', plural: 'advogados', href: persona('advogado'), text: 'Gestão do escritório, IA no núcleo jurídico, radar da carteira e prospecção de clientes.' },
+  { id: 'estudante', name: 'Estudante', plural: 'estudantes', href: persona('estudante'), text: 'Uma carreira nova em um mercado que não para de crescer.' },
 ];
 
 export const founders = [

@@ -257,14 +257,16 @@ import { movements } from '../data/site';
     transform: translateY(24px);
     transition: opacity 0.5s, transform 0.7s var(--ease-out), visibility 0.5s;
   }
+  /* Versão suave: as marchas trocam só por opacidade. */
+  :global(html.motion-gentle) .story.is-pinned .step { transform: none; }
   .story.is-pinned .step.is-on { opacity: 1; visibility: visible; transform: none; }
 </style>
 
 <script>
-  import { gsap, ScrollTrigger, reducedMotion } from '../scripts/motion';
+  import { gsap, ScrollTrigger } from '../scripts/motion';
 
   const story = document.querySelector<HTMLElement>('[data-story]');
-  if (story && !reducedMotion) {
+  if (story) {
     const fill = story.querySelector<HTMLElement>('[data-story-fill]')!;
     const gears = [...story.querySelectorAll<HTMLElement>('[data-story-gear]')];
     const steps = [...story.querySelectorAll<HTMLElement>('[data-story-step]')];

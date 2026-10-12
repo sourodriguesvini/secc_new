@@ -27,18 +27,15 @@ const { title, description } = Astro.props;
     <meta property="og:description" content={description} />
     <link rel="icon" href="https://secctech.ai/icon.png" />
     <script is:inline>
-      // Quem pede menos movimento no sistema recebe a versão estática. Para revisar as
-      // animações numa máquina assim, abra a página com ?movimento na URL.
+      // Dois níveis de movimento. Quem pede menos movimento no sistema recebe a
+      // versão suave (viva, mas sem grandes deslocamentos). ?movimento força a completa.
       (function () {
         var root = document.documentElement;
-        var force = /[?&]movimento/.test(location.search);
-        root.classList.add('js');
-        if (force) root.classList.add('force-motion');
-        window.__reducedMotion = !force && matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (window.__reducedMotion) return;
-        // Liga os estados iniciais das animações antes da primeira pintura. Se o
-        // JavaScript de movimento não assumir em 4s, devolve a página visível.
-        root.classList.add('motion');
+        var force = /[?&]movimento/.test(location.search);
+        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.__motionTier = reduce && !force ? 'gentle' : 'full';
+        root.classList.add('js', 'motion', 'motion-' + window.__motionTier);
+        // Se o JavaScript de movimento não assumir em 4s, devolve a página visível.
         setTimeout(function () {
           if (!window.__motionReady) root.classList.remove('motion');
         }, 4000);

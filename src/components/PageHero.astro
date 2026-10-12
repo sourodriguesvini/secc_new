@@ -1,0 +1,146 @@
+---
+// Topo de qualquer página: texto à esquerda, instrumento vivo à direita
+// (no celular, o instrumento vira uma faixa acima do título).
+import Icon from './Icon.astro';
+import type { Instrument } from '../data/types';
+import type { RadarSignal } from '../scripts/instruments';
+
+interface Props {
+  eyebrow: string;
+  title?: string;
+  lead: string;
+  instrument: Instrument;
+  signals?: RadarSignal[];
+  caption: string;
+  primary: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  note?: string;
+  /** A home ocupa a tela inteira; as internas são um pouco mais baixas. */
+  tall?: boolean;
+}
+const { eyebrow, title, lead, instrument, signals = [], caption, primary, secondary, note, tall = false } = Astro.props;
+---
+
+<section class:list={['hero', { 'hero--tall': tall }]} aria-labelledby="hero-title">
+  <canvas class="hero-instrument" data-instrument={instrument} data-signals={JSON.stringify(signals)} aria-hidden="true"></canvas>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+    <p class="hero-tag" data-reveal><span class="hero-tag-dot" aria-hidden="true"></span>{eyebrow}</p>
+    <h1 id="hero-title" data-split="hero"><slot name="title">{title}</slot></h1>
+    <p class="hero-lead" data-reveal="0.35">{lead}</p>
+    <div class="cta-row" data-reveal="0.5">
+      <a class="btn btn-primary" href={primary.href} data-magnetic>{primary.label} <Icon name="arrow" /></a>
+      {secondary && <a class="btn btn-ghost" href={secondary.href}>{secondary.label}</a>}
+    </div>
+    {note && <p class="cta-note" data-reveal="0.6">{note}</p>}
+  </div>
+
+  <div class="container hero-foot" data-reveal="0.8">
+    <slot name="foot" />
+    <p class="hero-caption">
+      <span>{caption}</span>
+      <button type="button" class="hero-pause" data-instrument-toggle aria-pressed="false">
+        <span data-label>Pausar animação</span>
+      </button>
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: clamp(2rem, 5vh, 3.5rem);
+    min-height: min(calc(88svh - var(--sos-h)), 820px);
+    margin-top: calc(var(--header-h) * -1);
+    padding: calc(var(--header-h) + 2.5rem) 0 2rem;
+  }
+  /* A home cabe inteira na primeira dobra, junto com a faixa SOS. */
+  .hero--tall { min-height: min(calc(100svh - var(--sos-h)), 980px); }
+
+  .hero-instrument {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, var(--bg-base) 0%, rgb(7 8 9 / 0.9) 34%, rgb(7 8 9 / 0) 60%),
+      linear-gradient(180deg, rgb(7 8 9 / 0) 70%, var(--bg-base) 100%);
+    pointer-events: none;
+  }
+
+  .hero-content { display: grid; gap: 1.4rem; justify-items: start; }
+  .hero-content h1 { max-width: 17ch; font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 0.98; }
+  .hero--tall .hero-content h1 { max-width: 14ch; font-size: clamp(2.75rem, 6.2vw, 5.75rem); }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font: 500 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .hero-tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px 2px var(--glow); flex: none; }
+  .hero-lead {
+    max-width: 34rem;
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    line-height: 1.5;
+    color: rgb(245 247 251 / 0.86);
+    text-wrap: pretty;
+  }
+
+  .hero-foot { display: grid; gap: 0.9rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  .hero-caption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1.25rem;
+    font: 400 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.04em;
+    color: var(--text-tertiary);
+  }
+  .hero-pause {
+    min-height: 32px;
+    font: inherit;
+    letter-spacing: inherit;
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .hero-pause:hover { color: var(--text-primary); }
+
+  @media (max-width: 899px) {
+    /* A faixa do instrumento tem 2 × raio (raio = 26vw, até 130px) mais respiro. */
+    .hero { padding-top: calc(var(--header-h) + min(52vw, 260px) + 2.25rem); justify-content: flex-start; min-height: 0; }
+    .hero-shade { display: none; }
+  }
+</style>
+
+<script>
+  import { initInstrument, type InstrumentMode } from '../scripts/instruments';
+
+  const controllers = [...document.querySelectorAll<HTMLCanvasElement>('[data-instrument]')].map((canvas) =>
+    initInstrument(canvas, canvas.dataset.instrument as InstrumentMode, JSON.parse(canvas.dataset.signals ?? '[]')),
+  );
+
+  // Movimento contínuo precisa de um jeito de parar (WCAG 2.2.2).
+  document.querySelectorAll<HTMLButtonElement>('[data-instrument-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const paused = controllers.map((controller) => controller.toggle())[0];
+      button.setAttribute('aria-pressed', String(paused));
+      button.querySelector('[data-label]')!.textContent = paused ? 'Retomar animação' : 'Pausar animação';
+    });
+  });
+</script>

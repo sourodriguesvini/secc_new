@@ -1,0 +1,271 @@
+---
+import Page from '../../layouts/Page.astro';
+import PageHero from '../../components/PageHero.astro';
+import Demo from '../../components/Demo.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { personaPages } from '../../data/persona-pages';
+import { cta, instrumentCaptions, links, radarSignals } from '../../data/site';
+
+export function getStaticPaths() {
+  return personaPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const primary = { label: page.cta, href: links.register };
+---
+
+<Page title={`Para ${page.plural} — ${page.title} | SECC`} description={page.lead}>
+  <PageHero
+    eyebrow={page.eyebrow}
+    title={page.title}
+    lead={page.lead}
+    instrument={page.instrument}
+    signals={radarSignals}
+    caption={instrumentCaptions[page.instrument]}
+    primary={primary}
+    secondary={cta.secondary}
+    note={cta.note}
+  />
+
+  <section class="section section--surface" aria-labelledby="day-title">
+    <div class="container day">
+      <div class="day-copy">
+        <p class="eyebrow">O dia a dia</p>
+        <h2 id="day-title" data-split>{page.situations.title}</h2>
+        <ol class="situations" data-reveal-group>
+          {page.situations.items.map((item) => <li data-reveal>{item}</li>)}
+        </ol>
+      </div>
+      <Demo panel={page.demo} caption="Cena do produto, com dados fictícios." />
+    </div>
+  </section>
+
+  {
+    page.matrix.rows.length > 0 && (
+      <section class="section" id="decisoes" aria-labelledby="matrix-title">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">Decisão → produto → resultado</p>
+            <h2 id="matrix-title" data-split>
+              {page.matrix.title}
+            </h2>
+          </header>
+
+          <div class="matrix" data-tabs data-reveal>
+            <div class="decisions" role="tablist" aria-label="Decisões" aria-orientation="vertical">
+              {page.matrix.rows.map((row, index) => (
+                <button
+                  type="button"
+                  role="tab"
+                  id={`decisao-${index}`}
+                  aria-controls={`resultado-${index}`}
+                  aria-selected={index === 0 ? 'true' : 'false'}
+                  class="decision"
+                >
+                  <span class="decision-mark" aria-hidden="true" />
+                  {row.decision}
+                </button>
+              ))}
+            </div>
+            <div class="outcomes">
+              {page.matrix.rows.map((row, index) => (
+                <div class="outcome" role="tabpanel" id={`resultado-${index}`} aria-labelledby={`decisao-${index}`} tabindex="0" data-spotlight>
+                  <p class="outcome-where">
+                    <span class="chip" style="--c:var(--accent)">
+                      {row.solution}
+                    </span>
+                    <span>{row.feature}</span>
+                    <code>{row.screen}</code>
+                  </p>
+                  <dl>
+                    <div>
+                      <dt>O que aparece na tela</dt>
+                      <dd>{row.shows}</dd>
+                    </div>
+                    <div>
+                      <dt>Resultado demonstrado</dt>
+                      <dd class="outcome-result">{row.result}</dd>
+                    </div>
+                  </dl>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    page.deepDives.map((dive, index) => (
+      <section class:list={['section', { 'section--surface': index % 2 === 0 }]}>
+        <div class="container dive">
+          <div class="dive-copy">
+            <p class="kicker">{dive.kicker}</p>
+            <h2 data-split>{dive.title}</h2>
+            <p class="lead" data-reveal>
+              {dive.point}
+            </p>
+          </div>
+          <Demo panel={dive.demo} />
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section" aria-labelledby="results-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Na prática</p>
+        <h2 id="results-title" data-split>Resultados demonstrados</h2>
+      </header>
+      <ul class="results" data-reveal-group>
+        {
+          page.results.map((result) => (
+            <li data-reveal data-spotlight>
+              <h3>{result.title}</h3>
+              <p>{result.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {
+    page.faq.length > 0 && (
+      <section class="section section--surface" aria-labelledby="faq-title">
+        <div class="container faq">
+          <div>
+            <p class="eyebrow">Limites e confiança</p>
+            <h2 id="faq-title" data-split>
+              O produto deixa explícito o que sabe — e o que ainda depende de você.
+            </h2>
+          </div>
+          <div class="faq-list" data-reveal-group>
+            {page.faq.map((item) => (
+              <details data-reveal>
+                <summary>
+                  {item.q}
+                  <Icon name="chevron" />
+                </summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand title={page.closing.title} text={page.closing.text} primary={primary} />
+</Page>
+
+<style>
+  .day { display: grid; gap: 2.5rem; align-items: center; }
+  .day-copy { display: grid; gap: 1.5rem; }
+  .day-copy .eyebrow { margin-bottom: 0; }
+  .day-copy h2 { font-size: clamp(1.875rem, 3.6vw, 3rem); }
+  .situations { display: grid; border-top: 1px solid var(--border); }
+  .situations li {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border);
+    font: italic 400 clamp(1.125rem, 1.9vw, 1.375rem) / 1.35 var(--font-serif);
+    color: var(--text-secondary);
+  }
+
+  /* Matriz: a decisão à esquerda, o que o produto mostra à direita. */
+  .matrix { display: grid; gap: 1.25rem; }
+  .decisions { display: grid; border-top: 1px solid var(--border); }
+  .decision {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-height: 60px;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: clamp(1.0625rem, 1.9vw, 1.375rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    text-align: left;
+    color: var(--text-tertiary);
+    transition: color 0.3s, padding-left 0.4s var(--ease-out);
+  }
+  .decision-mark { width: 9px; height: 9px; border-radius: 50%; border: 2px solid currentColor; flex: none; transition: background-color 0.3s, box-shadow 0.3s; }
+  .decision:hover { color: var(--text-secondary); }
+  .decision[aria-selected='true'] { color: var(--text-primary); padding-left: 0.85rem; }
+  .decision[aria-selected='true'] .decision-mark { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 14px 2px var(--glow); }
+
+  .outcome {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-elevated);
+  }
+  .outcome + .outcome { margin-top: 1rem; }
+  :global(html.js) .outcome + .outcome { margin-top: 0; }
+  .outcome:not([hidden]) { animation: outcome-in 0.5s var(--ease-out); }
+  @keyframes outcome-in {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+  .outcome-where { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.9rem; font-weight: 600; }
+  .outcome-where code { font: 400 0.8125rem/1.4 var(--font-mono); color: var(--text-tertiary); }
+  .outcome dl { display: grid; gap: 1.25rem; }
+  .outcome dt { margin-bottom: 0.35rem; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  .outcome dd { font-size: 1.125rem; line-height: 1.45; color: var(--text-secondary); }
+  .outcome dd.outcome-result { font-size: clamp(1.375rem, 2.4vw, 1.875rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text-primary); }
+
+  .dive { display: grid; gap: 2.5rem; align-items: center; }
+  .dive-copy { display: grid; gap: 1.1rem; }
+  .dive-copy h2 { font-size: clamp(2rem, 4.4vw, 3.5rem); }
+
+  .results { display: grid; gap: 1rem; }
+  .results li {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-surface);
+  }
+  .results h3 { font-size: 1.25rem; letter-spacing: -0.015em; }
+  .results p { line-height: 1.5; color: var(--text-secondary); }
+
+  .faq { display: grid; gap: 2rem; align-items: start; }
+  .faq h2 { font-size: clamp(1.75rem, 3.2vw, 2.75rem); }
+  .faq .eyebrow { margin-bottom: 1.25rem; }
+  .faq-list { display: grid; border-top: 1px solid var(--border); }
+  .faq-list details { border-bottom: 1px solid var(--border); }
+  .faq-list summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 64px;
+    padding: 0.9rem 0;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary :global(.icon) { color: var(--text-tertiary); transition: transform 0.3s var(--ease-out); }
+  .faq-list details[open] summary :global(.icon) { transform: rotate(180deg); }
+  .faq-list details p { padding-bottom: 1.25rem; max-width: 40rem; line-height: 1.55; color: var(--text-secondary); }
+
+  @media (min-width: 720px) {
+    .results { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .day { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 5rem; }
+    .matrix { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 4rem; align-items: start; }
+    .outcomes { position: sticky; top: calc(var(--header-h) + 2rem); }
+    .dive { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; }
+    .faq { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; }
+  }
+</style>

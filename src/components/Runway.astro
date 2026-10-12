@@ -148,7 +148,7 @@ import { cta } from '../data/site';
 </style>
 
 <script>
-  import { gsap, reducedMotion } from '../scripts/motion';
+  import { gsap } from '../scripts/motion';
 
   const HORIZON = 18;
   const form = document.querySelector<HTMLFormElement>('[data-runway]');
@@ -172,11 +172,6 @@ import { cta } from '../data/site';
 
     const setFigure = (months: number, capped: boolean) => {
       const text = () => (capped ? '18+' : decimal.format(shown.months));
-      if (reducedMotion) {
-        shown.months = months;
-        value.textContent = text();
-        return;
-      }
       gsap.to(shown, { months, duration: 0.8, ease: 'power3.out', onUpdate: () => (value.textContent = text()) });
     };
 

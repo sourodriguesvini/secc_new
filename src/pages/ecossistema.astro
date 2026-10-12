@@ -1,0 +1,286 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { cta, instrumentCaptions, solution } from '../data/site';
+
+const loop = [
+  { name: 'Observa', text: 'A SECC acompanha processos, responsáveis, prazos e dados da empresa.' },
+  { name: 'Detecta', text: 'Dentro da SECC, o Radar usa IA para identificar sinais, riscos e oportunidades no mercado.' },
+  { name: 'Projeta', text: 'O Radar transforma esses sinais em cenários, impactos e incertezas.' },
+  { name: 'Decide', text: 'Pessoas escolhem o rumo com o contexto da operação e do mercado aberto.' },
+  { name: 'Acompanha', text: 'A SECC acompanha o processo, os responsáveis, os prazos e o efeito da decisão.' },
+];
+
+const products = [
+  {
+    kicker: 'Radar e processos · SECC',
+    title: 'A SECC percebe o que muda fora e acompanha o que precisa mudar dentro.',
+    text: 'Dentro da SECC, o Radar usa IA, análise preditiva e leitura contínua do mercado para identificar riscos e oportunidades. A SECC conecta essa leitura aos processos da empresa — etapas, responsáveis, prazos, decisões e execução.',
+    points: ['Radar: sinais e cenários de mercado', 'Processos, responsáveis e prazos', 'Decisões e execução acompanhadas'],
+    link: { label: 'Conhecer a SECC', href: solution('secc') },
+  },
+  {
+    kicker: 'Risco e limites financeiros · WatchDog',
+    title: 'O risco muda antes do próximo reporte. O WatchDog mantém a carteira sob leitura.',
+    text: 'O WatchDog acompanha o risco, a qualidade dos dados e os limites financeiros acordados para cada empresa autorizada — mostrando o que mudou e qual situação exige revisão.',
+    points: ['Mudanças no risco', 'Qualidade e data da leitura', 'Limites financeiros'],
+    link: { label: 'Conhecer o WatchDog', href: solution('watchdog') },
+  },
+  {
+    kicker: 'Operações de M&A · M&APass',
+    title: 'Quem quer vender, comprar ou unir empresas precisa encontrar a outra ponta certa.',
+    text: 'O M&APass conecta empresas que querem vender, ser adquiridas ou se unir a compradores, investidores e parceiros estratégicos. A tecnologia organiza o contexto e aproxima as partes; análise, negociação e decisão continuam humanas.',
+    points: ['Objetivo da operação', 'Empresas e compradores conectados', 'Próximo passo claro'],
+  },
+  {
+    kicker: 'Crédito · CredPass',
+    title: 'Quem busca crédito precisa chegar a quem pode fornecer capital.',
+    text: 'O CredPass conecta empresas que precisam de crédito a bancos, fundos e outras fontes de capital. Pedido, documentos e ofertas permanecem organizados; a aprovação continua com quem fornece o crédito.',
+    points: ['Pedido de crédito estruturado', 'Bancos e fundos conectados', 'Ofertas comparáveis'],
+    link: { label: 'Conhecer o CredPass', href: solution('credpass') },
+  },
+  {
+    kicker: 'Formação · Academy',
+    title: 'Formação para quem precisa decidir quando o cenário não espera.',
+    text: 'Trilha, progresso, avaliação e certificação ficam visíveis, com revisão humana nas etapas que exigem validação.',
+    points: ['Trilha e progresso', 'Avaliação registrada', 'Certificação com revisão humana'],
+    note: 'PACT é uma trilha da Academy. Concluí-la pode tornar a pessoa elegível a se tornar Agente SECC; não há aprovação automática.',
+    link: { label: 'Conhecer a Academy', href: solution('academy') },
+  },
+];
+
+const handoffs = [
+  {
+    to: 'WatchDog',
+    title: 'Da leitura da empresa ao monitoramento da carteira',
+    text: 'Risco, qualidade da leitura, data e limites financeiros seguem para o monitoramento das empresas autorizadas. O WatchDog aponta o que pede revisão; o responsável abre o motivo antes de agir.',
+  },
+  {
+    to: 'M&APass',
+    title: 'Da intenção de vender, comprar ou se unir à conexão com a outra ponta',
+    text: 'O M&APass organiza o contexto e aproxima a empresa de compradores, investidores e parceiros estratégicos. Cada parte analisa, negocia e decide sob sua própria responsabilidade.',
+  },
+  {
+    to: 'CredPass',
+    title: 'Da necessidade de crédito à conexão com quem fornece capital',
+    text: 'O CredPass leva o pedido e os documentos da empresa a bancos, fundos e outras fontes de capital. Cada instituição analisa a solicitação e decide se oferece o crédito.',
+  },
+  {
+    to: 'Academy',
+    title: 'Da necessidade operacional à formação',
+    text: 'Uma lacuna identificada na prática pode orientar a trilha de formação. Progresso e avaliação não substituem a decisão operacional.',
+  },
+];
+
+const areas = [
+  { slug: 'financeiro', name: 'Financeiro', text: 'Veja quanto dinheiro há disponível, por quanto tempo ele sustenta a empresa e quais cobranças ou despesas exigem ação.' },
+  { slug: 'juridico', name: 'Jurídico', text: 'Acompanhe prazos, documentos pendentes e decisões que dependem de revisão jurídica.' },
+  { slug: 'contabil', name: 'Contábil', text: 'Organize obrigações, documentos faltantes e revisões antes do vencimento.' },
+  { slug: 'credito', name: 'Crédito & Capital', text: 'Reúna pedido, documentos e alternativas de crédito sem confundir organização com aprovação.' },
+  { slug: 'operacao', name: 'Operação & Gestão', text: 'Transforme prioridades em ações com responsável, prazo e acompanhamento.' },
+  { slug: 'estrategia', name: 'Estratégia & Planejamento', text: 'Ligue decisões importantes ao plano da semana e acompanhe o que mudou depois.' },
+  { slug: 'marketing-vendas', name: 'Marketing & Vendas', text: 'Identifique concentração de receita, pagamentos atrasados e ações para proteger as vendas.' },
+];
+---
+
+<Page
+  title="Ecossistema SECC — a primeira turntech do mundo"
+  description="A SECC inaugura uma nova categoria de tecnologia: o Radar antecipa decisões e os processos transformam cada decisão em execução."
+>
+  <PageHero
+    eyebrow="A primeira turntech do mundo"
+    title="Toda empresa pode mudar de rumo antes que a crise decida por ela."
+    lead="A SECC inaugura uma nova categoria de tecnologia. Dentro dela, o Radar usa IA, leitura contínua do mercado e análise preditiva para antecipar decisões. A SECC acompanha os processos que transformam cada decisão em execução."
+    instrument="orbit"
+    caption={instrumentCaptions.orbit}
+    primary={{ label: 'Explorar por área', href: '#areas' }}
+    secondary={{ label: 'Ver os produtos', href: '#produtos' }}
+  />
+
+  <section class="section section--surface" aria-labelledby="loop-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Radar e processos</p>
+        <h2 id="loop-title" data-split>A SECC enxerga o que muda no mercado e o que acontece dentro da operação.</h2>
+        <p class="lead" data-reveal>
+          O Radar da SECC usa IA, análise preditiva e leitura contínua do mercado para antecipar riscos e oportunidades. Ao mesmo
+          tempo, a SECC acompanha processos, responsáveis, prazos e execução.
+        </p>
+      </header>
+      <div class="flowline" aria-hidden="true"><span data-draw></span></div>
+      <ol class="flowsteps" data-reveal-group>
+        {
+          loop.map((step, index) => (
+            <li data-reveal>
+              <span class="kicker">0{index + 1}</span>
+              <h3>{step.name}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="produtos" aria-labelledby="products-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Produtos</p>
+        <h2 id="products-title" data-split>Cinco produtos. O Radar antecipa e os processos levam a decisão até a execução.</h2>
+        <p class="lead" data-reveal>
+          O WatchDog acompanha o risco; o M&amp;APass conecta as pontas de uma operação de M&amp;A; o CredPass conecta empresas a
+          quem fornece capital; e a Academy forma quem precisa decidir.
+        </p>
+      </header>
+      <div class="products">
+        {
+          products.map((product) => (
+            <article class="product" data-reveal data-spotlight>
+              <div class="product-main">
+                <p class="kicker">{product.kicker}</p>
+                <h3>{product.title}</h3>
+                <p>{product.text}</p>
+                {product.note && <p class="product-note">{product.note}</p>}
+              </div>
+              <div class="product-side">
+                <ul>
+                  {product.points.map((point) => (
+                    <li>
+                      <Icon name="check" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                {product.link && (
+                  <a class="text-link" href={product.link.href}>
+                    {product.link.label} <Icon name="arrow" />
+                  </a>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="handoff-title">
+    <div class="container duo">
+      <div class="stack sticky">
+        <p class="eyebrow">A leitura nasce no Radar da SECC</p>
+        <h2 id="handoff-title" class="h2-md" data-split>O Radar detecta. A SECC conecta o sinal ao processo. Cada produto conduz o próximo passo.</h2>
+        <p class="lead" data-reveal>
+          O contexto gerado pelo Radar e pelos processos da SECC pode seguir para monitoramento, formação ou conexão com quem
+          fornece capital, compra ou se une à empresa — sem apagar a origem, a confiança ou quem responde pela decisão.
+        </p>
+      </div>
+      <ul class="handoffs" data-reveal-group>
+        {
+          handoffs.map((item) => (
+            <li data-reveal>
+              <p class="route">
+                <span>SECC</span>
+                <span class="route-line" aria-hidden="true"><span data-draw /></span>
+                <span class="route-to">{item.to}</span>
+              </p>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="areas" aria-labelledby="areas-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">O ponto de partida</p>
+        <h2 id="areas-title" data-split>A virada pode começar em qualquer área. O rumo precisa ser um só.</h2>
+        <p class="lead" data-reveal>
+          Escolha o ponto de maior pressão e veja como informação, responsável e próximo passo deixam de andar separados.
+        </p>
+      </header>
+      <div class="tiles" data-reveal-group>
+        {
+          areas.map((area) => (
+            <a class="tile" href={`https://secctech.ai/areas/${area.slug}`} data-reveal data-spotlight>
+              <h3>{area.name}</h3>
+              <p>{area.text}</p>
+              <span class="text-link">
+                Ver área <Icon name="arrow" />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="responsibility-title">
+    <div class="container stack">
+      <p class="eyebrow">Tecnologia com responsabilidade</p>
+      <h2 id="responsibility-title" data-split>No Radar da SECC, a IA antecipa a leitura. Nos processos, pessoas mantêm o comando.</h2>
+      <p class="lead" data-reveal>
+        Sinais e cenários mantêm fonte, confiança e lacunas visíveis; processos mantêm etapas, responsáveis e prazos. Nenhuma
+        decisão importante acontece sem uma pessoa responsável.
+      </p>
+      <ul class="pledges" data-reveal-group>
+        <li data-reveal><Icon name="check" />Cobertura visível</li>
+        <li data-reveal><Icon name="check" />Evidência ligada ao sinal</li>
+        <li data-reveal><Icon name="check" />Confirmação humana preservada</li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Decidir antes muda o que ainda pode ser mudado."
+    text="Comece pela SECC para conectar Radar, dados internos, processos e execução — ou escolha o produto adequado à sua necessidade."
+    primary={cta.primary}
+    secondary={{ label: 'Escolher onde começar', href: '#areas' }}
+  />
+</Page>
+
+<style>
+  .products { display: grid; }
+  .product { display: grid; gap: 1.5rem; padding: clamp(1.5rem, 4vw, 2.75rem) 0; border-top: 1px solid var(--border); }
+  .product:last-child { border-bottom: 1px solid var(--border); }
+  .product-main { display: grid; gap: 0.9rem; align-content: start; }
+  .product-main .kicker { color: var(--accent); }
+  .product h3 { font-size: clamp(1.5rem, 3vw, 2.375rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+  .product-main p:not(.kicker) { max-width: 42rem; line-height: 1.55; color: var(--text-secondary); }
+  .product-note { padding-left: 1rem; border-left: 2px solid var(--border-strong); font-size: 0.9375rem; }
+  .product-side { display: grid; gap: 1rem; align-content: start; justify-items: start; }
+  .product-side ul { display: grid; gap: 0.7rem; }
+  .product-side li { display: flex; gap: 0.7rem; align-items: flex-start; }
+  .product-side :global(.icon) { margin-top: 0.22em; color: var(--accent); }
+
+  .handoffs { display: grid; }
+  .handoffs li { display: grid; gap: 0.6rem; padding: 1.5rem 0; border-top: 1px solid var(--border); }
+  .handoffs li:last-child { border-bottom: 1px solid var(--border); }
+  .handoffs h3 { font-size: 1.25rem; }
+  .handoffs li > p:last-child { line-height: 1.55; color: var(--text-secondary); }
+  .route { display: flex; align-items: center; gap: 0.75rem; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  .route-line { flex: 0 1 8rem; height: 2px; border-radius: 2px; background: rgb(255 255 255 / 0.08); overflow: hidden; }
+  .route-line span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--sev-estavel)); }
+  .route-to { color: var(--sev-estavel); }
+
+  .pledges { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+  .pledges li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0 1.1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .pledges :global(.icon) { color: var(--sev-estavel); }
+
+  @media (min-width: 960px) {
+    .product { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 4rem; }
+  }
+</style>

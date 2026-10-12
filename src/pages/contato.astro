@@ -1,0 +1,278 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { cta, instrumentCaptions, links } from '../data/site';
+
+const next = [
+  { stage: 'entrada', name: 'Triagem pelo assunto', text: 'O briefing é encaminhado para o fluxo adequado: produto SECC, CredPass, Academy, parceria ou outro tema.' },
+  { stage: 'processamento', name: 'Confirmação do contexto', text: 'Se faltar uma informação essencial, a próxima conversa começa por ela — sem pedir todo o relato novamente.' },
+  { stage: 'saída', name: 'Próximo passo explícito', text: 'A resposta informa se o próximo passo é demonstração, diagnóstico, conversa comercial ou outro encaminhamento.' },
+];
+
+const limits = [
+  {
+    name: 'Cobertura',
+    text: 'Escreva o suficiente para qualificarmos a conversa.',
+    inside: ['Decisão que precisa ser tomada', 'Consequência de adiar', 'Prazo relevante, se houver'],
+    outside: ['Segredo', 'Dado pessoal', 'Documento sensível'],
+  },
+  {
+    name: 'Permissão',
+    text: 'O briefing é montado no seu cliente de e-mail e segue por ele para o canal publicado nesta página.',
+    inside: ['O texto que você escrever', 'O canal publicado nesta página'],
+    outside: ['Armazenamento do briefing neste site', 'Envio de material sensível por este canal — se houver material necessário, combinaremos um canal adequado depois do contato inicial'],
+  },
+  {
+    name: 'Revisão humana',
+    text: 'O encaminhamento é decidido caso a caso, e por isso esta página não publica prazo de resposta.',
+    inside: ['A resposta informa qual é o próximo passo'],
+    outside: ['Prazo de resposta publicado', 'Resposta imediata'],
+  },
+];
+---
+
+<Page
+  title="Contato SECC — qual decisão está travada?"
+  description="Conte o contexto necessário, quem precisa decidir e qual é a urgência. Isso nos ajuda a encaminhar a conversa sem fazer você repetir o briefing."
+>
+  <PageHero
+    eyebrow="Contato"
+    title="Qual decisão está travada — e o que acontece se ela esperar?"
+    lead="Conte o contexto necessário, quem precisa decidir e qual é a urgência. Isso nos ajuda a encaminhar a conversa sem fazer você repetir o briefing."
+    instrument="flow"
+    caption={instrumentCaptions.flow}
+    primary={{ label: 'Preencher briefing', href: '#briefing' }}
+    secondary={cta.primary}
+  />
+
+  <section class="section section--surface" id="briefing" aria-labelledby="briefing-title">
+    <div class="container duo">
+      <div class="stack sticky">
+        <p class="eyebrow">Briefing</p>
+        <h2 id="briefing-title" class="h2-md" data-split>Conte a decisão, o contexto e a urgência.</h2>
+        <p class="lead" data-reveal>
+          Escreva o suficiente para qualificarmos a conversa. Não inclua segredo, dado pessoal ou documento sensível neste primeiro
+          campo.
+        </p>
+        <p class="aside" data-reveal>Se houver material necessário, combinaremos um canal adequado depois do contato inicial.</p>
+        <div class="other" data-reveal>
+          <p class="kicker">Prefere outro canal?</p>
+          <p>
+            Escreva para <a class="mail" data-mail-user="enterprise" data-mail-domain="seccatto.com.br" href="#briefing">o e-mail da SECC</a>
+            e mantenha o assunto no início da mensagem.
+          </p>
+        </div>
+      </div>
+
+      <form class="brief" data-briefing data-mail-user="enterprise" data-mail-domain="seccatto.com.br" data-reveal>
+        <label class="field">
+          <span>Nome</span>
+          <input name="nome" autocomplete="name" required />
+        </label>
+        <label class="field">
+          <span>E-mail profissional</span>
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+        <label class="field">
+          <span>Empresa e papel</span>
+          <input name="empresa" autocomplete="organization" required />
+        </label>
+        <label class="field">
+          <span>Assunto</span>
+          <select name="assunto" required>
+            <option value="">Selecione</option>
+            <option>SECC</option>
+            <option>CredPass</option>
+            <option>Academy</option>
+            <option>Parceria</option>
+            <option>Outro</option>
+          </select>
+        </label>
+        <label class="field field--wide">
+          <span>Decisão que precisa ser tomada <small>até 900 caracteres</small></span>
+          <textarea name="decisao" rows="4" maxlength="900" required></textarea>
+        </label>
+        <label class="field field--wide">
+          <span>Consequência de adiar <small>até 600 caracteres</small></span>
+          <textarea name="consequencia" rows="3" maxlength="600" required></textarea>
+        </label>
+        <label class="field">
+          <span>Prazo relevante, se houver <small>opcional</small></span>
+          <input name="prazo" />
+        </label>
+        <label class="field">
+          <span>Canal preferido <small>opcional</small></span>
+          <input name="canal" />
+        </label>
+        <label class="consent field--wide">
+          <input type="checkbox" name="consentimento" required />
+          <span>Li a <a href={links.cookies}>Política de Privacidade</a> e concordo com o uso destes dados para responder ao contato.</span>
+        </label>
+        <div class="brief-foot field--wide">
+          <button type="submit" class="btn btn-primary">Enviar briefing <Icon name="arrow" /></button>
+          <p>O briefing é montado no seu cliente de e-mail para você revisar e enviar. Nada fica guardado neste site.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="next-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Depois do envio</p>
+        <h2 id="next-title" class="h2-md" data-split>O que acontece depois</h2>
+      </header>
+      <div class="flowline" aria-hidden="true"><span data-draw></span></div>
+      <ol class="flowsteps" data-reveal-group>
+        {
+          next.map((step) => (
+            <li data-reveal>
+              <span class="kicker">{step.stage}</span>
+              <h3>{step.name}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="limits-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Limite do contato</p>
+        <h2 id="limits-title" class="h2-md" data-split>O que o briefing cobre — e o que ele não promete.</h2>
+      </header>
+      <div class="limit-groups">
+        {
+          limits.map((group) => (
+            <div class="limit-group" data-reveal>
+              <h3>{group.name}</h3>
+              <p>{group.text}</p>
+              <div class="inout">
+                <div>
+                  <h4>Dentro do limite</h4>
+                  <ul>
+                    {group.inside.map((item) => (
+                      <li>
+                        <Icon name="check" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="out">
+                  <h4>Fora do limite</h4>
+                  <ul>
+                    {group.outside.map((item) => (
+                      <li>
+                        <Icon name="close" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Se você ainda está formando o problema, comece pelo diagnóstico."
+    text="O contato serve melhor quando já existe uma decisão ou conversa específica. Para uma primeira leitura, use o fluxo de diagnóstico."
+    primary={cta.primary}
+    secondary={{ label: 'Falar com o Plantão SOS', href: links.sos }}
+  />
+</Page>
+
+<style>
+  .aside { color: var(--text-secondary); }
+  .other { display: grid; gap: 0.4rem; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--text-secondary); }
+  .mail { color: var(--accent); font-weight: 600; }
+
+  .brief {
+    display: grid;
+    gap: 1.1rem;
+    padding: clamp(1.25rem, 3.5vw, 2.25rem);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-2xl);
+    background: var(--bg-base);
+    box-shadow: var(--shadow);
+  }
+  .field { display: grid; gap: 0.45rem; font-weight: 500; }
+  .field small { margin-left: 0.4rem; font: 400 0.75rem/1 var(--font-mono); color: var(--text-tertiary); }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-lg);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 400;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field textarea { resize: vertical; line-height: 1.5; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-subtle); }
+  .consent { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9375rem; color: var(--text-secondary); }
+  .consent input { width: 20px; height: 20px; margin-top: 0.15rem; accent-color: var(--accent-fill); flex: none; }
+  .consent a { color: var(--accent); }
+  .brief-foot { display: grid; gap: 0.9rem; justify-items: start; }
+  .brief-foot p { font-size: 0.875rem; color: var(--text-tertiary); }
+
+  .limit-groups { display: grid; gap: 3rem; }
+  .limit-group { display: grid; gap: 0.75rem; }
+  .limit-group h3 { font-size: 1.5rem; letter-spacing: -0.02em; }
+  .limit-group > p { max-width: 44rem; margin-bottom: 0.75rem; color: var(--text-secondary); }
+  .limit-group :global(.inout > div) { background: var(--bg-elevated); }
+  .limit-group :global(.inout > .out) { background: none; }
+
+  @media (min-width: 640px) {
+    .brief { grid-template-columns: 1fr 1fr; }
+    .field--wide { grid-column: 1 / -1; }
+  }
+</style>
+
+<script>
+  // O endereço é montado no navegador para não ficar exposto no HTML.
+  const address = (element: HTMLElement) => `${element.dataset.mailUser}@${element.dataset.mailDomain}`;
+
+  document.querySelectorAll<HTMLAnchorElement>('a[data-mail-user]').forEach((link) => {
+    link.href = `mailto:${address(link)}`;
+    link.textContent = address(link);
+  });
+
+  const form = document.querySelector<HTMLFormElement>('[data-briefing]');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const value = (name: string) => String(data.get(name) ?? '').trim();
+    const lines = [
+      `Nome: ${value('nome')}`,
+      `E-mail profissional: ${value('email')}`,
+      `Empresa e papel: ${value('empresa')}`,
+      '',
+      'Decisão que precisa ser tomada:',
+      value('decisao'),
+      '',
+      'Consequência de adiar:',
+      value('consequencia'),
+      '',
+      `Prazo relevante: ${value('prazo') || 'não informado'}`,
+      `Canal preferido: ${value('canal') || 'não informado'}`,
+    ];
+    const subject = `[${value('assunto')}] Briefing — ${value('empresa')}`;
+    // Nada é enviado por este site: abre o e-mail da pessoa, já preenchido, para ela revisar e mandar.
+    window.location.href = `mailto:${address(form)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+  });
+</script>

@@ -220,13 +220,114 @@
   html.motion [data-split] { visibility: hidden; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html:not(.force-motion) *,
-  html:not(.force-motion) *::before,
-  html:not(.force-motion) *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+/* Versão suave: aparece sem deslocar. */
+html.motion-gentle [data-reveal] { transform: none; }
+html.motion-gentle { scroll-behavior: auto; }
+
+/* ==========================================================================
+   Blocos de página compartilhados pelas páginas internas.
+   ========================================================================== */
+@layer primitives {
+  /* Duas colunas que empilham no celular. */
+  .duo { display: grid; gap: 2.5rem; align-items: start; }
+  .duo--center { align-items: center; }
+  @media (min-width: 1024px) {
+    .duo { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; }
+    .duo--wide-first { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+    .duo .sticky { position: sticky; top: calc(var(--header-h) + 2rem); }
   }
+  .stack { display: grid; gap: 1.25rem; align-content: start; }
+  .stack > .eyebrow { margin-bottom: 0; }
+  .h2-md { font-size: clamp(1.875rem, 3.6vw, 3rem); }
+
+  /* Grade de cartões. */
+  .tiles { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+  .tile {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-surface);
+    text-decoration: none;
+    transition: border-color 0.3s;
+  }
+  .section--surface .tile { background: var(--bg-elevated); }
+  a.tile:hover { border-color: var(--accent); }
+  .tile h3 { font-size: 1.1875rem; letter-spacing: -0.015em; }
+  .tile p { font-size: 0.9375rem; line-height: 1.5; color: var(--text-secondary); }
+  .tile .text-link { min-height: 0; margin-top: 0.25rem; }
+
+  /* Lista com fios, para termos e definições. */
+  .ruled { display: grid; border-top: 1px solid var(--border); }
+  .ruled > * { display: grid; gap: 0.3rem; padding: 1.1rem 0; border-bottom: 1px solid var(--border); }
+  .ruled dt, .ruled h3 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
+  .ruled dd, .ruled p { line-height: 1.5; color: var(--text-secondary); }
+
+  /* Números grandes que contam. */
+  .bigstats { display: grid; gap: 2rem; }
+  .bigstats > div { display: grid; gap: 0.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-strong); }
+  .bigstats strong {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .bigstats span { max-width: 18rem; color: var(--text-secondary); }
+  .bigstats strong span { max-width: none; color: inherit; }
+  @media (min-width: 768px) { .bigstats { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
+
+  /* Passos em sequência sobre uma trilha que se desenha. */
+  .flowline { height: 3px; margin-bottom: 1.5rem; border-radius: 3px; background: rgb(255 255 255 / 0.08); overflow: hidden; }
+  .flowline span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 60%, var(--sev-estavel) 100%); }
+  .flowsteps { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr)); }
+  .flowsteps li {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    background: var(--bg-surface);
+  }
+  .section--surface .flowsteps li { background: var(--bg-elevated); }
+  .flowsteps .kicker { color: var(--accent); }
+  .flowsteps h3 { font-size: 1.1875rem; }
+  .flowsteps p { font-size: 0.9375rem; line-height: 1.5; color: var(--text-secondary); }
+
+  /* Dentro e fora do limite. */
+  .inout { display: grid; gap: 1rem; }
+  .inout > div { padding: clamp(1.25rem, 3vw, 1.75rem); border: 1px solid var(--border); border-radius: var(--r-2xl); background: var(--bg-surface); }
+  .inout h3, .inout h4 { margin: 0 0 0.9rem; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--sev-estavel); }
+  .inout ul { display: grid; gap: 0.6rem; }
+  .inout li { display: flex; gap: 0.7rem; align-items: flex-start; line-height: 1.45; }
+  .inout .icon { margin-top: 0.2em; color: var(--sev-estavel); }
+  .inout > .out { border-style: dashed; background: none; color: var(--text-secondary); }
+  .inout > .out h3, .inout > .out h4, .inout > .out .icon { color: var(--text-tertiary); }
+  @media (min-width: 720px) { .inout { grid-template-columns: 1fr 1fr; } }
+
+  /* Perguntas e respostas. */
+  .accordion { display: grid; border-top: 1px solid var(--border); }
+  .accordion details { border-bottom: 1px solid var(--border); }
+  .accordion summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 64px;
+    padding: 0.9rem 0;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion summary .icon { color: var(--text-tertiary); transition: transform 0.3s var(--ease-out); }
+  .accordion details[open] summary .icon { transform: rotate(180deg); }
+  .accordion details p { padding-bottom: 1.25rem; max-width: 40rem; line-height: 1.55; color: var(--text-secondary); }
+
+  /* Citação na voz humana. */
+  .voice { font: italic 400 clamp(1.5rem, 3vw, 2.5rem) / 1.15 var(--font-serif); text-wrap: balance; }
 }

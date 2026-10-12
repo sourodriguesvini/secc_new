@@ -1,0 +1,112 @@
+---
+// Tela de produto montada a partir de dados (sempre fictícios, sempre rotulada "demo").
+import type { DemoPanel, Tone } from '../data/types';
+
+interface Props {
+  panel: DemoPanel;
+  caption?: string;
+}
+const { panel, caption } = Astro.props;
+
+const toneColor: Record<Tone, string> = {
+  intervencao: 'var(--sev-intervencao)',
+  critico: 'var(--sev-critico)',
+  monitor: 'var(--sev-monitor)',
+  estavel: 'var(--sev-estavel)',
+  accent: 'var(--accent)',
+  neutral: 'var(--text-tertiary)',
+};
+---
+
+<figure class="demo" data-reveal data-spotlight>
+  <div class="demo-bar">
+    <span>{panel.path || 'SECC'}</span>
+    <span class="demo-tag">demo</span>
+  </div>
+  <div class="demo-body">
+    {panel.title && <p class="demo-title">{panel.title}</p>}
+    <ul class="rows">
+      {
+        panel.rows.map((row) => {
+          if (row.type === 'heading') return <li class="row row--heading">{row.text}</li>;
+          if (row.type === 'figure')
+            return (
+              <li class="row row--figure">
+                <div>
+                  <span class="row-label">{row.label}</span>
+                  <strong class="row-figure">{row.value}</strong>
+                  {row.note && <small>{row.note}</small>}
+                </div>
+                {row.status && <span class="chip" style={`--c:${toneColor[row.status.tone]}`}>{row.status.label}</span>}
+              </li>
+            );
+          if (row.type === 'kv')
+            return (
+              <li class="row row--kv">
+                <span>{row.label}</span>
+                <strong>{row.value}</strong>
+              </li>
+            );
+          if (row.type === 'log')
+            return (
+              <li class="row row--log">
+                <time>{row.when}</time>
+                <span>{row.text}</span>
+              </li>
+            );
+          return (
+            <li class="row">
+              <div>
+                <strong>{row.title}</strong>
+                {row.meta && <small>{row.meta}</small>}
+              </div>
+              <div class="row-side">
+                {row.status && <span class="chip" style={`--c:${toneColor[row.status.tone]}`}>{row.status.label}</span>}
+                {row.value && <small>{row.value}</small>}
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+    {panel.note && <p class="demo-note">{panel.note}</p>}
+  </div>
+  <figcaption>{caption ?? 'Tela de demonstração, com dados fictícios.'}</figcaption>
+</figure>
+
+<style>
+  .demo-title { font-size: 1.1875rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; }
+  .rows { display: grid; }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    font-size: 0.9375rem;
+  }
+  .row + .row { border-top: 1px solid var(--border); }
+  .row strong { display: block; font-weight: 600; line-height: 1.3; }
+  .row small { display: block; margin-top: 0.2rem; font: 400 0.8125rem/1.4 var(--font-mono); color: var(--text-tertiary); }
+  .row-side { display: grid; justify-items: end; gap: 0.3rem; flex: none; }
+  .row-side small { margin: 0; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+  .row--heading {
+    padding-top: 1.1rem;
+    font: 500 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .row--heading + .row { border-top: 0; padding-top: 0.2rem; }
+  .row--figure { align-items: flex-start; }
+  .row-label { display: block; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  .row-figure { margin-top: 0.35rem; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; line-height: 1; letter-spacing: -0.035em; }
+  .row--kv span { color: var(--text-secondary); }
+  .row--kv strong { text-align: right; font-variant-numeric: tabular-nums; }
+  .row--log { justify-content: flex-start; align-items: baseline; }
+  .row--log time { flex: none; width: 3.5rem; font: 500 0.8125rem/1.6 var(--font-mono); color: var(--text-tertiary); }
+
+  .demo-note { padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.875rem; color: var(--text-secondary); }
+  figcaption { padding: 0.75rem 1.25rem; border-top: 1px solid var(--border); font-size: 0.8125rem; color: var(--text-tertiary); }
+</style>

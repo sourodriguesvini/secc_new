@@ -9,17 +9,31 @@ Versão de revisão da home do [secctech.ai](https://secctech.ai), feita para ro
 - **Canvas 2D** para o radar do hero, sem biblioteca.
 - Fontes hospedadas no próprio site (Fontsource) e imagens otimizadas no build (AVIF/WebP responsivos).
 
+## Páginas
+
+| Rota | Arquivo |
+|---|---|
+|  |  |
+| , , ,  |  |
+|  |  |
+|  (9) |  +  |
+|  (8) |  +  |
+
+Cadastro, login e o Plantão SOS continuam na plataforma ().
+
 ## Estrutura
 
-```
-src/
-  data/site.ts        conteúdo estruturado: menus, soluções, perfis, sinais do radar, vídeo
-  styles/global.css   tokens, base e primitivos compartilhados
-  layouts/Base.astro  <head>, fontes e inicialização das animações
-  components/         uma seção por arquivo (marcação, estilo e script juntos)
-  scripts/            motion.ts (animação), radar.ts, tabs.ts
-  assets/             imagens-fonte
-```
+\
+O texto das páginas internas foi transcrito do site atual; os originais extraídos ficam fora do repositório, em .
+
+## Movimento
+
+Há dois níveis, decididos em :
+
+- **completo**: rolagem suave, títulos que sobem linha a linha, deslocamentos;
+- **suave**: para quem pede menos movimento no sistema operacional. O site continua vivo (instrumentos girando, seções aparecendo, números contando), mas só com opacidade e movimentos pequenos.
+
+ no fim do endereço força o nível completo. Todo instrumento tem um botão de pausar.
 
 ## Rodar localmente
 
@@ -27,8 +41,6 @@ src/
 npm install
 npm run dev
 ```
-
-O site respeita quem pediu menos movimento no sistema operacional. Para revisar as animações numa máquina com os efeitos de animação desligados, abra com `?movimento` no fim do endereço.
 
 ## Publicação
 
@@ -43,5 +55,5 @@ O balão flutuante lê `presentationVideo` em `src/data/site.ts`. Coloque o arqu
 - Remover o `noindex` de `src/layouts/Base.astro` e liberar o `public/robots.txt`.
 - Trazer o logo para `src/assets/` (hoje é carregado de `secctech.ai`).
 - Validar com o time da SECC os conteúdos marcados como ilustrativos: sinais do radar, respostas da seção "terça-feira", faixas de cor do simulador de caixa e o exemplo de conversa com a IA.
-- Reconstruir as páginas internas; por enquanto os links apontam para `secctech.ai`.
+- Reconstruir as páginas de área (`/areas/*`) e as páginas próprias de produto (`/credpass` etc.), que ainda apontam para `secctech.ai`.
 - Versões em inglês e espanhol, banner de cookies e imagem de compartilhamento (`og:image`).

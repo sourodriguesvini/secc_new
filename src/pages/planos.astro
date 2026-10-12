@@ -1,0 +1,283 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { instrumentCaptions, links, solution } from '../data/site';
+
+const tiers = [
+  { name: 'RECON', text: 'Para formar a primeira leitura e entender se vale avançar.' },
+  { name: 'VAULT', text: 'Para trabalhar com mais documentos, análises e contexto conectado.' },
+  { name: 'COMMAND', text: 'Para acompanhar execução, alertas e trabalho contínuo dentro dos limites contratados.' },
+];
+
+// `fill` é a fração da barra (1 = o maior valor da linha). Ilimitado preenche tudo.
+const rows = [
+  { group: 'Produto', label: 'Playbooks liberados no catálogo', values: ['10', '28', '49'], fill: [10 / 49, 28 / 49, 1] },
+  { group: 'Uso', label: 'Análises', values: ['10 por dia', '200 por dia', 'Ilimitado'], fill: [0.05, 0.5, 1] },
+  { group: 'Uso', label: 'Documentos na biblioteca', values: ['10', '10', 'Ilimitado'], fill: [0.12, 0.12, 1] },
+  { group: 'Dados', label: 'Histórico preservado', values: ['7 dias', '90 dias', 'Ilimitado'], fill: [0.08, 0.45, 1] },
+  { group: 'Escopo', label: 'Empresas na conta', values: ['1', '3', 'Ilimitado'], fill: [0.1, 0.3, 1] },
+  { group: 'Escopo', label: 'Pessoas com acesso', values: ['1', '5', 'Ilimitado'], fill: [0.08, 0.35, 1] },
+];
+
+const choices = [
+  { name: 'Quero formar a primeira leitura', text: 'Comece pelo plano de entrada que a configuração vigente indicar.' },
+  { name: 'Preciso trabalhar com documentos e contexto', text: 'Compare limites de documentos, análises e recursos efetivamente liberados.' },
+  { name: 'Preciso acompanhar execução contínua', text: 'Confirme quais módulos operacionais e limites estão incluídos antes de contratar.' },
+  { name: 'Sou grupo, holding ou consultoria', text: 'Use o fluxo comercial quando escopo, papéis, empresas e governança exigirem configuração própria.' },
+];
+
+const limits = [
+  {
+    name: 'Cobertura',
+    text: 'A página usa os mesmos limites canônicos que a aplicação aplica a cada plano.',
+    inside: ['Análises por dia, documentos na biblioteca e playbooks disponíveis', 'Histórico preservado, empresas na conta e pessoas com acesso'],
+    outside: ['Preço, período e recorrência, que vêm da configuração comercial vigente', 'Contratação anual, confirmada na conversa comercial'],
+  },
+  {
+    name: 'Permissão',
+    text: 'Empresas na conta e pessoas com acesso são limites do plano, não configuração de governança.',
+    inside: ['Quantidade de empresas e de pessoas com acesso dentro do nível contratado'],
+    outside: ['Papéis, governança e configuração própria de grupo, holding ou consultoria', 'CredPass e Academy, que têm condições comerciais próprias'],
+  },
+];
+
+const faq = [
+  { q: 'O preço da Home é o mesmo?', a: 'A Home não exibe preço. Esta página é a única comparação comercial pública.' },
+  {
+    q: 'CredPass e Academy estão incluídos?',
+    a: 'São produtos autônomos, com proposta, jornada e condições comerciais próprias. Integração, complemento ou contratação separada aparecem conforme a política comercial vigente.',
+  },
+  { q: 'Os limites mostrados são os aplicados no produto?', a: 'Sim. A página usa os mesmos limites canônicos que a aplicação aplica a cada plano.' },
+  { q: 'Há plano anual?', a: 'Período e recorrência, inclusive contratação anual, são confirmados na conversa comercial.' },
+];
+---
+
+<Page title="Planos SECC — compare escopo, limites e contratação" description="Compare escopo, limites e recursos com dados carregados da mesma configuração usada pelo produto.">
+  <PageHero
+    eyebrow="Planos"
+    title="Comece pelo nível de decisão que precisa sustentar agora."
+    lead="Compare escopo, limites e recursos com dados carregados da mesma configuração usada pelo produto."
+    instrument="grid"
+    caption={instrumentCaptions.grid}
+    primary={{ label: 'Comparar planos', href: '#comparar' }}
+    secondary={{ label: 'Falar com vendas', href: links.contact }}
+  />
+
+  <section class="section section--surface" aria-labelledby="choose-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Como escolher</p>
+        <h2 id="choose-title" class="h2-md" data-split>Qual destas frases é a sua?</h2>
+      </header>
+      <ul class="tiles" data-reveal-group>
+        {
+          choices.map((item) => (
+            <li class="tile" data-reveal data-spotlight>
+              <h3>{item.name}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="comparar" aria-labelledby="compare-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Comparação</p>
+        <h2 id="compare-title" data-split>Compare o trabalho liberado em cada plano.</h2>
+      </header>
+
+      <div class="compare" role="table" aria-label="Comparação de planos" data-reveal>
+        <div class="compare-head" role="row">
+          <div role="columnheader"><span class="visually-hidden">Recurso</span></div>
+          {
+            tiers.map((tier) => (
+              <div role="columnheader" class="tier">
+                <strong>{tier.name}</strong>
+                <span>{tier.text}</span>
+              </div>
+            ))
+          }
+        </div>
+        {
+          rows.map((row) => (
+            <div class="compare-row" role="row">
+              <div role="rowheader" class="compare-label">
+                <span class="kicker">{row.group}</span>
+                {row.label}
+              </div>
+              {row.values.map((value, index) => (
+                <div role="cell" class="compare-cell">
+                  <span class="compare-tier">{tiers[index].name}</span>
+                  <strong>{value}</strong>
+                  <span class="bar" aria-hidden="true">
+                    <span data-draw style={`width:${Math.round(row.fill[index] * 100)}%`} />
+                  </span>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+        <div class="compare-row" role="row">
+          <div role="rowheader" class="compare-label">
+            <span class="kicker">Contratação</span>
+            Preço, período, recorrência, fidelidade e cancelamento
+          </div>
+          {
+            tiers.map((tier) => (
+              <div role="cell" class="compare-cell">
+                <span class="compare-tier">{tier.name}</span>
+                <span class="consult">Consulte condições</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <p class="compare-note" data-reveal>
+        Preço, período e recorrência vêm da configuração comercial vigente e são confirmados na conversa comercial. Os limites de
+        uso, dados e escopo são os mesmos que a aplicação aplica a cada plano.
+      </p>
+      <div class="cta-row" data-reveal>
+        <a class="btn btn-primary" href={links.register} data-magnetic>Iniciar plano <Icon name="arrow" /></a>
+        <a class="btn btn-ghost" href={links.contact}>Falar com vendas</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="limits-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Limites do plano</p>
+        <h2 id="limits-title" class="h2-md" data-split>O que o plano determina e o que fica fora dele.</h2>
+      </header>
+      <div class="limit-groups">
+        {
+          limits.map((group) => (
+            <div class="limit-group" data-reveal>
+              <h3>{group.name}</h3>
+              <p>{group.text}</p>
+              <div class="inout">
+                <div>
+                  <h4>Dentro do limite</h4>
+                  <ul>
+                    {group.inside.map((item) => (
+                      <li>
+                        <Icon name="check" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="out">
+                  <h4>Fora do limite</h4>
+                  <ul>
+                    {group.outside.map((item) => (
+                      <li>
+                        <Icon name="close" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="standalone-title">
+    <div class="container duo">
+      <div class="stack">
+        <p class="eyebrow">Produtos autônomos</p>
+        <h2 id="standalone-title" class="h2-md" data-split>CredPass e Academy não são itens escondidos num plano.</h2>
+        <p class="lead" data-reveal>
+          Cada produto tem problema, demonstração e conversão próprios. A integração com a SECC complementa a jornada sem apagar
+          sua autonomia comercial.
+        </p>
+      </div>
+      <div class="tiles" data-reveal-group>
+        <a class="tile" href={solution('credpass')} data-reveal data-spotlight>
+          <p class="kicker">Crédito PJ</p>
+          <h3>CredPass</h3>
+          <p>Conheça a jornada própria de bancabilidade, demanda, data room e conexão com capital.</p>
+          <span class="text-link">Ver CredPass <Icon name="arrow" /></span>
+        </a>
+        <a class="tile" href={solution('academy')} data-reveal data-spotlight>
+          <p class="kicker">Formação aplicada</p>
+          <h3>SECC Academy</h3>
+          <p>Conheça as trilhas, o método, a prática e as condições próprias da formação.</p>
+          <span class="text-link">Ver Academy <Icon name="arrow" /></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="faq-title">
+    <div class="container duo">
+      <div class="stack">
+        <p class="eyebrow">Antes de contratar</p>
+        <h2 id="faq-title" class="h2-md" data-split>O que precisa estar claro antes de contratar.</h2>
+      </div>
+      <div class="accordion" data-reveal-group>
+        {
+          faq.map((item) => (
+            <details data-reveal>
+              <summary>
+                {item.q}
+                <Icon name="chevron" />
+              </summary>
+              <p>{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Escolha com base no trabalho que precisa avançar."
+    text="Se a comparação não cobrir o seu contexto, leve empresa, número de usuários e fluxo esperado para a conversa comercial."
+    primary={{ label: 'Iniciar plano', href: links.register }}
+    secondary={{ label: 'Falar com vendas', href: links.contact }}
+  />
+</Page>
+
+<style>
+  .compare { display: grid; }
+  .compare-head { display: none; }
+  .compare-row { display: grid; gap: 0.75rem; padding: 1.25rem 0; border-top: 1px solid var(--border); }
+  .compare-label { display: grid; gap: 0.25rem; font-size: 1.125rem; font-weight: 600; }
+  .compare-cell { display: grid; grid-template-columns: 6rem 1fr; gap: 0.25rem 1rem; align-items: baseline; }
+  .compare-tier { font: 700 0.75rem/1.4 var(--font-mono); letter-spacing: 0.14em; color: var(--text-tertiary); }
+  .compare-cell strong { font-size: 1.125rem; font-variant-numeric: tabular-nums; }
+  .bar { grid-column: 2; height: 4px; border-radius: 4px; background: rgb(255 255 255 / 0.07); overflow: hidden; }
+  .bar span { display: block; height: 100%; min-width: 4px; border-radius: inherit; background: linear-gradient(90deg, var(--accent-fill), var(--accent)); }
+  .consult { color: var(--text-secondary); }
+  .compare-note { max-width: 46rem; margin-block: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.9375rem; color: var(--text-tertiary); }
+
+  .limit-groups { display: grid; gap: 3rem; }
+  .limit-group { display: grid; gap: 0.75rem; }
+  .limit-group h3 { font-size: 1.5rem; letter-spacing: -0.02em; }
+  .limit-group > p { max-width: 44rem; margin-bottom: 0.75rem; color: var(--text-secondary); }
+  .limit-group :global(.inout > div) { background: var(--bg-elevated); }
+  .limit-group :global(.inout > .out) { background: none; }
+
+  @media (min-width: 900px) {
+    .compare-head,
+    .compare-row { grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); gap: 2rem; align-items: start; }
+    .compare-head { display: grid; position: sticky; top: var(--header-h); z-index: 5; padding: 1.25rem 0; background: var(--bg-base); border-bottom: 1px solid var(--border-strong); }
+    .tier { display: grid; gap: 0.4rem; }
+    .tier strong { font: 700 1.375rem/1 var(--font-mono); letter-spacing: 0.16em; }
+    .tier span { font-size: 0.875rem; line-height: 1.45; color: var(--text-secondary); }
+    .compare-cell { grid-template-columns: 1fr; gap: 0.6rem; }
+    .compare-tier { display: none; }
+    .bar { grid-column: 1; }
+    .compare-cell strong { font-size: 1.375rem; }
+  }
+</style>

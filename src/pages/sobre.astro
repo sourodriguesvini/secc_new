@@ -1,0 +1,235 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import Story from '../components/Story.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { cta, founders, instrumentCaptions, links } from '../data/site';
+
+const reasons = [
+  { name: 'Informação fragmentada', text: 'Finanças, operação e riscos são analisados em lugares diferentes, sem uma leitura comum para quem precisa decidir.' },
+  { name: 'Método pouco acessível', text: 'Ferramentas genéricas mostram partes do problema; consultoria de profundidade costuma chegar de forma cara e artesanal.' },
+  { name: 'Problema percebido tarde', text: 'Muitas empresas reconhecem a gravidade quando caixa, prazo e margem de manobra já estão pressionados.' },
+];
+
+const values = [
+  { name: 'Eficiência', text: 'Menos retrabalho para reunir, revisar e interpretar informações.' },
+  { name: 'Controle', text: 'Uma leitura comum da empresa para alinhar quem decide e quem executa.' },
+  { name: 'Inteligência', text: 'Tecnologia apoiada no contexto real da empresa, não em respostas genéricas.' },
+  { name: 'Decisão', text: 'Prioridades fundamentadas em evidências e lacunas visíveis.' },
+  { name: 'Previsibilidade', text: 'Sinais acompanhados antes que caixa e risco se tornem urgência.' },
+  { name: 'Eficácia', text: 'Decisões transformadas em ações que continuam em movimento.' },
+];
+
+const method = [
+  { name: 'Ler o negócio por inteiro', text: 'Sinais financeiros, operacionais e jurídicos entram na mesma leitura para revelar prioridades.' },
+  { name: 'Evidência antes de opinião', text: 'Indicadores e sinais apontam para uma origem. Quando faltam dados, a lacuna permanece visível.' },
+  { name: 'Pessoas no comando', text: 'A tecnologia organiza contexto e trabalho; decisões críticas continuam sob responsabilidade humana.' },
+  { name: 'Decisão acompanhada até a execução', text: 'A recomendação não encerra o trabalho. Cada frente avança com responsável, prazo, estado e histórico.' },
+];
+
+const advisors = [
+  {
+    name: 'Alberto O. Neto',
+    area: 'Governança e empresas familiares',
+    bio: 'Sócio fundador da LVR7, consultoria de finanças, governança e conflitos em empresas familiares. Formado em Administração Pública pela FGV-EAESP e mestre em Psicologia Organizacional pela University of Hartford, com mais de 20 anos em consultoria, M&A e RH.',
+  },
+  {
+    name: 'Andrei La Neve',
+    area: 'Operação industrial e reestruturação',
+    bio: 'Sócio fundador da Quant Partners, engenheiro de telecomunicações. Em 18 anos à frente de reestruturações industriais como diretor e gestor de PCP, reduziu R$ 100 milhões em custos fixos e R$ 350 milhões em capital de giro, com ganho de mais de 30% em produtividade. Hoje desenvolve IA de sequenciamento de produção para a indústria.',
+  },
+  {
+    name: 'Glauber Rocha',
+    area: 'Private equity, mercado financeiro e ESG',
+    bio: '16 anos em Private Equity e Mercado Financeiro — passagens por Henkel, KKR, CVC Partners e London Stock Exchange Group, hoje sócio na Tout Partners. Atuou em transações corporativas em mais de 25 países. Coautor do livro “Turnaround 100 Segredos”, com Estevão Seccatto.',
+  },
+  {
+    name: 'Karime Hajar',
+    area: 'Capital estratégico, governança e execução',
+    bio: 'Executiva com mais de 15 anos em venture capital, M&A e governança, com passagens por BASF, Cielo e TOTVS. Engenheira Naval pela Poli-USP e mestre pela École des Ponts ParisTech, coordenou o Comitê de Corporate Venture Capital da ABVCAP e recebeu duas vezes o Global Corporate Venturing Rising Stars Award.',
+  },
+  {
+    name: 'Leandro Rafael',
+    area: 'Finanças, controladoria e estratégia',
+    bio: 'Executivo de Finanças, M&A e reestruturação com mais de 14 anos — projetos para Stone, Raízen, Kraft Heinz e Suzano. Mestre em Administração pela FGV EAESP, com mais de R$ 18 milhões em valor gerado em conselhos e comitês de finanças que integrou.',
+  },
+];
+---
+
+<Page
+  title="Sobre a SECC — gestão, resiliência e turnaround"
+  description="Turnaround aprendido em campo virou método, o método virou produto — e o produto mantém a pessoa no comando do que não se automatiza."
+>
+  <PageHero
+    eyebrow="Sobre a SECC"
+    title="Empresas não deveriam descobrir o risco quando a crise já começou."
+    lead="Turnaround aprendido em campo virou método, o método virou produto — e o produto mantém a pessoa no comando do que não se automatiza. O sistema muda de marcha conforme a empresa muda, da urgência à continuidade."
+    instrument="orbit"
+    caption={instrumentCaptions.orbit}
+    primary={{ label: 'Conhecer o sistema de combate à crise', href: links.ecosystem }}
+    secondary={cta.primary}
+  />
+
+  <section class="section section--surface" aria-label="Trajetória">
+    <div class="container">
+      <dl class="bigstats" data-reveal-group>
+        <div data-reveal>
+          <dt class="visually-hidden">Turnarounds</dt>
+          <dd><strong><span data-count="250" data-suffix="+">250+</span></strong><span>turnarounds na prática — forjado em campo, não na teoria</span></dd>
+        </div>
+        <div data-reveal>
+          <dt class="visually-hidden">Operações</dt>
+          <dd><strong><span data-count="35" data-prefix="R$ " data-suffix=" bi">R$ 35 bi</span></strong><span>em operações conduzidas ao longo da trajetória</span></dd>
+        </div>
+        <div data-reveal>
+          <dt class="visually-hidden">Experiência</dt>
+          <dd><strong><span data-count="20" data-suffix=" anos">20 anos</span></strong><span>recuperando empresas</span></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <div class="container duo">
+      <div class="stack sticky">
+        <p class="eyebrow">Por que a SECC existe</p>
+        <h2 id="why-title" class="h2-md" data-split>A SECC nasceu para transformar contexto disperso em direção.</h2>
+        <p class="lead" data-reveal>
+          Quando o tempo encurta, não basta ter informação. É preciso conectar o que está acontecendo, o que precisa ser decidido e
+          quem mantém o plano em movimento.
+        </p>
+      </div>
+      <dl class="ruled" data-reveal-group>
+        {
+          reasons.map((item) => (
+            <div data-reveal>
+              <dt>{item.name}</dt>
+              <dd>{item.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="values-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">O que buscamos</p>
+        <h2 id="values-title" class="h2-md" data-split>O valor que buscamos criar em qualquer fase da empresa.</h2>
+      </header>
+      <ul class="tiles" data-reveal-group>
+        {
+          values.map((item) => (
+            <li class="tile" data-reveal data-spotlight>
+              <h3>{item.name}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Story />
+
+  <section class="section section--surface" aria-labelledby="method-title">
+    <div class="container duo">
+      <div class="stack sticky">
+        <p class="eyebrow">Nosso método</p>
+        <h2 id="method-title" class="h2-md" data-split>Tecnologia organiza o contexto. Pessoas assumem as decisões.</h2>
+        <p class="lead" data-reveal>
+          A SECC amplia a capacidade de empresários e especialistas sem substituir quem conhece o negócio e responde por ele.
+        </p>
+      </div>
+      <dl class="ruled" data-reveal-group>
+        {
+          method.map((item) => (
+            <div data-reveal>
+              <dt>{item.name}</dt>
+              <dd>{item.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="quem-responde" aria-labelledby="founders-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Quem responde pela SECC</p>
+        <h2 id="founders-title" data-split>Dois fundadores, um método construído em campo.</h2>
+        <p class="lead" data-reveal>Turnaround não se aprende em teoria — os dois trouxeram a prática para dentro do produto.</p>
+      </header>
+      <div class="founders" data-reveal-group>
+        {
+          founders.map((person) => (
+            <article data-reveal data-spotlight>
+              <p class="kicker">{person.role}</p>
+              <h3>{person.name}</h3>
+              <p>{person.bio}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="board">
+        <div class="stack">
+          <p class="eyebrow">Conselho consultivo</p>
+          <h2 class="h2-md" data-split>Experiências diferentes para decisões que não cabem em uma única disciplina.</h2>
+          <p class="lead" data-reveal>O conselho reúne operação industrial, governança, finanças, capital e estratégia ao redor do método.</p>
+        </div>
+        <dl class="ruled" data-reveal-group>
+          {
+            advisors.map((person) => (
+              <div data-reveal>
+                <dt>
+                  {person.name} <span>{person.area}</span>
+                </dt>
+                <dd>{person.bio}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Conheça o sistema que acompanha a empresa antes, durante e depois da crise."
+    text="Veja como sinais, decisões e ações permanecem conectados quando a situação da empresa muda."
+    primary={{ label: 'Conhecer o sistema de combate à crise', href: links.ecosystem }}
+    secondary={cta.primary}
+  />
+</Page>
+
+<style>
+  .bigstats dd { display: grid; gap: 0.5rem; margin: 0; }
+  .founders { display: grid; gap: 1rem; }
+  .founders article {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    background: var(--bg-surface);
+  }
+  .founders h3 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+  .founders article p:last-child { line-height: 1.55; color: var(--text-secondary); }
+  .board { display: grid; gap: 2.5rem; margin-top: clamp(3.5rem, 8vw, 6rem); align-items: start; }
+  .board dt span {
+    display: block;
+    margin-top: 0.3rem;
+    font: 500 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  @media (min-width: 860px) { .founders { grid-template-columns: 1fr 1fr; gap: 1.25rem; } }
+  @media (min-width: 1024px) {
+    .board { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; }
+    .board .stack { position: sticky; top: calc(var(--header-h) + 2rem); }
+  }
+</style>

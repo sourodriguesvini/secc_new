@@ -1,0 +1,293 @@
+---
+import Page from '../../layouts/Page.astro';
+import PageHero from '../../components/PageHero.astro';
+import Demo from '../../components/Demo.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { solutionPages } from '../../data/solution-pages';
+import { cta, instrumentCaptions, personas, radarSignals } from '../../data/site';
+
+export function getStaticPaths() {
+  return solutionPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const audiences = personas.filter((item) => page.audiences.includes(item.id));
+// Algumas categorias já trazem o nome do produto; não repetir.
+const plainName = page.name.replace(/[®™]/g, '').toLowerCase();
+const eyebrow = page.category.toLowerCase().includes(plainName) ? page.category : `${page.name} · ${page.category}`;
+---
+
+<Page title={`${page.name} — ${page.title} | SECC`} description={page.lead}>
+  <PageHero
+    eyebrow={eyebrow}
+    title={page.title}
+    lead={page.lead}
+    instrument={page.instrument}
+    signals={radarSignals}
+    caption={instrumentCaptions[page.instrument]}
+    primary={cta.primary}
+    secondary={cta.secondary}
+  />
+
+  <section class="section section--surface" aria-labelledby="what-title">
+    <div class="container what">
+      <div class="what-copy">
+        <p class="eyebrow">O que é · para quem</p>
+        <h2 id="what-title" data-split>{page.what.title}</h2>
+        <p class="lead" data-reveal>{page.what.text}</p>
+        <p class="audience" data-reveal><span class="kicker">Para quem</span>{page.what.audience}</p>
+      </div>
+      <Demo panel={page.demo} />
+    </div>
+
+    <div class="container contrast" data-reveal-group>
+      <div class="contrast-card contrast-card--problem" data-reveal>
+        <p class="kicker">Problema</p>
+        <p>{page.what.problem}</p>
+      </div>
+      <div class="contrast-card contrast-card--difference" data-reveal data-spotlight>
+        <p class="kicker">O que diferencia</p>
+        <p>{page.what.difference}</p>
+      </div>
+    </div>
+
+    {
+      page.what.features && page.what.features.length > 0 && (
+        <ul class="container features" data-reveal-group>
+          {page.what.features.map((feature) => (
+            <li data-reveal>
+              <h3>{feature.name}</h3>
+              <p>{feature.text}</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  <section class="section" aria-labelledby="how-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Como funciona</p>
+        <h2 id="how-title" data-split>Do primeiro sinal à próxima ação.</h2>
+        <p class="lead" data-reveal>{page.how.text}</p>
+      </header>
+      <div class="track" aria-hidden="true"><span data-draw></span></div>
+      <ol class="steps" data-reveal-group>
+        {
+          page.how.steps.map((step) => (
+            <li class={`step step--${step.stage === 'saída' ? 'saida' : step.stage}`} data-reveal>
+              <span class="step-stage">{step.stage}</span>
+              <p>{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {
+    page.blocks.map((block, index) => (
+      <section class:list={['section', 'block', { 'section--surface': index % 2 === 0 }]}>
+        <div class="container block-grid">
+          <div class="block-copy">
+            <p class="kicker">O que trava a empresa</p>
+            <p class="blocker" data-reveal>{block.blocker}</p>
+            <h2 data-split>{block.title}</h2>
+            <dl data-reveal-group>
+              {block.how && (
+                <div data-reveal>
+                  <dt>Como funciona</dt>
+                  <dd>{block.how}</dd>
+                </div>
+              )}
+              {block.track && (
+                <div data-reveal>
+                  <dt>O que você acompanha</dt>
+                  <dd>{block.track}</dd>
+                </div>
+              )}
+              {block.result && (
+                <div data-reveal>
+                  <dt>Resultado</dt>
+                  <dd>{block.result}</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+          <div class="block-side">
+            {block.demo && <Demo panel={block.demo} />}
+            {block.quote && (
+              <blockquote class="block-quote" data-reveal>
+                “{block.quote}”
+              </blockquote>
+            )}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section" aria-labelledby="limits-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Confiança e limites</p>
+        <h2 id="limits-title" data-split>O que você consegue acompanhar — e os limites responsáveis.</h2>
+        <p class="lead" data-reveal>{page.limits.text}</p>
+      </header>
+      <div class="limits" data-reveal-group>
+        <div class="limit limit--inside" data-reveal>
+          <h3>Dentro do limite</h3>
+          <ul>
+            {
+              page.limits.inside.map((item) => (
+                <li>
+                  <Icon name="check" />
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="limit limit--outside" data-reveal>
+          <h3>Fora do limite</h3>
+          <ul>
+            {
+              page.limits.outside.map((item) => (
+                <li>
+                  <Icon name="close" />
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      {
+        audiences.length > 0 && (
+          <div class="for-whom" data-reveal>
+            <p class="kicker">Veja na linguagem de quem usa</p>
+            <div class="for-whom-links">
+              {audiences.map((item) => (
+                <a href={item.href}>
+                  {item.name} <Icon name="arrow" />
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <CtaBand title={page.closing.title} text={page.closing.text} />
+</Page>
+
+<style>
+  .what { display: grid; gap: 2.5rem; align-items: center; }
+  .what-copy { display: grid; gap: 1.25rem; }
+  .what-copy .eyebrow { margin-bottom: 0; }
+  .what-copy h2 { font-size: clamp(1.875rem, 3.6vw, 3rem); }
+  .audience { display: grid; gap: 0.35rem; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--text-secondary); }
+
+  .contrast { display: grid; gap: 1rem; margin-top: clamp(2rem, 5vw, 3.5rem); }
+  .contrast-card {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+  .contrast-card--problem { color: var(--text-secondary); border-style: dashed; }
+  .contrast-card--problem .kicker { color: var(--sev-critico); }
+  .contrast-card--difference { background: var(--bg-base); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+  .contrast-card--difference .kicker { color: var(--accent); }
+
+  .features { display: grid; gap: 0; margin-top: clamp(2rem, 5vw, 3.5rem); border-top: 1px solid var(--border); }
+  .features li { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+  .features h3 { font-size: 1.125rem; }
+  .features p { margin-top: 0.35rem; font-size: 0.9375rem; line-height: 1.5; color: var(--text-secondary); }
+
+  /* Trilha entrada → processamento → saída. */
+  .track { height: 3px; margin-bottom: 1.5rem; border-radius: 3px; background: rgb(255 255 255 / 0.08); overflow: hidden; }
+  .track span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 60%, var(--sev-estavel) 100%); }
+  .steps { display: grid; gap: 1rem; }
+  .step {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    background: var(--bg-surface);
+  }
+  .step p { font-size: 1.0625rem; font-weight: 500; line-height: 1.4; }
+  .step-stage {
+    justify-self: start;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font: 500 0.75rem/1.4 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgb(255 255 255 / 0.06);
+    color: var(--text-secondary);
+  }
+  .step--entrada .step-stage { background: var(--accent-subtle); color: var(--accent); }
+  .step--saida .step-stage { background: color-mix(in srgb, var(--sev-estavel) 15%, transparent); color: var(--sev-estavel); }
+
+  .block-grid { display: grid; gap: 2.5rem; align-items: start; }
+  .block-copy { display: grid; gap: 1.1rem; }
+  .blocker { font: italic 400 clamp(1.25rem, 2.2vw, 1.625rem) / 1.3 var(--font-serif); color: var(--text-secondary); }
+  .block-copy h2 { font-size: clamp(1.875rem, 3.6vw, 3rem); }
+  .block-copy dl { display: grid; margin-top: 0.5rem; border-top: 1px solid var(--border); }
+  .block-copy dl > div { display: grid; gap: 0.3rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .block-copy dt { font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  .block-copy dd { font-size: 1.0625rem; line-height: 1.5; color: var(--text-secondary); }
+  .block-side { display: grid; gap: 1.5rem; }
+  .block-quote { padding-left: 1.25rem; border-left: 3px solid var(--accent); font: italic 400 clamp(1.375rem, 2.4vw, 1.875rem) / 1.25 var(--font-serif); }
+
+  .limits { display: grid; gap: 1rem; }
+  .limit { padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--border); border-radius: var(--r-2xl); background: var(--bg-surface); }
+  .limit h3 { margin-bottom: 1rem; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
+  .limit ul { display: grid; gap: 0.7rem; }
+  .limit li { display: flex; gap: 0.7rem; align-items: flex-start; line-height: 1.45; }
+  .limit :global(.icon) { margin-top: 0.2em; }
+  .limit--inside h3,
+  .limit--inside :global(.icon) { color: var(--sev-estavel); }
+  .limit--outside { border-style: dashed; background: none; color: var(--text-secondary); }
+  .limit--outside h3,
+  .limit--outside :global(.icon) { color: var(--text-tertiary); }
+
+  .for-whom { display: grid; gap: 0.9rem; margin-top: clamp(2rem, 5vw, 3rem); }
+  .for-whom-links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .for-whom-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 46px;
+    padding: 0 1.1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .for-whom-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (min-width: 720px) {
+    .contrast { grid-template-columns: 1fr 1fr; }
+    .features { grid-template-columns: 1fr 1fr; column-gap: 2.5rem; }
+    .steps { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+    .limits { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .what { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; }
+    .block-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 5rem; }
+    .block-side { position: sticky; top: calc(var(--header-h) + 2rem); }
+  }
+</style>
