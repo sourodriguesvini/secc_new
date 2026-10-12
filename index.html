@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SECC — a primeira turntech do planeta</title>
+  <meta name="description" content="Tecnologia de turnaround codificada em método, plataforma e rede humana. Prevenção e combate à crise empresarial: antes, durante e depois.">
+  <!-- Versão de revisão em domínio temporário: fora dos buscadores até a aprovação. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#070809">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="SECC — a primeira turntech do planeta">
+  <meta property="og:description" content="Nenhuma empresa quebra do nada. A SECC aponta o risco cedo e recupera a empresa de ponta a ponta.">
+  <link rel="icon" href="https://secctech.ai/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>try{var t=localStorage.getItem('secc-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <div class="sos-bar theme-dark">
+    <a href="https://secctech.ai/contato#briefing">
+      <span class="sos-dot" aria-hidden="true"></span>
+      <span>Crise iminente? <strong>Fale com o Plantão SOS</strong></span>
+      <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+    </a>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="SECC Turntech — início">
+        <img src="https://secctech.ai/brand/secc-symbol.png" alt="" width="36" height="36">
+        <span class="brand-text">SECC<span class="brand-sub">Turntech</span></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Principal">
+        <ul>
+          <li class="has-menu">
+            <button type="button" aria-expanded="false" aria-controls="menu-solucoes">Soluções <svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+            <div class="menu menu--wide" id="menu-solucoes">
+              <div class="menu-grid">
+                <a href="https://secctech.ai/solucoes/secc"><strong>SECC</strong><span>O sistema operacional de combate à crise</span></a>
+                <a href="https://secctech.ai/solucoes/radar"><strong>Radar da Crise™</strong><span>Alertas preditivos de crise</span></a>
+                <a href="https://secctech.ai/solucoes/credpass"><strong>CredPass®</strong><span>A esteira de crédito da PME</span></a>
+                <a href="https://secctech.ai/solucoes/watchdog"><strong>WatchDog®</strong><span>Limites do credor ou dono</span></a>
+                <a href="https://secctech.ai/solucoes/academy"><strong>SECC Academy™</strong><span>Formação em turnaround, gestão e IA</span></a>
+                <a href="https://secctech.ai/solucoes/pact"><strong>PACT</strong><span>Aceleração de consultores em turnaround</span></a>
+                <a href="https://secctech.ai/solucoes/turn"><strong>@TURN</strong><span>O business club de quem recupera negócios</span></a>
+                <a href="https://secctech.ai/solucoes/market"><strong>SECC Market</strong><span>Marketplace de ativos, dívidas e créditos</span></a>
+                <a href="https://secctech.ai/solucoes/comunidade"><strong>Comunidade SECC</strong><span>Dúvidas e respostas entre usuários</span></a>
+              </div>
+              <a class="menu-foot" href="https://secctech.ai/ecossistema">Ver o Sistema de Combate à Crise completo <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </li>
+          <li class="has-menu">
+            <button type="button" aria-expanded="false" aria-controls="menu-para-quem">Para quem <svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+            <div class="menu" id="menu-para-quem">
+              <div class="menu-grid menu-grid--plain">
+                <a href="https://secctech.ai/para/empresario"><strong>Empresário</strong></a>
+                <a href="https://secctech.ai/para/cfo"><strong>CFO / Controller</strong></a>
+                <a href="https://secctech.ai/para/credor"><strong>Conselho / Fundo / Credor</strong></a>
+                <a href="https://secctech.ai/para/contador"><strong>Contador</strong></a>
+                <a href="https://secctech.ai/para/consultor"><strong>Consultor</strong></a>
+                <a href="https://secctech.ai/para/consultoria"><strong>Dono de consultoria</strong></a>
+                <a href="https://secctech.ai/para/advogado"><strong>Advogado</strong></a>
+                <a href="https://secctech.ai/para/estudante"><strong>Estudante</strong></a>
+              </div>
+            </div>
+          </li>
+          <li><a href="https://secctech.ai/planos">Planos</a></li>
+          <li><a href="https://secctech.ai/sobre">Sobre</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="icon-btn" data-theme-toggle aria-label="Mudar para tema claro">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <a class="header-login" href="https://secctech.ai/login">Entrar</a>
+        <a class="btn btn-primary btn-sm header-cta" href="https://secctech.ai/register">Fazer diagnóstico grátis</a>
+        <button type="button" class="icon-btn menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
+          <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+          <svg class="icon icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav class="container" aria-label="Menu">
+        <details>
+          <summary>Soluções <svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <ul>
+            <li><a href="https://secctech.ai/ecossistema">Sistema de Combate à Crise</a></li>
+            <li><a href="https://secctech.ai/solucoes/secc">SECC</a></li>
+            <li><a href="https://secctech.ai/solucoes/radar">Radar da Crise™</a></li>
+            <li><a href="https://secctech.ai/solucoes/credpass">CredPass®</a></li>
+            <li><a href="https://secctech.ai/solucoes/watchdog">WatchDog®</a></li>
+            <li><a href="https://secctech.ai/solucoes/academy">SECC Academy™</a></li>
+            <li><a href="https://secctech.ai/solucoes/pact">PACT</a></li>
+            <li><a href="https://secctech.ai/solucoes/turn">@TURN</a></li>
+            <li><a href="https://secctech.ai/solucoes/market">SECC Market</a></li>
+            <li><a href="https://secctech.ai/solucoes/comunidade">Comunidade SECC</a></li>
+          </ul>
+        </details>
+        <details>
+          <summary>Para quem <svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <ul>
+            <li><a href="https://secctech.ai/para/empresario">Empresário</a></li>
+            <li><a href="https://secctech.ai/para/cfo">CFO / Controller</a></li>
+            <li><a href="https://secctech.ai/para/credor">Conselho / Fundo / Credor</a></li>
+            <li><a href="https://secctech.ai/para/contador">Contador</a></li>
+            <li><a href="https://secctech.ai/para/consultor">Consultor</a></li>
+            <li><a href="https://secctech.ai/para/consultoria">Dono de consultoria</a></li>
+            <li><a href="https://secctech.ai/para/advogado">Advogado</a></li>
+            <li><a href="https://secctech.ai/para/estudante">Estudante</a></li>
+          </ul>
+        </details>
+        <a class="mobile-link" href="https://secctech.ai/planos">Planos</a>
+        <a class="mobile-link" href="https://secctech.ai/sobre">Sobre</a>
+        <a class="mobile-link" href="https://secctech.ai/login">Entrar</a>
+        <div class="mobile-cta">
+          <a class="btn btn-primary" href="https://secctech.ai/register">Fazer diagnóstico grátis <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="https://secctech.ai/contato">Falar com um Agente SECC</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero theme-dark" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="metadata" poster="https://secctech.ai/brand/media/home-hero-poster-v4.webp">
+          <source src="https://secctech.ai/brand/media/home-hero-v4.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="container hero-content">
+        <p class="pill"><span class="pill-dot" aria-hidden="true"></span>A primeira turntech do planeta. Só poderia nascer no Brasil.</p>
+        <h1 id="hero-title">Nenhuma empresa quebra <span class="accent">do nada</span>.</h1>
+        <p class="hero-lead">A crise avisa até 18 meses antes. O que mata é agir tarde demais. A SECC aponta o risco cedo e recupera a empresa de ponta a ponta — a solução que antes era exclusiva de quem pagava 150 mil por mês, agora ao alcance da pequena e média empresa.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://secctech.ai/register">Fazer diagnóstico grátis <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="https://secctech.ai/contato">Falar com um Agente SECC</a>
+        </div>
+        <p class="hero-note">Grátis, sem cartão, sem pegadinhas. <span>Integration First: humano no comando, IA no suporte.</span></p>
+      </div>
+
+      <div class="container">
+        <div class="signal-line" role="img" aria-label="Linha do tempo dos 18 meses que antecedem a crise. Os sinais aparecem pelo caminho: fornecedor que trava, caixa que aperta, prazo que vence, banco que executa.">
+          <div class="sl-ends" aria-hidden="true"><span>18 meses antes</span><span>A crise</span></div>
+          <div class="sl-track" aria-hidden="true">
+            <span class="sl-fill"></span>
+            <span class="sl-node" style="--x:12.5%;--c:var(--sev-estavel);--d:.9s"></span>
+            <span class="sl-node" style="--x:37.5%;--c:var(--sev-monitor);--d:1.3s"></span>
+            <span class="sl-node" style="--x:62.5%;--c:var(--sev-critico);--d:1.7s"></span>
+            <span class="sl-node sl-node--last" style="--x:87.5%;--c:var(--sev-intervencao);--d:2.1s"></span>
+          </div>
+          <ol class="sl-labels" aria-hidden="true">
+            <li style="--c:var(--sev-estavel);--d:.9s">Fornecedor que trava</li>
+            <li style="--c:var(--sev-monitor);--d:1.3s">Caixa que aperta</li>
+            <li style="--c:var(--sev-critico);--d:1.7s">Prazo que vence</li>
+            <li style="--c:var(--sev-intervencao);--d:2.1s">Banco que executa</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROVA ============ -->
+    <section class="proof" aria-label="Trajetória da SECC">
+      <div class="container proof-inner">
+        <dl class="ledger">
+          <div><dt>recuperando empresas</dt><dd>20 anos</dd></div>
+          <div><dt>turnarounds na prática</dt><dd>250+</dd></div>
+          <div><dt>em operações conduzidas</dt><dd>R$ 35 bi</dd></div>
+        </dl>
+        <p class="proof-by">Turnaround aprendido em campo virou método, e o método virou produto. <a class="text-link" href="https://secctech.ai/sobre">Conheça quem responde pela SECC <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+      </div>
+    </section>
+
+    <!-- ============ FASES ============ -->
+    <section class="section" id="como-funciona" aria-labelledby="fases-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Como funciona</p>
+          <h2 id="fases-title">Antes, durante e depois da crise.</h2>
+          <p class="lead">O problema não vai parar de aparecer. A diferença é ter plano executável e time em ação. Você entra em qualquer fase, e a SECC opera nas três.</p>
+        </header>
+
+        <div class="phases" data-tabs>
+          <div class="phase-tabs" role="tablist" aria-label="Fases da crise">
+            <button type="button" role="tab" id="tab-antes" aria-controls="painel-antes" aria-selected="true" class="phase-tab phase-tab--antes">
+              <span class="phase-when">Antes</span><span class="phase-name">Prevenção</span>
+            </button>
+            <button type="button" role="tab" id="tab-durante" aria-controls="painel-durante" aria-selected="false" class="phase-tab phase-tab--durante">
+              <span class="phase-when">Durante</span><span class="phase-name">Combate</span>
+            </button>
+            <button type="button" role="tab" id="tab-depois" aria-controls="painel-depois" aria-selected="false" class="phase-tab phase-tab--depois">
+              <span class="phase-when">Depois</span><span class="phase-name">Continuidade</span>
+            </button>
+          </div>
+
+          <div class="phase-panel" role="tabpanel" id="painel-antes" aria-labelledby="tab-antes" tabindex="0">
+            <div class="phase-copy">
+              <h3>O sinal chega enquanto ainda há caixa e opções.</h3>
+              <p>Toda crise avisa, em média, 18 meses antes. O Radar e o diagnóstico contínuo capturam o sinal cedo.</p>
+              <ul class="check-list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Score de risco diário: caixa, dívida, operação e externalidades.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Nenhum alerta chega até você sem evidência e fonte primária.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Alertas no seu WhatsApp, com o playbook, o responsável e a decisão que cabe na semana.</li>
+              </ul>
+              <a class="text-link" href="https://secctech.ai/solucoes/radar">Conhecer o Radar da Crise <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <figure class="demo">
+              <div class="demo-bar"><span>/app/radar/caixa</span><span class="demo-tag">demo</span></div>
+              <div class="demo-body">
+                <div class="demo-top">
+                  <div>
+                    <p class="kicker">Posição de caixa</p>
+                    <p class="big-figure">4,5 meses</p>
+                    <p class="demo-sub">R$ 850.000 ÷ R$ 190.000/mês</p>
+                  </div>
+                  <span class="chip" style="--c:var(--sev-critico)">Crítico</span>
+                </div>
+                <p class="kicker">Sinais com origem</p>
+                <ul class="signal-list">
+                  <li><div><strong>Runway em 4,5 meses</strong><code>ev-cashflow-2026-07</code></div><span class="chip" style="--c:var(--sev-critico)">Crítico</span></li>
+                  <li><div><strong>Liquidez em 0,90x</strong><code>ev-dre-2026-06</code></div><span class="chip" style="--c:var(--sev-intervencao)">Intervenção</span></li>
+                  <li><div><strong>Margem</strong><span>Componente sem cobertura suficiente</span></div><span class="chip" style="--c:var(--text-tertiary)">não apurado</span></li>
+                </ul>
+              </div>
+              <figcaption>Tela de demonstração do Radar da Crise, com dados fictícios.</figcaption>
+            </figure>
+          </div>
+
+          <div class="phase-panel" role="tabpanel" id="painel-durante" aria-labelledby="tab-durante" tabindex="0">
+            <div class="phase-copy">
+              <h3>Sala de Guerra: decisões que cabem na semana.</h3>
+              <p>Modo Crise por padrão: Comitê de Caixa semanal, decisões que cabem na semana e Plantão SOS quando a crise acelera.</p>
+              <ul class="check-list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cada frente avança com responsável, prazo, estado e histórico.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Diagnóstico personalizado e acompanhamento das ações.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Execução sua ou nossa, a seu critério.</li>
+              </ul>
+              <a class="text-link" href="https://secctech.ai/ecossistema">Conhecer o Sistema de Combate à Crise <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <figure class="demo">
+              <div class="demo-bar"><span>/app/pmo</span><span class="demo-tag">demo</span></div>
+              <div class="demo-body">
+                <p class="kicker">Frente · Caixa &amp; liquidez</p>
+                <p class="demo-title">Execução da semana <span>3 ações priorizadas</span></p>
+                <ul class="task-list">
+                  <li>
+                    <div><strong>Cobrar recebível vencido do maior cliente</strong><span>Helena Martins · 29/07/2026</span></div>
+                    <div class="task-side"><span class="chip" style="--c:var(--sev-intervencao)">Bloqueado</span><span class="task-value">R$ 220,0 mil</span></div>
+                  </li>
+                  <li>
+                    <div><strong>Renegociar linha de capital de giro</strong><span>Bruno Almeida · 05/08/2026</span></div>
+                    <div class="task-side"><span class="chip" style="--c:var(--accent)">Em andamento</span><span class="task-value">R$ 350,0 mil</span></div>
+                  </li>
+                  <li>
+                    <div><strong>Reduzir despesas fixas recorrentes</strong><span>Camila Nunes · 01/08/2026</span></div>
+                    <div class="task-side"><span class="chip" style="--c:var(--sev-estavel)">Aprovado</span><span class="task-value">R$ 80,0 mil</span></div>
+                  </li>
+                </ul>
+              </div>
+              <figcaption>Tela de demonstração da execução semanal, com dados fictícios.</figcaption>
+            </figure>
+          </div>
+
+          <div class="phase-panel" role="tabpanel" id="painel-depois" aria-labelledby="tab-depois" tabindex="0">
+            <div class="phase-copy">
+              <h3>Visão de 10 anos, não de 6 meses.</h3>
+              <p>Estabilizada a empresa, o método reconstrói o modelo de negócio e sustenta o crescimento.</p>
+              <ul class="check-list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>O contexto e a responsabilidade não recomeçam a cada mudança de fase.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Governança, disciplina e prevenção para o próximo ciclo.</li>
+              </ul>
+              <a class="text-link" href="https://secctech.ai/sobre">Entender como a SECC atua <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="moves">
+              <p class="kicker">Abordagem SECC · cinco movimentos conectados</p>
+              <ol>
+                <li><span class="move-n">01</span><div><strong>Antecipar</strong><span>Ler sinais fracos e acompanhar a saúde do negócio antes da crise.</span></div></li>
+                <li><span class="move-n">02</span><div><strong>Intervir</strong><span>Agir sobre desvios relevantes enquanto ainda existe espaço de manobra.</span></div></li>
+                <li><span class="move-n">03</span><div><strong>Estancar</strong><span>Concentrar decisões na proteção do caixa e da continuidade.</span></div></li>
+                <li class="is-now"><span class="move-n">04</span><div><strong>Reconstruir</strong><span>Organizar a retomada e transformar o primeiro alívio em recuperação.</span></div></li>
+                <li class="is-now"><span class="move-n">05</span><div><strong>Perenizar</strong><span>Consolidar governança, disciplina e prevenção para o próximo ciclo.</span></div></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SISTEMA ============ -->
+    <section class="section section--surface" id="solucoes" aria-labelledby="sistema-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">As soluções</p>
+          <h2 id="sistema-title">Uma turntech, várias frentes de combate.</h2>
+          <p class="lead">Gestão de crise, captação de crédito, negociação de dívidas, estratégia, M&amp;A, vendas, jurídico, contábil, BPO e RH num único lugar. Você volta a focar no que realmente importa: seu negócio.</p>
+        </header>
+
+        <div class="system-grid">
+          <a class="core-card" href="https://secctech.ai/solucoes/secc">
+            <p class="kicker kicker--accent">Núcleo</p>
+            <h3>SECC</h3>
+            <p class="core-desc">O sistema operacional de combate à crise. O Radar enxerga o que muda no mercado; a plataforma acompanha o que acontece dentro da operação.</p>
+            <ul class="check-list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Radar: sinais e cenários de mercado</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Processos, responsáveis e prazos</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Decisões e execução acompanhadas</li>
+            </ul>
+            <span class="text-link">Conhecer a SECC <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          </a>
+
+          <div class="sat-groups">
+            <div class="sat-group">
+              <h3 class="kicker">Inteligência</h3>
+              <a class="sat-row" href="https://secctech.ai/solucoes/radar"><strong>Radar da Crise™</strong><span>Sistema de alertas preditivos de crise. A “Bloomberg” da PME, hiperpersonalizada pra cada cliente.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sat-group">
+              <h3 class="kicker">Crédito</h3>
+              <a class="sat-row" href="https://secctech.ai/solucoes/credpass"><strong>CredPass®</strong><span>A esteira de crédito da PME — comissão muito menor.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="sat-row" href="https://secctech.ai/solucoes/watchdog"><strong>WatchDog®</strong><span>Limites do credor ou dono.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sat-group">
+              <h3 class="kicker">Formação e rede</h3>
+              <a class="sat-row" href="https://secctech.ai/solucoes/academy"><strong>SECC Academy™</strong><span>Formação em turnaround, gestão e IA com trilhas, casos e certificação.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="sat-row" href="https://secctech.ai/solucoes/pact"><strong>PACT</strong><span>Programa de aceleração de consultores em turnaround. Licenciamento de Agentes SECC, a rede humana da plataforma.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="sat-row" href="https://secctech.ai/solucoes/turn"><strong>@TURN</strong><span>O business club de quem recupera negócios.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sat-group">
+              <h3 class="kicker">Mercado e comunidade</h3>
+              <a class="sat-row" href="https://secctech.ai/solucoes/market"><strong>SECC Market</strong><span>O lugar onde os clientes monetizam: vender e comprar produtos, ativos, empresas, dívidas e créditos.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="sat-row" href="https://secctech.ai/solucoes/comunidade"><strong>Comunidade SECC</strong><span>Tire suas dúvidas com outros usuários e compartilhe suas respostas.</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INTELIGÊNCIA ============ -->
+    <section class="section" aria-labelledby="ia-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">A inteligência</p>
+          <h2 id="ia-title">Uma IA treinada para salvar a empresa — não para concordar com você.</h2>
+          <p class="lead">A maioria dos assistentes existe para agradar. A SECC foi treinada para vencer batalhas: dar a melhor decisão a quem está sob pressão.</p>
+        </header>
+
+        <table class="versus">
+          <caption class="visually-hidden">Comparação entre uma IA ou especialista que agrada e a IA ou especialista SECC</caption>
+          <thead>
+            <tr><th scope="col">IA ou especialista que agrada</th><th scope="col">IA ou especialista SECC</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Concorda com o dono para não desagradar.</td><td>Contesta o dono quando o caixa e o método exigem.</td></tr>
+            <tr><td>Repete o que você já queria ouvir.</td><td>Dá a melhor opção sob pressão, não a mais conveniente.</td></tr>
+            <tr><td>Resposta genérica de IA de prateleira.</td><td>Hiperpersonalizada ao DNA da sua empresa — quanto mais você usa, mais o Brain aprende.</td></tr>
+            <tr><td>Opina sem evidência nem fonte.</td><td>Toda recomendação com fonte primária e justificativa.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ PARA QUEM ============ -->
+    <section class="section section--surface" id="para-quem" aria-labelledby="quem-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Para quem</p>
+          <h2 id="quem-title">Pra cada necessidade, uma solução SECC.</h2>
+          <p class="lead">A SECC foi desenhada para atender as dores específicas de cada tipo de usuário. Escolha o seu papel.</p>
+        </header>
+
+        <div class="personas" data-tabs>
+          <div class="persona-tabs" role="tablist" aria-label="Perfis de usuário">
+            <button type="button" role="tab" id="tab-empresario" aria-controls="p-empresario" aria-selected="true">Empresário</button>
+            <button type="button" role="tab" id="tab-cfo" aria-controls="p-cfo" aria-selected="false">CFO / Controller</button>
+            <button type="button" role="tab" id="tab-credor" aria-controls="p-credor" aria-selected="false">Conselho / Fundo / Credor</button>
+            <button type="button" role="tab" id="tab-contador" aria-controls="p-contador" aria-selected="false">Contador</button>
+            <button type="button" role="tab" id="tab-consultor" aria-controls="p-consultor" aria-selected="false">Consultor</button>
+            <button type="button" role="tab" id="tab-consultoria" aria-controls="p-consultoria" aria-selected="false">Dono de consultoria</button>
+            <button type="button" role="tab" id="tab-advogado" aria-controls="p-advogado" aria-selected="false">Advogado</button>
+            <button type="button" role="tab" id="tab-estudante" aria-controls="p-estudante" aria-selected="false">Estudante</button>
+          </div>
+
+          <div class="persona-panels">
+            <div class="persona-panel" role="tabpanel" id="p-empresario" aria-labelledby="tab-empresario" tabindex="0">
+              <h3>Empresário</h3>
+              <p>Crédito, gestão de crise, painel de controle da empresa e radares.</p>
+              <a class="text-link" href="https://secctech.ai/para/empresario">Ver a SECC para empresários <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="persona-panel" role="tabpanel" id="p-cfo" aria-labelledby="tab-cfo" tabindex="0">
+              <h3>CFO / Controller</h3>
+              <p>Gestão financeira completa da empresa. Sala de Guerra. Central de Inteligência.</p>
+              <a class="text-link" href="https://secctech.ai/para/cfo">Ver a SECC para CFOs e controllers <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="persona-panel" role="tabpanel" id="p-credor" aria-labelledby="tab-credor" tabindex="0">
+              <h3>Conselho / Fundo / Credor</h3>
+              <p>Acompanhamento de indicadores e execução de planos em tempo real.</p>
+              <a class="text-link" href="https://secctech.ai/para/credor">Ver a SECC para conselhos, fundos e credores <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="persona-panel" role="tabpanel" id="p-contador" aria-labelledby="tab-contador" tabindex="0">
+              <h3>Contador</h3>
+              <p>Gestão do escritório, suporte de IA no núcleo contábil, prospecção de clientes, radar da carteira e insights para aumentar a percepção de valor dos serviços.</p>
+              <a class="text-link" href="https://secctech.ai/para/contador">Ver a SECC para contadores <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="persona-panel" role="tabpanel" id="p-consultor" aria-labelledby="tab-consultor" tabindex="0">
+              <h3>Consultor</h3>
+              <p>Programa de formação e Licenciamento PACT. Suporte completo à atividade de consultoria em turnaround.</p>
+              <a class="text-link" href="https://secctech.ai/para/consultor">Ver a SECC para consultores <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="persona-panel" role="tabpanel" id="p-consultoria" aria-labelledby="tab-consultoria" tabindex="0">
+              <h3>Dono de consultoria</h3>
+              <p>Gestão da própria consultoria, suporte de IA no núcleo de consultoria, prospecção de clientes, radar da carteira e insights para aumentar a percepção de valor dos serviços. Automação da metodologia própria da consultoria.</p>
+              <a class="text-link" href="https://secctech.ai/para/consultoria">Ver a SECC para consultorias <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="persona-panel" role="tabpanel" id="p-advogado" aria-labelledby="tab-advogado" tabindex="0">
+              <h3>Advogado</h3>
+              <p>Gestão do escritório, suporte de IA no núcleo jurídico, prospecção de clientes, radar da carteira e insights para aumentar a percepção de valor dos serviços.</p>
+              <a class="text-link" href="https://secctech.ai/para/advogado">Ver a SECC para advogados <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="persona-panel" role="tabpanel" id="p-estudante" aria-labelledby="tab-estudante" tabindex="0">
+              <h3>Estudante</h3>
+              <p>Uma nova proposta de carreira em um mercado que não para de crescer.</p>
+              <a class="text-link" href="https://secctech.ai/para/estudante">Ver a SECC para estudantes <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TURNTECH ============ -->
+    <section class="section" id="turntech" aria-labelledby="turntech-title">
+      <div class="container turntech">
+        <div class="turntech-main">
+          <p class="eyebrow">O que é turntech</p>
+          <h2 id="turntech-title">Turnaround + Technology = Turntech</h2>
+          <p class="lead">Turntech é a categoria de tecnologia dedicada à recuperação de empresas: software, dados e IA que codificam o método de turnaround — diagnóstico, caixa, dívida, redesenho do negócio — antes restrito a consultores caríssimos.</p>
+          <blockquote>“Turntech está para o turnaround como fintech está para as finanças.”</blockquote>
+          <div class="why-now">
+            <p class="kicker">Por que agora</p>
+            <p>Turnaround sempre foi arte de poucos: a consultoria convencional cobra caro e as Big4 fazem projeto isolado. A PME brasileira ficava sem método proporcional ao problema.</p>
+            <p>A SECC democratiza: método codificado + IA soberana + rede formada, por uma fração do custo — do diagnóstico grátis ao Agente SECC sob demanda.</p>
+          </div>
+        </div>
+
+        <aside class="brasil" aria-labelledby="brasil-title">
+          <p class="kicker kicker--accent">Nascida no Brasil</p>
+          <h3 id="brasil-title">Por que o Brasil é o berço ideal?</h3>
+          <p class="brasil-lead">Fintech nasceu onde havia bancos ineficientes. Turntech tinha que nascer onde a crise é condição permanente.</p>
+          <dl class="reasons">
+            <div><dt>Crises desde 1500</dt><dd>Do pau-brasil às quebras cambiais, hiperinflação e recessões em série: laboratório de crise há mais de cinco séculos.</dd></div>
+            <div><dt>Insegurança econômica</dt><dd>Juros altos, câmbio volátil e carga pesada. Operar aqui é gerir risco o tempo todo.</dd></div>
+            <div><dt>Insegurança jurídica</dt><dd>Regras que mudam, litígios longos e imprevisibilidade que nenhum manual estrangeiro previu.</dd></div>
+            <div><dt>99% são PMEs</dt><dd>A maior parte das empresas e dos empregos sempre precisou de turnaround de ponta — e nunca teve acesso a ele.</dd></div>
+            <div><dt>Execução em ambiente hostil</dt><dd>Virar empresas com dado parcial, caixa no zero e tempo curto é ofício, aprendido em campo.</dd></div>
+            <div><dt>Escala com nível de DNA</dt><dd>Só a tecnologia leva o método a milhões de empresas, cada uma tratada de forma hiperpersonalizada.</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ CONFIANÇA: quem responde + segurança ============ -->
+    <section class="section section--surface" id="confianca">
+      <div class="container trust">
+        <div class="trust-col">
+          <p class="eyebrow">Quem responde pela SECC</p>
+          <h2 class="h2-sm" id="fundadores-title">Dois fundadores, um método construído em campo.</h2>
+          <div class="people">
+            <article>
+              <h3>Estevão Seccatto <span>CEO e cofundador</span></h3>
+              <p>Um dos principais especialistas em turnaround do Brasil: 20 anos de campo e 150+ empresas reestruturadas. Professor na FIA, autor de 4 livros e apresentador do “Virando a Mesa” na BM&amp;C News. Ex-head global de M&amp;A da Atento (NYSE).</p>
+            </article>
+            <article>
+              <h3>Rafael Terceiro <span>Cofundador</span></h3>
+              <p>Especialista em reestruturação financeira, captação e gestão de caixa. Senior Partner na StonePartners e sócio-fundador da Athos Consultoria. Passagem por KPMG em turnaround e anos como Controller na indústria.</p>
+            </article>
+          </div>
+          <a class="text-link" href="https://secctech.ai/sobre">Conhecer os fundadores e o conselho consultivo <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+
+        <div class="trust-col">
+          <p class="eyebrow">Segurança &amp; privacidade</p>
+          <h2 class="h2-sm" id="seguranca-title">Seus dados são seus. Ponto.</h2>
+          <p class="trust-lead">Empresa em crise entrega informação sensível. Levamos isso a sério.</p>
+          <dl class="security-list">
+            <div><dt>Conforme a LGPD</dt><dd>Tratamento de dados dentro da Lei 13.709/2018 — base legal, finalidade e direito de exclusão respeitados.</dd></div>
+            <div><dt>Criptografia</dt><dd>Dados criptografados em trânsito e em repouso, com controle de acesso e trilha de auditoria.</dd></div>
+            <div><dt>Soberania no Brasil</dt><dd>Infraestrutura em nuvem brasileira (AWS Bedrock sa-east-1). Seus dados não viram treino de terceiros.</dd></div>
+            <div><dt>Confidencialidade</dt><dd>Sigilo do diagnóstico e do plano. O que entra na Sala de Guerra fica na Sala de Guerra.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHAMADO ============ -->
+    <section class="section" aria-labelledby="chamado-title">
+      <div class="container">
+        <div class="final-cta theme-dark">
+          <p class="eyebrow">O chamado</p>
+          <h2 id="chamado-title">A crise de segunda não espera a reunião de quinta.</h2>
+          <p class="lead">Comece agora a conversar com a SECC no detalhe da sua empresa e entenda quais crises são iminentes e qual o plano para a sua realidade.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://secctech.ai/register">Fazer diagnóstico grátis <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-ghost" href="https://secctech.ai/contato">Falar com um Agente SECC</a>
+          </div>
+          <p class="hero-note">Grátis, sem cartão, sem pegadinhas.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="./" aria-label="SECC Turntech — início">
+          <img src="https://secctech.ai/brand/secc-symbol.png" alt="" width="36" height="36" loading="lazy">
+          <span class="brand-text">SECC<span class="brand-sub">Turntech</span></span>
+        </a>
+        <p>A primeira turntech do planeta. Prevenção e combate à crise empresarial: antes, durante e depois.</p>
+        <a class="footer-sos" href="https://secctech.ai/contato#briefing">Crise iminente? Fale com o Plantão SOS <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <nav aria-labelledby="f-solucoes">
+        <h2 id="f-solucoes">Soluções</h2>
+        <ul>
+          <li><a href="https://secctech.ai/ecossistema">Sistema de Combate à Crise</a></li>
+          <li><a href="https://secctech.ai/solucoes/secc">SECC</a></li>
+          <li><a href="https://secctech.ai/solucoes/radar">Radar da Crise™</a></li>
+          <li><a href="https://secctech.ai/solucoes/credpass">CredPass®</a></li>
+          <li><a href="https://secctech.ai/solucoes/watchdog">WatchDog®</a></li>
+          <li><a href="https://secctech.ai/solucoes/academy">SECC Academy™</a></li>
+          <li><a href="https://secctech.ai/solucoes/pact">PACT</a></li>
+          <li><a href="https://secctech.ai/solucoes/turn">@TURN</a></li>
+          <li><a href="https://secctech.ai/solucoes/market">SECC Market</a></li>
+          <li><a href="https://secctech.ai/solucoes/comunidade">Comunidade SECC</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="f-para-quem">
+        <h2 id="f-para-quem">Para quem</h2>
+        <ul>
+          <li><a href="https://secctech.ai/para/empresario">Empresário</a></li>
+          <li><a href="https://secctech.ai/para/cfo">CFO / Controller</a></li>
+          <li><a href="https://secctech.ai/para/credor">Conselho / Fundo / Credor</a></li>
+          <li><a href="https://secctech.ai/para/contador">Contador</a></li>
+          <li><a href="https://secctech.ai/para/consultor">Consultor</a></li>
+          <li><a href="https://secctech.ai/para/consultoria">Dono de consultoria</a></li>
+          <li><a href="https://secctech.ai/para/advogado">Advogado</a></li>
+          <li><a href="https://secctech.ai/para/estudante">Estudante</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="f-empresa">
+        <h2 id="f-empresa">Empresa</h2>
+        <ul>
+          <li><a href="https://secctech.ai/sobre">Sobre</a></li>
+          <li><a href="https://secctech.ai/planos">Planos</a></li>
+          <li><a href="https://secctech.ai/contato">Fale conosco</a></li>
+          <li><a href="https://secctech.ai/login">Entrar</a></li>
+          <li><a href="https://secctech.ai/register">Fazer diagnóstico grátis</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container footer-base">
+      <p>© 2026 SECC. Todos os direitos reservados.</p>
+      <a href="https://secctech.ai/politica-de-cookies">Política de Cookies e Privacidade</a>
+      <p class="footer-motto">Crisis, capital and execution.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
